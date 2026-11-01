@@ -1,0 +1,1903 @@
+# Copyright (C) 2026 Eli Shvarzman
+# This file is distributed under the GPL-2.0-or-later.
+msgid ""
+msgstr ""
+"Project-Id-Version: Bot Control – Crawler, AI Agent & Scraper Manager 1.1.1\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/bot-control\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-10-31T11:28:54+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: bot-control\n"
+
+#. Plugin Name of the plugin
+#: bot-control.php
+msgid "Bot Control – Crawler, AI Agent & Scraper Manager"
+msgstr ""
+
+#. Plugin URI of the plugin
+#: bot-control.php
+msgid "https://a-in.co.il/plugins/bot-control/"
+msgstr ""
+
+#. Description of the plugin
+#: bot-control.php
+msgid "Decide which bots, crawlers, AI agents and scrapers may access your site, rate-limit them so none can overload it, and stay fully visible to search engines and AI assistants (SEO + AIO safe). Includes official IP-list verification, server rules, email reports and an llms.txt generator."
+msgstr ""
+
+#. Author of the plugin
+#: bot-control.php
+msgid "Eli Shvarzman"
+msgstr ""
+
+#. Author URI of the plugin
+#: bot-control.php
+msgid "https://a-in.co.il/"
+msgstr ""
+
+#: admin/class-botctl-admin.php:43
+msgid "Dashboard"
+msgstr ""
+
+#: admin/class-botctl-admin.php:44
+msgid "Bot Rules"
+msgstr ""
+
+#: admin/class-botctl-admin.php:45
+msgid "Custom Bots"
+msgstr ""
+
+#: admin/class-botctl-admin.php:46
+#: admin/views/dashboard.php:37
+msgid "Protection"
+msgstr ""
+
+#: admin/class-botctl-admin.php:47
+msgid "robots.txt"
+msgstr ""
+
+#: admin/class-botctl-admin.php:48
+#: admin/views/llms.php:20
+msgid "llms.txt"
+msgstr ""
+
+#: admin/class-botctl-admin.php:49
+msgid "Bot Lists"
+msgstr ""
+
+#: admin/class-botctl-admin.php:50
+msgid "Server Rules"
+msgstr ""
+
+#: admin/class-botctl-admin.php:51
+msgid "Reports"
+msgstr ""
+
+#: admin/class-botctl-admin.php:52
+msgid "Logs"
+msgstr ""
+
+#: admin/class-botctl-admin.php:53
+msgid "Tools"
+msgstr ""
+
+#: admin/class-botctl-admin.php:54
+msgid "Advanced"
+msgstr ""
+
+#: admin/class-botctl-admin.php:65
+#: admin/class-botctl-admin.php:66
+#: admin/class-botctl-admin.php:142
+msgid "Bot Control"
+msgstr ""
+
+#: admin/class-botctl-admin.php:92
+msgid "Are you sure?"
+msgstr ""
+
+#: admin/class-botctl-admin.php:104
+msgid "Settings"
+msgstr ""
+
+#: admin/class-botctl-admin.php:136
+msgid "You do not have permission to access this page."
+msgstr ""
+
+#: admin/class-botctl-admin.php:171
+msgid "Bot Control is disabled."
+msgstr ""
+
+#: admin/class-botctl-admin.php:171
+msgid "No request is being filtered. Enable it on the Protection tab."
+msgstr ""
+
+#: admin/class-botctl-admin.php:173
+msgid "Monitor mode:"
+msgstr ""
+
+#: admin/class-botctl-admin.php:173
+msgid "decisions are logged but nothing is blocked. Switch to Enforce on the Protection tab when you are happy with the results."
+msgstr ""
+
+#: admin/class-botctl-admin.php:176
+msgid "Bot Control database tables are missing. Deactivate and re-activate the plugin."
+msgstr ""
+
+#: admin/class-botctl-admin.php:192
+#: includes/class-botctl-reports.php:323
+msgid "Impostors (fake search engines)"
+msgstr ""
+
+#: admin/class-botctl-admin.php:195
+#: admin/views/protection.php:106
+#: includes/class-botctl-reports.php:326
+msgid "Human visitors"
+msgstr ""
+
+#: admin/class-botctl-admin.php:209
+msgid "— Category default —"
+msgstr ""
+
+#: admin/class-botctl-admin.php:211
+msgid "Allow"
+msgstr ""
+
+#: admin/class-botctl-admin.php:212
+msgid "Rate limit"
+msgstr ""
+
+#: admin/class-botctl-admin.php:213
+msgid "Block"
+msgstr ""
+
+#: admin/class-botctl-admin.php:225
+msgid "Blocked (403)"
+msgstr ""
+
+#: admin/class-botctl-admin.php:226
+msgid "Rate limited (429)"
+msgstr ""
+
+#: admin/class-botctl-admin.php:227
+msgid "Impostor (403)"
+msgstr ""
+
+#: admin/class-botctl-admin.php:228
+msgid "Load shed (503)"
+msgstr ""
+
+#: admin/class-botctl-admin.php:229
+msgid "IP blocked (403)"
+msgstr ""
+
+#: admin/class-botctl-admin.php:280
+msgid "You do not have permission to do this."
+msgstr ""
+
+#: admin/class-botctl-admin.php:313
+msgid "Unknown settings section."
+msgstr ""
+
+#: admin/class-botctl-admin.php:320
+msgid "Settings saved."
+msgstr ""
+
+#: admin/class-botctl-admin.php:333
+msgid "Unknown preset."
+msgstr ""
+
+#. translators: %s: preset name
+#: admin/class-botctl-admin.php:341
+#, php-format
+msgid "Preset \"%s\" applied. Per-bot overrides were kept and still take precedence."
+msgstr ""
+
+#: admin/class-botctl-admin.php:356
+msgid "Invalid IP address."
+msgstr ""
+
+#. translators: 1: IP, 2: list name
+#: admin/class-botctl-admin.php:377
+#, php-format
+msgid "%1$s added to the %2$s."
+msgstr ""
+
+#. translators: 1: IP, 2: list name
+#: admin/class-botctl-admin.php:377
+msgid "allow list"
+msgstr ""
+
+#. translators: 1: IP, 2: list name
+#: admin/class-botctl-admin.php:377
+msgid "block list"
+msgstr ""
+
+#: admin/class-botctl-admin.php:389
+msgid "Log cleared."
+msgstr ""
+
+#: admin/class-botctl-admin.php:401
+msgid "Statistics cleared."
+msgstr ""
+
+#: admin/class-botctl-admin.php:416
+msgid "Verification cache cleared."
+msgstr ""
+
+#: admin/class-botctl-admin.php:451
+msgid "Import failed: this is not a valid Bot Control export."
+msgstr ""
+
+#: admin/class-botctl-admin.php:455
+msgid "Settings imported."
+msgstr ""
+
+#: admin/class-botctl-admin.php:466
+msgid "All settings were reset to defaults."
+msgstr ""
+
+#: admin/class-botctl-admin.php:479
+msgid "Early loader removed."
+msgstr ""
+
+#: admin/class-botctl-admin.php:485
+msgid "Early loader installed. Bot Control now runs before all other plugins."
+msgstr ""
+
+#. translators: %d: number of bots
+#: admin/class-botctl-admin.php:506
+#, php-format
+msgid "Bot feed updated: %d bots loaded."
+msgstr ""
+
+#. translators: 1: failed lists, 2: total lists
+#: admin/class-botctl-admin.php:515
+#, php-format
+msgid "%1$d of %2$d IP lists could not be downloaded. Previous data (if any) is kept – see the table for details."
+msgstr ""
+
+#: admin/class-botctl-admin.php:517
+msgid "All official IP lists were updated."
+msgstr ""
+
+#: admin/class-botctl-admin.php:532
+msgid "Bot Control rules removed from .htaccess."
+msgstr ""
+
+#: admin/class-botctl-admin.php:532
+msgid ".htaccess updated. A backup of the previous file was saved as .htaccess.botctl-backup."
+msgstr ""
+
+#. translators: %s: recipients
+#: admin/class-botctl-admin.php:545
+#, php-format
+msgid "Report sent to %s."
+msgstr ""
+
+#: admin/class-botctl-admin.php:547
+msgid "The report could not be sent. Check that your site can send email (an SMTP plugin is recommended)."
+msgstr ""
+
+#: admin/views/advanced.php:23
+msgid "Client IP detection"
+msgstr ""
+
+#: admin/views/advanced.php:24
+msgid "Behind Cloudflare, a load balancer or a reverse proxy, the real visitor IP is in a header. Headers are only trusted when the request arrives from a trusted proxy, so they cannot be forged to dodge limits."
+msgstr ""
+
+#: admin/views/advanced.php:30
+msgid "Detected IP"
+msgstr ""
+
+#: admin/views/advanced.php:34
+msgid "IP source"
+msgstr ""
+
+#: admin/views/advanced.php:40
+msgid "Automatic (recommended)"
+msgstr ""
+
+#: admin/views/advanced.php:41
+msgid "REMOTE_ADDR only (no proxy)"
+msgstr ""
+
+#: admin/views/advanced.php:42
+msgid "Cloudflare (CF-Connecting-IP)"
+msgstr ""
+
+#: admin/views/advanced.php:43
+msgid "X-Forwarded-For"
+msgstr ""
+
+#: admin/views/advanced.php:44
+msgid "X-Real-IP"
+msgstr ""
+
+#: admin/views/advanced.php:49
+msgid "Automatic trusts Cloudflare's published IP ranges and private-network proxies (10.x, 172.16-31.x, 192.168.x, 127.x)."
+msgstr ""
+
+#: admin/views/advanced.php:53
+msgid "Additional trusted proxies"
+msgstr ""
+
+#: admin/views/advanced.php:56
+msgid "Public IPs/CIDRs of your own load balancer or CDN (Sucuri, Fastly, Bunny, AWS ALB…). One per line."
+msgstr ""
+
+#: admin/views/advanced.php:63
+msgid "Storage"
+msgstr ""
+
+#: admin/views/advanced.php:66
+msgid "Rate-limit counters"
+msgstr ""
+
+#: admin/views/advanced.php:72
+msgid "Automatic (APCu → object cache → database)"
+msgstr ""
+
+#: admin/views/advanced.php:73
+msgid "APCu"
+msgstr ""
+
+#: admin/views/advanced.php:74
+msgid "Persistent object cache (Redis / Memcached)"
+msgstr ""
+
+#: admin/views/advanced.php:75
+msgid "Database"
+msgstr ""
+
+#. translators: 1: APCu status, 2: object cache status, 3: active backend
+#: admin/views/advanced.php:84
+#, php-format
+msgid "APCu: %1$s · Persistent object cache: %2$s · In use: %3$s"
+msgstr ""
+
+#: admin/views/advanced.php:85
+#: admin/views/advanced.php:86
+msgid "available"
+msgstr ""
+
+#: admin/views/advanced.php:85
+#: admin/views/advanced.php:86
+msgid "not available"
+msgstr ""
+
+#: admin/views/advanced.php:90
+msgid "APCu counters are per server. On multi-server setups use the object cache (Redis) so all servers share the counters."
+msgstr ""
+
+#: admin/views/advanced.php:98
+msgid "Logging & statistics"
+msgstr ""
+
+#: admin/views/advanced.php:101
+msgid "Statistics"
+msgstr ""
+
+#: admin/views/advanced.php:102
+msgid "Count bot requests per day (one small database write per bot request)"
+msgstr ""
+
+#: admin/views/advanced.php:105
+msgid "Event log"
+msgstr ""
+
+#: admin/views/advanced.php:106
+msgid "Log denied requests"
+msgstr ""
+
+#: admin/views/advanced.php:109
+msgid "Retention"
+msgstr ""
+
+#: admin/views/advanced.php:111
+msgid "Keep log entries for"
+msgstr ""
+
+#: admin/views/advanced.php:112
+#: admin/views/advanced.php:114
+msgid "days"
+msgstr ""
+
+#: admin/views/advanced.php:113
+msgid "statistics for"
+msgstr ""
+
+#: admin/views/advanced.php:118
+msgid "Debug mode"
+msgstr ""
+
+#: admin/views/advanced.php:120
+msgid "Write detailed decisions to the PHP error log and add an X-Bot-Control response header"
+msgstr ""
+
+#: admin/views/advanced.php:121
+msgid "Search the log for \"[BotControl]\". Turn off when done – it is verbose. You can also define BOTCTL_DEBUG in wp-config.php."
+msgstr ""
+
+#: admin/views/advanced.php:125
+msgid "Uninstall"
+msgstr ""
+
+#: admin/views/advanced.php:126
+msgid "Keep settings and data when the plugin is deleted"
+msgstr ""
+
+#: admin/views/advanced.php:131
+msgid "Save advanced settings"
+msgstr ""
+
+#: admin/views/custom.php:31
+msgid "e.g. Partner feed importer"
+msgstr ""
+
+#: admin/views/custom.php:34
+msgid "e.g. MyPartnerBot"
+msgstr ""
+
+#: admin/views/custom.php:41
+msgid "Contains"
+msgstr ""
+
+#: admin/views/custom.php:42
+msgid "Regex"
+msgstr ""
+
+#: admin/views/custom.php:51
+msgid "Remove"
+msgstr ""
+
+#: admin/views/custom.php:68
+msgid "Custom bots"
+msgstr ""
+
+#: admin/views/custom.php:70
+msgid "Add bots that are not in the built-in list, or override how a specific User-Agent is treated. Custom rules are checked before the built-in list, so they always win."
+msgstr ""
+
+#: admin/views/custom.php:71
+msgid "\"Contains\" is a case-insensitive text match. \"Regex\" is a PCRE pattern without delimiters (e.g. ^MyBot/\\d+)."
+msgstr ""
+
+#: admin/views/custom.php:76
+msgid "Name"
+msgstr ""
+
+#: admin/views/custom.php:77
+msgid "User-Agent pattern"
+msgstr ""
+
+#: admin/views/custom.php:78
+msgid "Match"
+msgstr ""
+
+#: admin/views/custom.php:79
+#: admin/views/dashboard.php:108
+#: admin/views/dashboard.php:180
+#: admin/views/rules.php:44
+#: admin/views/tools.php:56
+#: includes/class-botctl-reports.php:260
+msgid "Category"
+msgstr ""
+
+#: admin/views/custom.php:80
+#: admin/views/rules.php:45
+#: admin/views/rules.php:100
+#: admin/views/tools.php:59
+#: admin/views/tools.php:70
+msgid "Policy"
+msgstr ""
+
+#: admin/views/custom.php:81
+#: admin/views/protection.php:117
+#: admin/views/rules.php:46
+msgid "Limit"
+msgstr ""
+
+#: admin/views/custom.php:97
+msgid "Add bot"
+msgstr ""
+
+#: admin/views/custom.php:98
+msgid "Tip: use the User-Agent tester on the Tools tab to check which rule a User-Agent hits."
+msgstr ""
+
+#: admin/views/custom.php:100
+msgid "Save custom bots"
+msgstr ""
+
+#: admin/views/dashboard.php:30
+msgid "APCu (shared memory) – fastest"
+msgstr ""
+
+#: admin/views/dashboard.php:31
+msgid "Persistent object cache (Redis/Memcached) – fast"
+msgstr ""
+
+#: admin/views/dashboard.php:32
+msgid "Database – works everywhere, slowest"
+msgstr ""
+
+#: admin/views/dashboard.php:39
+msgid "Disabled"
+msgstr ""
+
+#: admin/views/dashboard.php:41
+msgid "Monitor only"
+msgstr ""
+
+#: admin/views/dashboard.php:43
+msgid "Enforcing"
+msgstr ""
+
+#: admin/views/dashboard.php:48
+msgid "Early loader active – runs before all plugins."
+msgstr ""
+
+#: admin/views/dashboard.php:49
+msgid "Runs as a regular plugin. Install the early loader (Tools) to run even earlier."
+msgstr ""
+
+#: admin/views/dashboard.php:55
+msgid "Rate-limit storage"
+msgstr ""
+
+#: admin/views/dashboard.php:59
+msgid "Ask your host to enable APCu or Redis for the best protection under heavy load."
+msgstr ""
+
+#: admin/views/dashboard.php:65
+msgid "Your IP as seen by Bot Control"
+msgstr ""
+
+#. translators: %s: header name
+#: admin/views/dashboard.php:70
+#, php-format
+msgid "Source: %s."
+msgstr ""
+
+#: admin/views/dashboard.php:72
+msgid "This is a private/proxy address – configure the IP source on the Advanced tab before enabling human rate limiting, or all visitors will share one counter."
+msgstr ""
+
+#: admin/views/dashboard.php:79
+msgid "Server load"
+msgstr ""
+
+#: admin/views/dashboard.php:83
+msgid "per core"
+msgstr ""
+
+#. translators: 1: load, 2: cores
+#: admin/views/dashboard.php:88
+#, php-format
+msgid "Load average %1$s on %2$d CPU cores."
+msgstr ""
+
+#: admin/views/dashboard.php:90
+msgid "Load shedding is on."
+msgstr ""
+
+#: admin/views/dashboard.php:90
+msgid "Load shedding is off."
+msgstr ""
+
+#: admin/views/dashboard.php:94
+msgid "Unavailable"
+msgstr ""
+
+#: admin/views/dashboard.php:95
+msgid "The server does not expose its load average or CPU count. Set the CPU core count manually on the Protection tab to enable load shedding."
+msgstr ""
+
+#: admin/views/dashboard.php:102
+msgid "Last 7 days by category"
+msgstr ""
+
+#: admin/views/dashboard.php:104
+msgid "No bot traffic recorded yet. Statistics appear as soon as bots visit your site."
+msgstr ""
+
+#: admin/views/dashboard.php:109
+#: admin/views/dashboard.php:139
+#: admin/views/dashboard.php:181
+#: admin/views/rules.php:145
+#: includes/class-botctl-reports.php:260
+msgid "Allowed"
+msgstr ""
+
+#: admin/views/dashboard.php:110
+#: admin/views/dashboard.php:140
+#: admin/views/dashboard.php:182
+#: includes/class-botctl-reports.php:260
+msgid "Limited"
+msgstr ""
+
+#: admin/views/dashboard.php:111
+#: admin/views/dashboard.php:141
+#: admin/views/dashboard.php:183
+#: includes/class-botctl-reports.php:260
+msgid "Blocked"
+msgstr ""
+
+#: admin/views/dashboard.php:128
+msgid "Last 14 days"
+msgstr ""
+
+#: admin/views/dashboard.php:136
+#: admin/views/dashboard.php:175
+msgid "No data yet."
+msgstr ""
+
+#. translators: 1: date, 2: allowed, 3: limited, 4: blocked
+#: admin/views/dashboard.php:149
+#, php-format
+msgid "%1$s — allowed %2$s, limited %3$s, blocked %4$s"
+msgstr ""
+
+#: admin/views/dashboard.php:173
+msgid "Top bots – last 7 days"
+msgstr ""
+
+#: admin/views/dashboard.php:179
+#: admin/views/lists.php:33
+#: admin/views/logs.php:78
+#: admin/views/rules.php:98
+msgid "Bot"
+msgstr ""
+
+#: admin/views/dashboard.php:197
+msgid "Tip: an unidentified bot with lots of traffic? Add it on the Custom Bots tab to give it its own rule."
+msgstr ""
+
+#: admin/views/dashboard.php:202
+msgid "Most denied IPs – last 24 hours"
+msgstr ""
+
+#: admin/views/dashboard.php:204
+msgid "Nothing denied in the last 24 hours."
+msgstr ""
+
+#: admin/views/dashboard.php:208
+#: admin/views/logs.php:77
+msgid "IP"
+msgstr ""
+
+#: admin/views/dashboard.php:209
+msgid "Identified as"
+msgstr ""
+
+#: admin/views/dashboard.php:210
+msgid "Logged events"
+msgstr ""
+
+#: admin/views/dashboard.php:221
+#: admin/views/logs.php:107
+msgid "Block IP"
+msgstr ""
+
+#: admin/views/dashboard.php:227
+msgid "Event logging is throttled (max 3 rows per IP per window), so counts here show activity, not total requests."
+msgstr ""
+
+#: admin/views/lists.php:21
+msgid "Official crawler IP lists"
+msgstr ""
+
+#: admin/views/lists.php:22
+msgid "Google, Bing, Apple, OpenAI and Perplexity publish the IP addresses their crawlers use. Bot Control downloads them daily and uses them to prove a bot is genuine – this also covers OpenAI and Perplexity bots, which have no reverse DNS. A request claiming to be GPTBot from any other IP is treated as an impostor."
+msgstr ""
+
+#: admin/views/lists.php:23
+msgid "Safety: a list is only used while it is fresh (downloaded within 7 days). If downloads keep failing, Bot Control falls back to DNS checks or treats the bot as unverified – it never blocks a genuine bot because of an outdated list."
+msgstr ""
+
+#: admin/views/lists.php:26
+msgid "Use official IP lists"
+msgstr ""
+
+#: admin/views/lists.php:27
+msgid "Download daily and verify bots against them"
+msgstr ""
+
+#: admin/views/lists.php:34
+msgid "Source"
+msgstr ""
+
+#: admin/views/lists.php:35
+msgid "IP ranges"
+msgstr ""
+
+#: admin/views/lists.php:36
+msgid "Last update"
+msgstr ""
+
+#: admin/views/lists.php:37
+msgid "Status"
+msgstr ""
+
+#. translators: %s: time
+#: admin/views/lists.php:47
+#: admin/views/lists.php:100
+#, php-format
+msgid "%s ago"
+msgstr ""
+
+#: admin/views/lists.php:50
+msgid "Not downloaded yet"
+msgstr ""
+
+#: admin/views/lists.php:52
+msgid "OK"
+msgstr ""
+
+#: admin/views/lists.php:54
+#: admin/views/lists.php:104
+msgid "Failed"
+msgstr ""
+
+#. translators: %s: time
+#: admin/views/lists.php:67
+#, php-format
+msgid "Next automatic update in %s."
+msgstr ""
+
+#: admin/views/lists.php:68
+msgid "Automatic updates are not scheduled – deactivate and re-activate the plugin."
+msgstr ""
+
+#: admin/views/lists.php:74
+msgid "Bot list updates (feed)"
+msgstr ""
+
+#: admin/views/lists.php:75
+msgid "New AI crawlers appear every month. The feed adds new bot definitions daily without waiting for a plugin update. Feed bots can only be added – they can never change or weaken built-in bots – and any pattern that would match a real browser is rejected automatically."
+msgstr ""
+
+#: admin/views/lists.php:78
+msgid "Enable feed"
+msgstr ""
+
+#: admin/views/lists.php:79
+msgid "Download bot definitions daily"
+msgstr ""
+
+#: admin/views/lists.php:82
+msgid "Feed URL"
+msgstr ""
+
+#: admin/views/lists.php:85
+msgid "Leave empty to use only the bot list bundled with the plugin (nothing is downloaded). Agencies can host their own feed (same JSON format – see docs/DEVELOPER.md) and use it across all client sites. When a URL is set, your site requests it once a day."
+msgstr ""
+
+#: admin/views/lists.php:89
+msgid "Access key"
+msgstr ""
+
+#: admin/views/lists.php:92
+msgid "Optional. Sent as a Bearer token for private or commercial feeds."
+msgstr ""
+
+#: admin/views/lists.php:99
+msgid "Last check:"
+msgstr ""
+
+#. translators: %d: count
+#: admin/views/lists.php:102
+#, php-format
+msgid "%d bot loaded"
+msgid_plural "%d bots loaded"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %d: count
+#: admin/views/lists.php:108
+#, php-format
+msgid "%d entries rejected by the safety checks"
+msgstr ""
+
+#: admin/views/lists.php:116
+msgid "Bots from the feed"
+msgstr ""
+
+#: admin/views/lists.php:126
+msgid "Feed bots appear on the Bot Rules tab (marked \"feed\") where you can override them like any other bot."
+msgstr ""
+
+#: admin/views/lists.php:131
+msgid "Save bot list settings"
+msgstr ""
+
+#: admin/views/lists.php:135
+msgid "Update now"
+msgstr ""
+
+#: admin/views/lists.php:138
+msgid "Download official IP lists"
+msgstr ""
+
+#: admin/views/lists.php:141
+msgid "Download bot feed"
+msgstr ""
+
+#: admin/views/lists.php:144
+msgid "Save your settings first – downloads use the saved feed URL and key."
+msgstr ""
+
+#: admin/views/llms.php:15
+msgid "A physical llms.txt file exists in your site root. The web server serves it directly – delete or rename it to use the generated version."
+msgstr ""
+
+#: admin/views/llms.php:21
+msgid "llms.txt is a proposed standard (llmstxt.org): a short Markdown file at /llms.txt that tells AI assistants what your site is about and which pages matter most. Support is still emerging, so treat it as a low-cost bet on AI visibility, not a ranking factor. Pages set to \"noindex\" in Yoast SEO, Rank Math or SEOPress are left out automatically."
+msgstr ""
+
+#: admin/views/llms.php:24
+msgid "Serve /llms.txt"
+msgstr ""
+
+#: admin/views/llms.php:25
+msgid "Generate and serve llms.txt"
+msgstr ""
+
+#: admin/views/llms.php:28
+msgid "Summary"
+msgstr ""
+
+#: admin/views/llms.php:31
+msgid "One sentence: who you are and what you offer. Empty = the site tagline. This is the most important line – write it for an AI that has never heard of you."
+msgstr ""
+
+#: admin/views/llms.php:35
+msgid "Details"
+msgstr ""
+
+#: admin/views/llms.php:38
+msgid "Optional Markdown paragraphs: service area, key facts, pricing model, how to contact you."
+msgstr ""
+
+#: admin/views/llms.php:42
+msgid "Content types"
+msgstr ""
+
+#: admin/views/llms.php:50
+msgid "Items per type"
+msgstr ""
+
+#: admin/views/llms.php:53
+msgid "Pages are listed in menu order, other types newest first. Keep it focused – llms.txt is a curated overview, not a sitemap."
+msgstr ""
+
+#: admin/views/llms.php:57
+msgid "Extra links"
+msgstr ""
+
+#: admin/views/llms.php:59
+msgid "Section title (default: Resources)"
+msgstr ""
+
+#: admin/views/llms.php:61
+msgid "One per line: Title | URL | optional description."
+msgstr ""
+
+#: admin/views/llms.php:66
+msgid "Save llms.txt settings"
+msgstr ""
+
+#: admin/views/llms.php:70
+msgid "Preview"
+msgstr ""
+
+#: admin/views/llms.php:73
+msgid "View your live llms.txt"
+msgstr ""
+
+#: admin/views/logs.php:47
+msgid "Denied requests"
+msgstr ""
+
+#: admin/views/logs.php:49
+msgid "Every denied request is counted in the statistics, but the log keeps at most 3 rows per IP and action per window, so a bot hammering the site cannot flood your database."
+msgstr ""
+
+#: admin/views/logs.php:51
+msgid "Logging is currently disabled (Advanced tab)."
+msgstr ""
+
+#: admin/views/logs.php:59
+msgid "All actions"
+msgstr ""
+
+#: admin/views/logs.php:64
+msgid "IP, bot or User-Agent…"
+msgstr ""
+
+#: admin/views/logs.php:65
+msgid "Filter"
+msgstr ""
+
+#. translators: %s: number of rows
+#: admin/views/logs.php:69
+#, php-format
+msgid "%s entries"
+msgstr ""
+
+#: admin/views/logs.php:76
+msgid "Time"
+msgstr ""
+
+#: admin/views/logs.php:79
+msgid "Action"
+msgstr ""
+
+#: admin/views/logs.php:80
+msgid "Request"
+msgstr ""
+
+#: admin/views/logs.php:81
+msgid "User-Agent"
+msgstr ""
+
+#: admin/views/logs.php:86
+msgid "No entries."
+msgstr ""
+
+#: admin/views/logs.php:99
+msgid "monitor only"
+msgstr ""
+
+#: admin/views/logs.php:111
+msgid "Allow IP"
+msgstr ""
+
+#: admin/views/logs.php:137
+msgid "Clear log"
+msgstr ""
+
+#: admin/views/protection.php:16
+msgid "General"
+msgstr ""
+
+#: admin/views/protection.php:19
+msgid "Enable Bot Control"
+msgstr ""
+
+#: admin/views/protection.php:20
+msgid "Filter incoming requests"
+msgstr ""
+
+#: admin/views/protection.php:23
+msgid "Mode"
+msgstr ""
+
+#: admin/views/protection.php:25
+msgid "Enforce"
+msgstr ""
+
+#: admin/views/protection.php:25
+msgid "deny requests according to the rules."
+msgstr ""
+
+#: admin/views/protection.php:26
+msgid "Monitor"
+msgstr ""
+
+#: admin/views/protection.php:26
+msgid "only log what would be denied. Use it for a few days after first setup to validate your rules safely."
+msgstr ""
+
+#: admin/views/protection.php:30
+msgid "Rate-limit window"
+msgstr ""
+
+#: admin/views/protection.php:32
+msgid "seconds"
+msgstr ""
+
+#: admin/views/protection.php:33
+msgid "All limits are \"requests per window\". 60 seconds is a good default."
+msgstr ""
+
+#: admin/views/protection.php:40
+msgid "Fake search-engine protection"
+msgstr ""
+
+#: admin/views/protection.php:41
+msgid "Scrapers often pretend to be Googlebot because most sites let Google in. Bot Control checks the claim with a reverse + forward DNS lookup (the method Google, Bing, Apple and Yandex officially document) and caches the result per IP."
+msgstr ""
+
+#: admin/views/protection.php:44
+msgid "Verify search engines"
+msgstr ""
+
+#: admin/views/protection.php:45
+msgid "Verify bots marked \"DNS verified\" on the Bot Rules tab"
+msgstr ""
+
+#: admin/views/protection.php:48
+msgid "Impostors"
+msgstr ""
+
+#: admin/views/protection.php:54
+msgid "Block (recommended)"
+msgstr ""
+
+#: admin/views/protection.php:55
+msgid "Rate limit like unidentified bots"
+msgstr ""
+
+#: admin/views/protection.php:60
+msgid "Requests whose reverse DNS points somewhere else (e.g. \"Googlebot\" from a cloud server). Requests with no reverse DNS at all are treated as unidentified bots, not impostors."
+msgstr ""
+
+#: admin/views/protection.php:67
+msgid "Server load protection"
+msgstr ""
+
+#: admin/views/protection.php:68
+msgid "When the server is under pressure, non-essential bots get \"503 – come back later\" until it recovers. Search engines treat a short 503 as temporary – no ranking impact."
+msgstr ""
+
+#: admin/views/protection.php:71
+msgid "Load shedding"
+msgstr ""
+
+#: admin/views/protection.php:72
+msgid "Shed bot traffic when the server is overloaded"
+msgstr ""
+
+#: admin/views/protection.php:75
+msgid "Threshold"
+msgstr ""
+
+#: admin/views/protection.php:77
+msgid "load average per CPU core"
+msgstr ""
+
+#: admin/views/protection.php:79
+msgid "1.0 = all cores fully busy. 2.0 is a safe default; lower it on VPS/dedicated servers, raise it on shared hosting where the load of other sites is included."
+msgstr ""
+
+#. translators: 1: per-core load, 2: cores
+#: admin/views/protection.php:81
+#, php-format
+msgid "Right now: %1$s per core on %2$d cores."
+msgstr ""
+
+#: admin/views/protection.php:87
+msgid "CPU cores"
+msgstr ""
+
+#: admin/views/protection.php:90
+msgid "0 = detect automatically."
+msgstr ""
+
+#: admin/views/protection.php:94
+msgid "Never shed"
+msgstr ""
+
+#: admin/views/protection.php:99
+msgid "Only verified search engines count as \"Search engines\" – impostors are never exempt."
+msgstr ""
+
+#: admin/views/protection.php:107
+msgid "Protects against scrapers that disguise themselves as normal browsers. Logged-in users are never limited. Static files (images, CSS, JS) are normally served without PHP and are not counted."
+msgstr ""
+
+#: admin/views/protection.php:110
+msgid "Rate-limit humans"
+msgstr ""
+
+#: admin/views/protection.php:112
+msgid "Limit page requests per IP"
+msgstr ""
+
+#: admin/views/protection.php:113
+msgid "Before enabling: check on the Dashboard that \"Your IP\" shows your real public IP. Behind a proxy/CDN that is not configured, every visitor would share one counter."
+msgstr ""
+
+#. translators: %d: seconds
+#: admin/views/protection.php:119
+#, php-format
+msgid "requests per IP per %d seconds"
+msgstr ""
+
+#. translators: %d: seconds
+#: admin/views/protection.php:120
+msgid "Keep it generous: offices, schools and mobile carriers put many people behind one IP. 120/min is a safe starting point."
+msgstr ""
+
+#: admin/views/protection.php:127
+msgid "IP lists & exclusions"
+msgstr ""
+
+#: admin/views/protection.php:130
+msgid "Always allow"
+msgstr ""
+
+#: admin/views/protection.php:133
+msgid "One IP or CIDR range per line, # for comments. Bypasses every rule – use for your office, agency, payment gateways or integrations."
+msgstr ""
+
+#: admin/views/protection.php:137
+msgid "Always block"
+msgstr ""
+
+#: admin/views/protection.php:140
+msgid "Same format. These IPs receive 403 on every request."
+msgstr ""
+
+#: admin/views/protection.php:144
+msgid "Excluded paths"
+msgstr ""
+
+#: admin/views/protection.php:147
+msgid "Requests starting with these paths are never filtered (one per line). Lines containing \"?\" match anywhere in the URL, e.g. \"?wc-api=\". Add payment-gateway callbacks and webhooks here."
+msgstr ""
+
+#: admin/views/protection.php:153
+msgid "Save protection settings"
+msgstr ""
+
+#: admin/views/reports.php:17
+msgid "Email reports"
+msgstr ""
+
+#: admin/views/reports.php:18
+msgid "A clear summary by email: bot traffic compared with the previous period, how often AI assistants fetched your pages, fake bots caught, top bots and IPs, and the server time saved. Agencies: set your own brand name to send it to clients as your report."
+msgstr ""
+
+#: admin/views/reports.php:21
+msgid "Send reports"
+msgstr ""
+
+#: admin/views/reports.php:22
+msgid "Email a report automatically"
+msgstr ""
+
+#: admin/views/reports.php:25
+msgid "Frequency"
+msgstr ""
+
+#: admin/views/reports.php:31
+msgid "Weekly (Monday 08:00, last 7 days)"
+msgstr ""
+
+#: admin/views/reports.php:32
+msgid "Monthly (1st of the month 08:00, last 30 days)"
+msgstr ""
+
+#: admin/views/reports.php:40
+msgid "Recipients"
+msgstr ""
+
+#: admin/views/reports.php:43
+msgid "Comma-separated. Empty = the site admin email."
+msgstr ""
+
+#: admin/views/reports.php:47
+msgid "Brand name"
+msgstr ""
+
+#: admin/views/reports.php:50
+msgid "Shown in the subject, header and footer (white-label). Empty = site name."
+msgstr ""
+
+#. translators: %s: date
+#: admin/views/reports.php:58
+#, php-format
+msgid "Next report: %s."
+msgstr ""
+
+#. translators: %d: samples
+#: admin/views/reports.php:62
+#, php-format
+msgid "Page-time samples for the \"time saved\" estimate: %d (shown in reports from 20 samples)."
+msgstr ""
+
+#: admin/views/reports.php:66
+msgid "Save report settings"
+msgstr ""
+
+#: admin/views/reports.php:70
+msgid "Try it"
+msgstr ""
+
+#: admin/views/reports.php:75
+msgid "Preview report"
+msgstr ""
+
+#: admin/views/reports.php:78
+msgid "Send report now"
+msgstr ""
+
+#: admin/views/reports.php:81
+msgid "Tip: WordPress' default mail is often filtered as spam. Use an SMTP plugin for reliable delivery."
+msgstr ""
+
+#: admin/views/robots.php:31
+msgid "A physical robots.txt file exists in your site root."
+msgstr ""
+
+#: admin/views/robots.php:32
+msgid "The web server serves that file directly, so WordPress (and Bot Control) cannot add rules to it. Copy the rules below into the file manually, or delete/rename it to let Bot Control manage robots.txt."
+msgstr ""
+
+#: admin/views/robots.php:38
+msgid "robots.txt rules"
+msgstr ""
+
+#: admin/views/robots.php:39
+msgid "Well-behaved bots (all major search engines and AI companies) read robots.txt before crawling. Telling them \"Disallow\" means they never send the requests at all – cheaper than blocking them one by one. Bad bots ignore robots.txt, which is why the firewall rules exist too."
+msgstr ""
+
+#: admin/views/robots.php:42
+msgid "Manage robots.txt"
+msgstr ""
+
+#: admin/views/robots.php:44
+msgid "Add \"Disallow: /\" for every bot whose policy is Block (including Google-Extended and Applebot-Extended)"
+msgstr ""
+
+#: admin/views/robots.php:48
+msgid "Crawl-delay"
+msgstr ""
+
+#: admin/views/robots.php:50
+msgid "Add Crawl-delay for rate-limited bots"
+msgstr ""
+
+#: admin/views/robots.php:51
+msgid "Asks polite bots (Bing, Yandex, most SEO tools) to slow down to your limit instead of hitting it and receiving 429s. Google ignores Crawl-delay, so no Google group is ever added. Each group repeats your \"User-agent: *\" rules, because a bot with its own group ignores the \"*\" group."
+msgstr ""
+
+#: admin/views/robots.php:56
+msgid "Save robots.txt settings"
+msgstr ""
+
+#: admin/views/robots.php:60
+msgid "Preview of the lines Bot Control adds"
+msgstr ""
+
+#: admin/views/robots.php:62
+msgid "Nothing to add with the current rules (no blocked bots with a robots.txt token)."
+msgstr ""
+
+#: admin/views/robots.php:66
+msgid "View your live robots.txt"
+msgstr ""
+
+#: admin/views/rules.php:17
+msgid "Quick presets"
+msgstr ""
+
+#: admin/views/rules.php:18
+msgid "A preset replaces the category defaults below. Your per-bot overrides are kept."
+msgstr ""
+
+#: admin/views/rules.php:25
+msgid "Apply"
+msgstr ""
+
+#: admin/views/rules.php:35
+msgid "Category defaults"
+msgstr ""
+
+#. translators: %d: seconds
+#: admin/views/rules.php:39
+#, php-format
+msgid "Limits are requests per %d seconds (change the window on the Protection tab). \"Per IP\" counts each IP separately; \"Per bot\" counts all IPs of the same bot together – best against crawlers that spread over hundreds of IPs."
+msgstr ""
+
+#: admin/views/rules.php:47
+msgid "Count"
+msgstr ""
+
+#: admin/views/rules.php:64
+msgid "Per IP"
+msgstr ""
+
+#: admin/views/rules.php:65
+msgid "Per bot"
+msgstr ""
+
+#: admin/views/rules.php:78
+msgid "Individual bots"
+msgstr ""
+
+#: admin/views/rules.php:79
+msgid "Override the category default for a specific bot. Leave the limit empty to use the category limit."
+msgstr ""
+
+#: admin/views/rules.php:80
+msgid "Filter bots…"
+msgstr ""
+
+#: admin/views/rules.php:99
+msgid "Matches User-Agent"
+msgstr ""
+
+#: admin/views/rules.php:101
+msgid "Limit override"
+msgstr ""
+
+#: admin/views/rules.php:102
+msgid "Effective"
+msgstr ""
+
+#: admin/views/rules.php:119
+msgid "Genuine requests are verified by reverse DNS; fakes are treated as impostors."
+msgstr ""
+
+#: admin/views/rules.php:119
+msgid "DNS verified"
+msgstr ""
+
+#: admin/views/rules.php:122
+msgid "Verified against the IP list the vendor publishes (Bot Lists tab)."
+msgstr ""
+
+#: admin/views/rules.php:122
+msgid "Official IP list"
+msgstr ""
+
+#: admin/views/rules.php:125
+msgid "feed"
+msgstr ""
+
+#: admin/views/rules.php:128
+msgid "robots.txt only"
+msgstr ""
+
+#: admin/views/rules.php:145
+msgid "Disallowed in robots.txt"
+msgstr ""
+
+#: admin/views/rules.php:166
+msgid "Save bot rules"
+msgstr ""
+
+#: admin/views/server.php:15
+msgid "unknown"
+msgstr ""
+
+#: admin/views/server.php:19
+msgid "Block at the web-server level"
+msgstr ""
+
+#: admin/views/server.php:20
+msgid "The fastest block is the one PHP never sees. These rules make Apache, LiteSpeed or nginx reject blocked bots before WordPress starts – ideal for scanners and bots you have fully blocked. Rate limits, DNS/IP verification and load shedding still need PHP, so the plugin keeps handling those."
+msgstr ""
+
+#. translators: %s: server software
+#: admin/views/server.php:24
+#, php-format
+msgid "Detected web server: %s"
+msgstr ""
+
+#: admin/views/server.php:28
+msgid "Nothing to export: no bot or category currently has the \"Block\" policy (and the IP block list is not included)."
+msgstr ""
+
+#: admin/views/server.php:34
+msgid "Options"
+msgstr ""
+
+#: admin/views/server.php:37
+msgid "Keep .htaccess in sync"
+msgstr ""
+
+#: admin/views/server.php:39
+msgid "Rewrite the .htaccess rules automatically whenever the bot rules change (Apache / LiteSpeed only)"
+msgstr ""
+
+#: admin/views/server.php:40
+msgid "In Monitor mode, or when Bot Control is disabled or deactivated, the rules are removed automatically."
+msgstr ""
+
+#: admin/views/server.php:44
+msgid "Include IP block list"
+msgstr ""
+
+#: admin/views/server.php:46
+msgid "Also block the \"Always block\" IPs at server level"
+msgstr ""
+
+#: admin/views/server.php:48
+msgid "Your site is behind a proxy/CDN. The web server only sees the real visitor IP if it is configured for it (Apache mod_remoteip / nginx real_ip). Otherwise IP rules would match the proxy – leave this off."
+msgstr ""
+
+#: admin/views/server.php:54
+msgid "Save server rule settings"
+msgstr ""
+
+#: admin/views/server.php:59
+msgid "Apache / LiteSpeed (.htaccess)"
+msgstr ""
+
+#: admin/views/server.php:61
+#: admin/views/tools.php:108
+msgid "Status:"
+msgstr ""
+
+#: admin/views/server.php:63
+msgid "Rules are in .htaccess"
+msgstr ""
+
+#: admin/views/server.php:65
+#: admin/views/tools.php:114
+msgid "Not installed"
+msgstr ""
+
+#: admin/views/server.php:71
+msgid "Bot Control places its block at the top of .htaccess, before the WordPress block – rules below WordPress' rewrite would never run. A backup of the previous file is kept as .htaccess.botctl-backup."
+msgstr ""
+
+#: admin/views/server.php:75
+msgid "Update .htaccess"
+msgstr ""
+
+#: admin/views/server.php:75
+msgid "Write to .htaccess"
+msgstr ""
+
+#: admin/views/server.php:80
+msgid "Remove from .htaccess"
+msgstr ""
+
+#: admin/views/server.php:85
+msgid "Your server does not look like Apache/LiteSpeed, so .htaccess is probably ignored. Use the nginx configuration instead."
+msgstr ""
+
+#: admin/views/server.php:90
+msgid "nginx"
+msgstr ""
+
+#: admin/views/server.php:92
+msgid "Nothing to export."
+msgstr ""
+
+#: admin/views/server.php:94
+msgid "nginx has no .htaccess – ask your host or sysadmin to add these two snippets, then reload nginx (nginx -t && systemctl reload nginx). Re-export after changing the rules."
+msgstr ""
+
+#: admin/views/server.php:95
+msgid "1. http { } context"
+msgstr ""
+
+#: admin/views/server.php:97
+msgid "2. server { } context"
+msgstr ""
+
+#: admin/views/tools.php:26
+msgid "User-Agent tester"
+msgstr ""
+
+#: admin/views/tools.php:27
+msgid "See how Bot Control would classify a request. Add an IP to also run the DNS verification (a real lookup)."
+msgstr ""
+
+#: admin/views/tools.php:31
+msgid "Paste a User-Agent (leave empty to test an empty User-Agent)"
+msgstr ""
+
+#: admin/views/tools.php:33
+msgid "Optional IP, e.g. 66.249.66.1"
+msgstr ""
+
+#: admin/views/tools.php:34
+msgid "Test"
+msgstr ""
+
+#: admin/views/tools.php:36
+msgid "Samples:"
+msgstr ""
+
+#: admin/views/tools.php:55
+msgid "Classified as"
+msgstr ""
+
+#: admin/views/tools.php:57
+msgid "Matched by"
+msgstr ""
+
+#. translators: 1: limit, 2: seconds, 3: scope
+#: admin/views/tools.php:64
+#, php-format
+msgid "%1$d requests / %2$d s, counted %3$s"
+msgstr ""
+
+#. translators: 1: limit, 2: seconds, 3: scope
+#: admin/views/tools.php:64
+msgid "per bot (all IPs)"
+msgstr ""
+
+#. translators: 1: limit, 2: seconds, 3: scope
+#: admin/views/tools.php:64
+msgid "per IP"
+msgstr ""
+
+#. translators: 1: limit, 2: seconds
+#: admin/views/tools.php:74
+#, php-format
+msgid "Human visitor – limited to %1$d requests / %2$d s per IP (logged-in users exempt)."
+msgstr ""
+
+#: admin/views/tools.php:75
+msgid "Human visitor – not limited."
+msgstr ""
+
+#: admin/views/tools.php:80
+msgid "Verification"
+msgstr ""
+
+#: admin/views/tools.php:83
+msgid "Official IP list (checked first)."
+msgstr ""
+
+#. translators: %s: domains
+#: admin/views/tools.php:88
+#, php-format
+msgid "Reverse DNS must end in: %s"
+msgstr ""
+
+#: admin/views/tools.php:105
+msgid "Early loader (recommended)"
+msgstr ""
+
+#: admin/views/tools.php:106
+msgid "Installs a tiny file in wp-content/mu-plugins so Bot Control runs before every other plugin. Denied requests then cost almost nothing – WooCommerce, page builders etc. are never loaded for them."
+msgstr ""
+
+#: admin/views/tools.php:110
+msgid "Installed and active"
+msgstr ""
+
+#: admin/views/tools.php:112
+msgid "Installed (active from the next request)"
+msgstr ""
+
+#: admin/views/tools.php:119
+msgid "Remove early loader"
+msgstr ""
+
+#: admin/views/tools.php:123
+msgid "Install early loader"
+msgstr ""
+
+#: admin/views/tools.php:129
+msgid "Export / import settings"
+msgstr ""
+
+#: admin/views/tools.php:130
+msgid "Move your configuration between sites (e.g. staging → production, or across client sites)."
+msgstr ""
+
+#: admin/views/tools.php:132
+msgid "Download settings (JSON)"
+msgstr ""
+
+#: admin/views/tools.php:135
+msgid "Paste exported JSON here"
+msgstr ""
+
+#: admin/views/tools.php:136
+msgid "Import settings"
+msgstr ""
+
+#: admin/views/tools.php:142
+msgid "Maintenance"
+msgstr ""
+
+#: admin/views/tools.php:145
+msgid "Clear statistics"
+msgstr ""
+
+#: admin/views/tools.php:148
+msgid "Clear DNS verification cache"
+msgstr ""
+
+#: admin/views/tools.php:151
+msgid "Reset all settings to defaults"
+msgstr ""
+
+#: includes/class-botctl-bot-registry.php:65
+msgid "Search engines"
+msgstr ""
+
+#: includes/class-botctl-bot-registry.php:66
+msgid "Google, Bing, Apple, Yandex, DuckDuckGo… Your organic traffic depends on them. Blocking them removes you from search results."
+msgstr ""
+
+#: includes/class-botctl-bot-registry.php:69
+msgid "AI search & assistants"
+msgstr ""
+
+#: includes/class-botctl-bot-registry.php:70
+msgid "Bots that fetch pages to answer a user question in ChatGPT, Claude, Perplexity etc. They cite and link to you – this is your AI visibility (AIO/GEO)."
+msgstr ""
+
+#: includes/class-botctl-bot-registry.php:73
+msgid "AI training crawlers"
+msgstr ""
+
+#: includes/class-botctl-bot-registry.php:74
+msgid "Bulk crawlers collecting content to train AI models (GPTBot, ClaudeBot, CCBot, Bytespider…). Blocking them does NOT remove you from AI search answers."
+msgstr ""
+
+#: includes/class-botctl-bot-registry.php:77
+msgid "SEO & marketing tools"
+msgstr ""
+
+#: includes/class-botctl-bot-registry.php:78
+msgid "Ahrefs, Semrush, Majestic, Moz… Heavy crawlers. Your backlink data in those tools comes from them; competitors use them to analyse you."
+msgstr ""
+
+#: includes/class-botctl-bot-registry.php:81
+msgid "Social link previews"
+msgstr ""
+
+#: includes/class-botctl-bot-registry.php:82
+msgid "Facebook, X/Twitter, LinkedIn, WhatsApp, Slack, Telegram… They build the preview card when someone shares your link. Keep allowed."
+msgstr ""
+
+#: includes/class-botctl-bot-registry.php:85
+msgid "Monitoring & site management"
+msgstr ""
+
+#: includes/class-botctl-bot-registry.php:86
+msgid "Uptime monitors, Jetpack, ManageWP, performance tools you probably use yourself."
+msgstr ""
+
+#: includes/class-botctl-bot-registry.php:89
+msgid "Feed readers"
+msgstr ""
+
+#: includes/class-botctl-bot-registry.php:90
+msgid "RSS readers (Feedly, Inoreader…) delivering your posts to subscribers."
+msgstr ""
+
+#: includes/class-botctl-bot-registry.php:93
+msgid "Web archives"
+msgstr ""
+
+#: includes/class-botctl-bot-registry.php:94
+msgid "Internet Archive (Wayback Machine) and similar."
+msgstr ""
+
+#: includes/class-botctl-bot-registry.php:97
+msgid "Scripts, HTTP libraries & headless browsers"
+msgstr ""
+
+#: includes/class-botctl-bot-registry.php:98
+msgid "curl, python-requests, Go, Java, Scrapy, headless Chrome… Mostly scrapers, but also some legitimate integrations – rate-limit rather than block."
+msgstr ""
+
+#: includes/class-botctl-bot-registry.php:101
+msgid "Vulnerability scanners & known bad bots"
+msgstr ""
+
+#: includes/class-botctl-bot-registry.php:102
+msgid "sqlmap, Nikto, WPScan, Nuclei, masscan… Nothing good comes from them."
+msgstr ""
+
+#: includes/class-botctl-bot-registry.php:105
+msgid "Unidentified bots"
+msgstr ""
+
+#: includes/class-botctl-bot-registry.php:106
+msgid "User-Agents that look like a bot (contain \"bot\", \"crawler\", \"spider\"…) but are not in the database."
+msgstr ""
+
+#: includes/class-botctl-bot-registry.php:109
+msgid "Empty User-Agent"
+msgstr ""
+
+#: includes/class-botctl-bot-registry.php:110
+msgid "Requests with no User-Agent at all – almost always crude scripts."
+msgstr ""
+
+#: includes/class-botctl-early-loader.php:57
+msgid "Could not create the mu-plugins directory. Check file permissions."
+msgstr ""
+
+#: includes/class-botctl-early-loader.php:87
+msgid "Could not write the early loader file. Check that wp-content/mu-plugins is writable."
+msgstr ""
+
+#: includes/class-botctl-remote-list.php:185
+msgid "The feed URL must be a valid https:// address."
+msgstr ""
+
+#. translators: %d: HTTP status code
+#: includes/class-botctl-remote-list.php:205
+#, php-format
+msgid "The feed returned HTTP %d."
+msgstr ""
+
+#: includes/class-botctl-remote-list.php:218
+msgid "The feed is not valid Bot Control JSON."
+msgstr ""
+
+#. translators: 1: brand, 2: site name, 3: number of days
+#: includes/class-botctl-reports.php:98
+#, php-format
+msgid "[%1$s] Bot report for %2$s – last %3$d days"
+msgstr ""
+
+#: includes/class-botctl-reports.php:174
+msgid "new"
+msgstr ""
+
+#. translators: %s: hours
+#: includes/class-botctl-reports.php:190
+#, php-format
+msgid "%s hours"
+msgstr ""
+
+#. translators: %s: minutes
+#: includes/class-botctl-reports.php:194
+#, php-format
+msgid "%s minutes"
+msgstr ""
+
+#. translators: %s: seconds
+#: includes/class-botctl-reports.php:197
+#, php-format
+msgid "%s seconds"
+msgstr ""
+
+#: includes/class-botctl-reports.php:235
+msgid "Bot traffic report"
+msgstr ""
+
+#. translators: %s: change vs previous period
+#: includes/class-botctl-reports.php:242
+msgid "Bot requests"
+msgstr ""
+
+#. translators: %s: change vs previous period
+#: includes/class-botctl-reports.php:242
+#, php-format
+msgid "%s vs previous period"
+msgstr ""
+
+#: includes/class-botctl-reports.php:243
+msgid "Stopped"
+msgstr ""
+
+#: includes/class-botctl-reports.php:243
+msgid "rate-limited or blocked"
+msgstr ""
+
+#: includes/class-botctl-reports.php:244
+msgid "AI assistant visits"
+msgstr ""
+
+#: includes/class-botctl-reports.php:244
+msgid "ChatGPT, Claude, Perplexity…"
+msgstr ""
+
+#: includes/class-botctl-reports.php:245
+msgid "Fake bots caught"
+msgstr ""
+
+#: includes/class-botctl-reports.php:245
+msgid "pretending to be Google/Bing"
+msgstr ""
+
+#. translators: 1: duration, 2: milliseconds
+#: includes/class-botctl-reports.php:253
+#, php-format
+msgid "Estimated server time saved: %1$s (based on a measured average page time of %2$s ms)."
+msgstr ""
+
+#: includes/class-botctl-reports.php:258
+msgid "By category"
+msgstr ""
+
+#: includes/class-botctl-reports.php:265
+msgid "No bot traffic recorded in this period."
+msgstr ""
+
+#: includes/class-botctl-reports.php:270
+msgid "Top bots"
+msgstr ""
+
+#: includes/class-botctl-reports.php:279
+msgid "AI visibility – assistants that fetched your pages"
+msgstr ""
+
+#: includes/class-botctl-reports.php:288
+msgid "Most denied IPs"
+msgstr ""
+
+#: includes/class-botctl-reports.php:296
+msgid "Open the Bot Control dashboard"
+msgstr ""
+
+#. translators: %s: brand
+#: includes/class-botctl-reports.php:301
+#, php-format
+msgid "Sent by %s using Bot Control. Change or stop these emails under Bot Control → Reports."
+msgstr ""
+
+#: includes/class-botctl-server-rules.php:289
+msgid ".htaccess is not writable. Copy the rules manually or fix the file permissions."
+msgstr ""
+
+#: includes/class-botctl-server-rules.php:312
+msgid "Writing .htaccess failed."
+msgstr ""
+
+#: includes/class-botctl-settings.php:225
+msgid "Balanced (recommended)"
+msgstr ""
+
+#: includes/class-botctl-settings.php:226
+msgid "Search engines and social previews allowed, AI assistants lightly limited, training crawlers, SEO tools and scripts throttled, scanners blocked."
+msgstr ""
+
+#: includes/class-botctl-settings.php:230
+msgid "Maximum AI visibility"
+msgstr ""
+
+#: includes/class-botctl-settings.php:231
+msgid "For publishers who want to be cited by ChatGPT, Claude, Perplexity & co. AI assistants fully allowed, training crawlers only gently limited."
+msgstr ""
+
+#: includes/class-botctl-settings.php:235
+msgid "Protect content from AI training"
+msgstr ""
+
+#: includes/class-botctl-settings.php:236
+msgid "Blocks AI training crawlers while staying visible in AI search answers and classic search."
+msgstr ""
+
+#: includes/class-botctl-settings.php:240
+msgid "Lockdown (under attack)"
+msgstr ""
+
+#: includes/class-botctl-settings.php:241
+msgid "Only verified search engines, social previews and monitoring get through freely. Use temporarily while the site is being hammered."
+msgstr ""
+
+#. translators: %s: pattern
+#: includes/class-botctl-settings.php:351
+#, php-format
+msgid "Invalid regular expression skipped: %s"
+msgstr ""
+
+#: includes/class-botctl-settings.php:420
+msgid "The feed URL must start with https:// – only the bundled bot list is used."
+msgstr ""
+
+#: includes/class-botctl-settings.php:440
+msgid "An invalid email address was skipped."
+msgstr ""
+
+#. translators: %s: entry
+#: includes/class-botctl-settings.php:499
+#, php-format
+msgid "Invalid IP/CIDR skipped: %s"
+msgstr ""
+
+#: includes/class-botctl-verifier.php:209
+msgid "Verified"
+msgstr ""
+
+#: includes/class-botctl-verifier.php:211
+msgid "Impostor (not genuine)"
+msgstr ""
+
+#: includes/class-botctl-verifier.php:213
+msgid "Unverified (no reverse DNS)"
+msgstr ""

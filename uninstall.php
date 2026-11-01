@@ -1,0 +1,36 @@
+<?php
+/**
+ * Uninstall: removes tables, options, cron and the early loader unless "keep data" is set.
+ *
+ * @package BotControl
+ */
+
+defined( 'WP_UNINSTALL_PLUGIN' ) || exit;
+
+$botctl_settings = get_option( 'botctl_settings', array() );
+
+wp_clear_scheduled_hook( 'botctl_cleanup' );
+wp_clear_scheduled_hook( 'botctl_daily' );
+wp_clear_scheduled_hook( 'botctl_report' );
+
+$botctl_loader = trailingslashit( WPMU_PLUGIN_DIR ) . 'bot-control-early-loader.php';
+if ( file_exists( $botctl_loader ) ) {
+	wp_delete_file( $botctl_loader );
+}
+
+if ( is_array( $botctl_settings ) && ! empty( $botctl_settings['keep_data'] ) ) {
+	return;
+}
+
+global $wpdb;
+foreach ( array( 'botctl_rate', 'botctl_stats', 'botctl_events', 'botctl_verify' ) as $botctl_table ) {
+	$wpdb->query( "DROP TABLE IF EXISTS {$wpdb->prefix}{$botctl_table}" ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery.SchemaChange
+}
+
+delete_option( 'botctl_settings' );
+delete_option( 'botctl_db_version' );
+delete_option( 'botctl_runtime' );
+delete_option( 'botctl_ip_ranges' );
+delete_option( 'botctl_remote_bots' );
+delete_option( 'botctl_remote_status' );
+delete_transient( 'botctl_llms_txt' );

@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
+  <title>Bot Control icon - A-in plugin family</title>
+  <defs>
+    <linearGradient id="tile" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#171C30"/>
+      <stop offset="1" stop-color="#0E1220"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.42" r="0.6">
+      <stop offset="0" stop-color="#2DD4BF" stop-opacity="0.22"/>
+      <stop offset="1" stop-color="#2DD4BF" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <g id="background">
+    <rect width="256" height="256" rx="56" fill="url(#tile)"/>
+    <rect width="256" height="256" rx="56" fill="url(#glow)"/>
+    <rect x="1.5" y="1.5" width="253" height="253" rx="54.5" fill="none" stroke="#2DD4BF" stroke-opacity="0.28" stroke-width="3"/>
+  </g>
+  <g id="pictogram">
+      <path id="shield" pathLength="1" d="M128 38 L206 66 V122 C206 172 174 204 128 222 C82 204 50 172 50 122 V66 Z" fill="#2DD4BF" fill-opacity="0.14" stroke="#2DD4BF" stroke-width="14" stroke-linejoin="round"/>
+      <g id="bot">
+        <line x1="128" y1="86" x2="128" y2="106" stroke="#F4F6FB" stroke-width="10" stroke-linecap="round"/>
+        <circle cx="128" cy="80" r="10" fill="#F4F6FB"/>
+        <rect x="84" y="104" width="88" height="66" rx="20" fill="#F4F6FB"/>
+        <circle class="eye" cx="108" cy="137" r="10" fill="#0E1220"/>
+        <circle class="eye" cx="148" cy="137" r="10" fill="#0E1220"/>
+      </g>
+  </g>
+</svg>

@@ -1,0 +1,20 @@
+{
+  "format": 1,
+  "updated": "2026-09-24",
+  "maintainer": "Eli Shvarzman",
+  "description": "Bot Control community feed: bots added between plugin releases. Built-in bot ids cannot be overridden by a feed.",
+  "bots": {
+    "friendlycrawler": { "name": "FriendlyCrawler", "vendor": "Unknown", "category": "ai_training", "patterns": ["FriendlyCrawler"], "robots": ["FriendlyCrawler"], "note": "Collects data for AI training datasets." },
+    "kangaroo_bot": { "name": "Kangaroo Bot", "vendor": "Kangaroo LLM", "category": "ai_training", "patterns": ["Kangaroo Bot"], "robots": ["Kangaroo Bot"] },
+    "sidetrade": { "name": "Sidetrade indexer bot", "vendor": "Sidetrade", "category": "ai_training", "patterns": ["Sidetrade indexer bot"], "robots": ["Sidetrade indexer bot"] },
+    "tiktokspider": { "name": "TikTokSpider", "vendor": "ByteDance", "category": "ai_training", "patterns": ["TikTokSpider"], "robots": ["TikTokSpider"] },
+    "cotoyogi": { "name": "Cotoyogi", "vendor": "ROIS (Japan)", "category": "ai_training", "patterns": ["Cotoyogi"], "robots": ["Cotoyogi"] },
+    "icc_crawler": { "name": "ICC-Crawler", "vendor": "NICT (Japan)", "category": "ai_training", "patterns": ["ICC-Crawler"], "robots": ["ICC-Crawler"] },
+    "chatglm_spider": { "name": "ChatGLM-Spider", "vendor": "Zhipu AI", "category": "ai_training", "patterns": ["ChatGLM-Spider"], "robots": ["ChatGLM-Spider"] },
+    "factset": { "name": "Factset_spyderbot", "vendor": "FactSet", "category": "ai_training", "patterns": ["Factset_spyderbot"], "robots": ["Factset_spyderbot"] },
+    "crawlspace": { "name": "Crawlspace", "vendor": "Crawlspace", "category": "ai_training", "patterns": ["Crawlspace"], "robots": ["Crawlspace"] },
+    "andibot": { "name": "Andibot", "vendor": "Andi", "category": "ai_search", "patterns": ["Andibot"], "robots": ["Andibot"] },
+    "linerbot": { "name": "LinerBot", "vendor": "Liner", "category": "ai_search", "patterns": ["LinerBot"], "robots": ["LinerBot"] },
+    "awario": { "name": "Awario", "vendor": "Awario", "category": "seo_tool", "patterns": ["AwarioBot", "AwarioSmartBot", "AwarioRssBot"], "robots": ["AwarioBot", "AwarioSmartBot", "AwarioRssBot"] }
+  }
+}

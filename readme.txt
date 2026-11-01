@@ -1,0 +1,118 @@
+=== Bot Control – Crawler, AI Agent & Scraper Manager ===
+Contributors: elishvarzman
+Donate link: https://a-in.co.il/plugins/bot-control/
+Tags: bots, rate limit, crawler, ai crawler, robots.txt
+Requires at least: 6.1
+Tested up to: 7.1
+Requires PHP: 7.4
+Stable tag: 1.1.1
+License: GPLv2 or later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
+
+Allow, rate-limit or block bots, AI crawlers and scrapers, and stay visible to search engines and AI assistants.
+
+== Description ==
+
+Much of your traffic is bots. Some bring you customers: Google, Bing, ChatGPT search, social previews. Others only cost you server resources: aggressive AI training crawlers, SEO tools, scrapers and vulnerability scanners. Bot Control lets you decide, per category or per bot, who gets in and how fast, without hiding your site from search engines or AI assistants.
+
+* **About 120 known bots in 12 categories**: search engines, AI search & assistants, AI training crawlers, SEO tools, social previews, monitoring, feed readers, archives, scripts & HTTP libraries, vulnerability scanners, unidentified bots and empty User-Agents.
+* **Allow, rate-limit or block** per category, with per-bot overrides and custom User-Agent rules (text or regex).
+* **One-click presets**: Balanced, Maximum AI visibility, Protect content from AI training, Lockdown.
+* **IP / CIDR allow and block lists** (IPv4 and IPv6), and excluded paths for webhooks and payment callbacks.
+* **Protect content from AI training, stay in AI answers**: training crawlers (GPTBot, ClaudeBot, CCBot…) are handled separately from AI search and assistant agents (OAI-SearchBot, ChatGPT-User, Claude-User, Perplexity-User…).
+* **Real search engines only**: forward-confirmed reverse DNS plus official crawler IP lists (Google, Bing, Apple, OpenAI, Perplexity, refreshed daily) catch fake Googlebots and GPTBots.
+* **Overload protection**: rate limits per IP or per bot with 429 + Retry-After, load shedding with 503 + Retry-After when server load per CPU core crosses your threshold, and an optional per-IP limit for "human" visitors (logged-in users are exempt). SEO-safe status codes only, never cached.
+* **robots.txt and llms.txt**: manage robots.txt rules (including Google-Extended, Applebot-Extended and an optional Crawl-delay) and generate an llms.txt that skips noindex content.
+* **Block before PHP**: export rules to .htaccess (Apache/LiteSpeed) or nginx, or use the optional early loader (mu-plugin).
+* **Dashboard and reports**: 7/14-day statistics, top denied IPs with one-click blocking, a denied-request log, a User-Agent tester and weekly or monthly email reports.
+* **Optional bot-list feed** that adds new AI crawlers between releases (add-only and safety-checked). Off by default, and it only downloads from a URL you enter.
+* **Fast storage**: APCu, then Redis/Memcached, then the database.
+* **Fails open**: if anything goes wrong inside the plugin, visitors are let through and the error is logged.
+* Full Hebrew translation, RTL ready.
+
+Full documentation: see `docs/USER-MANUAL.md` (site owners) and `docs/DEVELOPER.md` (hooks & architecture).
+
+= More from A-in =
+
+This plugin is complete on its own: no licence key, no locked features. Premium plugins, add-ons and support from the same developer are available at [a-in.co.il](https://a-in.co.il/plugins/).
+
+== Installation ==
+
+1. Upload the plugin ZIP via Plugins → Add New → Upload Plugin, then activate it.
+2. Open **Bot Control → Dashboard** and check that "Your IP" shows your real public IP. If it doesn't, configure Advanced → IP source.
+3. Optionally switch Protection → Mode to *Monitor* for a few days to review decisions safely.
+4. Pick a preset on Bot Rules.
+5. Install the early loader on the Tools tab.
+
+== Frequently Asked Questions ==
+
+= Will this hurt my SEO? =
+
+No, with the default configuration. Search engines are allowed and DNS-verified, and throttling uses 429/503 with Retry-After, which search engines treat as "come back later".
+
+= Can I block AI training but stay in ChatGPT / Claude / Perplexity answers? =
+
+Yes. Apply the "Protect content from AI training" preset. AI search and assistant agents stay allowed.
+
+= Can I block Google's AI Overviews? =
+
+Not without blocking Google Search. AI Overviews use regular Googlebot. Google-Extended only controls Gemini training/grounding use.
+
+= Does it replace Cloudflare or a server firewall? =
+
+No. It complements them. Large DDoS attacks must be stopped before they reach PHP.
+
+= Does a page cache bypass it? =
+
+Pages served from a full-page cache don't run WordPress, so Bot Control doesn't see them. Those requests are cheap anyway. Denials are sent with `Cache-Control: no-store` and are never cached.
+
+== External services ==
+
+Bot Control works without any external service. These features contact third parties:
+
+* **Official crawler IP lists** (Lists tab, on by default; untick "Use official IP lists" to turn it off). Once a day the site downloads the public IP range files published by the crawler operators, to verify that a request claiming to be their bot really comes from them. No data about your site or visitors is sent; it is a plain HTTPS GET. Sources:
+  * Google: `https://developers.google.com/static/search/apis/ipranges/` ([Terms](https://policies.google.com/terms), [Privacy](https://policies.google.com/privacy))
+  * Bing: `https://www.bing.com/toolbox/bingbot.json` ([Terms](https://www.microsoft.com/servicesagreement), [Privacy](https://privacy.microsoft.com/privacystatement))
+  * Apple: `https://search.developer.apple.com/applebot.json` ([Terms](https://www.apple.com/legal/internet-services/terms/site.html), [Privacy](https://www.apple.com/legal/privacy/))
+  * OpenAI: `https://openai.com/gptbot.json`, `searchbot.json`, `chatgpt-user.json` ([Terms](https://openai.com/policies/terms-of-use), [Privacy](https://openai.com/policies/privacy-policy))
+  * Perplexity: `https://www.perplexity.com/perplexitybot.json`, `perplexity-user.json` ([Terms](https://www.perplexity.ai/hub/legal/terms-of-service), [Privacy](https://www.perplexity.ai/hub/legal/privacy-policy))
+* **Bot-list feed** (Lists → Bot list updates, off by default). The plugin ships its extra bot definitions in `data/bots.json` and needs no download. If you enter a feed URL of your own (for example your agency's feed), the site requests that URL once a day, sending your site URL in the User-Agent and, if you set one, your access key as a Bearer token. There is no default remote feed.
+* **DNS verification** of search engine bots uses reverse and forward DNS lookups through your server's resolver. No third-party API is called.
+
+== Screenshots ==
+
+1. Dashboard with statistics per category and bot, server load and top denied IPs.
+2. Bot rules with one-click presets, category defaults and per-bot overrides.
+3. Protection settings: monitor or enforce mode, fake search-engine protection and server-load shedding.
+4. User-Agent tester and the optional early loader.
+5. robots.txt management with a live preview of the added lines.
+
+== Changelog ==
+
+= 1.1.1 =
+* Changed: extra bot definitions (`data/bots.json`) are bundled and always used; no network request is needed for them.
+* Changed: there is no default remote feed any more. The feed downloads only from a URL you enter.
+* Changed: requires WordPress 6.1 (object-cache group flush).
+* Docs: External services section, GPL LICENSE file, Tested up to 7.1. Description condensed, Donate link, 5 screenshots with captions.
+
+= 1.1.0 =
+* New: official crawler IP lists (Google, Bing, Apple, OpenAI, Perplexity) with fail-safe freshness checks.
+* New: remote bot-list feed (add-only, browser-safe validation, optional access key).
+* New: .htaccess / nginx server rules with auto-sync.
+* New: weekly/monthly white-label email reports.
+* New: llms.txt generator.
+* New: Hebrew translation.
+
+= 1.0.0 =
+* Initial release: bot detection (~120 bots, 12 categories), per-category/per-bot/custom rules, presets, rate limiting (APCu / object cache / DB), DNS verification of search engines, load shedding, human rate limiting, IP allow/block lists, robots.txt management, dashboard, logs, UA tester, import/export, early loader, debug logging.
+
+== Upgrade Notice ==
+
+= 1.1.1 =
+Bundled bot list, no default remote feed, readme updates. No database changes.
+
+= 1.1.0 =
+Adds IP-list verification for AI bots, server rules, email reports, llms.txt and Hebrew. No database changes.
+
+= 1.0.0 =
+First release.
