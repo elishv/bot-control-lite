@@ -80,7 +80,7 @@ final class Bot_Control_IP_Lists {
 	 */
 	public static function has( $bot_id ) {
 		$settings = Bot_Control_Settings::get();
-		if ( empty( $settings['ip_lists_enabled'] ) ) {
+		if ( empty( $settings['ip_lists_optin'] ) ) {
 			return false;
 		}
 		$sources = self::sources();

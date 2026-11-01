@@ -19,12 +19,13 @@ $botctl_next     = wp_next_scheduled( Bot_Control_Install::DAILY_HOOK );
 
 <div class="botctl-panel">
 	<h2><?php esc_html_e( 'Official crawler IP lists', 'bot-control' ); ?></h2>
-	<p class="description"><?php esc_html_e( 'Google, Bing, Apple, OpenAI and Perplexity publish the IP addresses their crawlers use. Bot Control downloads them daily and uses them to prove a bot is genuine – this also covers OpenAI and Perplexity bots, which have no reverse DNS. A request claiming to be GPTBot from any other IP is treated as an impostor.', 'bot-control' ); ?></p>
+	<p class="description"><?php esc_html_e( 'Google, Bing, Apple, OpenAI and Perplexity publish the IP addresses their crawlers use. If you turn this on, Bot Control downloads them daily and uses them to prove a bot is genuine – this also covers OpenAI and Perplexity bots, which have no reverse DNS. A request claiming to be GPTBot from any other IP is then treated as an impostor.', 'bot-control' ); ?></p>
+	<p class="description"><?php esc_html_e( 'Off by default. While it is off, nothing is downloaded and bots are verified with DNS lookups only (OpenAI and Perplexity bots stay unverified). When on, your server sends a plain HTTPS request once a day to each publisher listed in the table below (Google, Microsoft/Bing, Apple, OpenAI, Perplexity). No data about your site or visitors is sent; the publishers see your server\'s IP address, as with any download.', 'bot-control' ); ?></p>
 	<p class="description"><?php esc_html_e( 'Safety: a list is only used while it is fresh (downloaded within 7 days). If downloads keep failing, Bot Control falls back to DNS checks or treats the bot as unverified – it never blocks a genuine bot because of an outdated list.', 'bot-control' ); ?></p>
 	<table class="form-table" role="presentation">
 		<tr>
-			<th scope="row"><?php esc_html_e( 'Use official IP lists', 'bot-control' ); ?></th>
-			<td><label><input type="checkbox" name="botctl[ip_lists_enabled]" value="1" <?php checked( $s['ip_lists_enabled'] ); ?>> <?php esc_html_e( 'Download daily and verify bots against them', 'bot-control' ); ?></label></td>
+			<th scope="row"><?php esc_html_e( 'Download official crawler IP lists', 'bot-control' ); ?></th>
+			<td><label><input type="checkbox" name="botctl[ip_lists_optin]" value="1" <?php checked( ! empty( $s['ip_lists_optin'] ) ); ?>> <?php esc_html_e( 'Yes, download the lists daily from the crawler publishers and verify bots against them', 'bot-control' ); ?></label></td>
 		</tr>
 	</table>
 
@@ -135,7 +136,7 @@ $botctl_next     = wp_next_scheduled( Bot_Control_Install::DAILY_HOOK );
 	<h2><?php esc_html_e( 'Update now', 'bot-control' ); ?></h2>
 	<div class="botctl-buttons">
 		<?php Bot_Control_Admin::form_open( 'refresh_lists', array( 'what' => 'ip' ), 'botctl-inline' ); ?>
-			<button class="button"><?php esc_html_e( 'Download official IP lists', 'bot-control' ); ?></button>
+			<button class="button" <?php disabled( empty( $s['ip_lists_optin'] ) ); ?>><?php esc_html_e( 'Download official IP lists', 'bot-control' ); ?></button>
 		</form>
 		<?php Bot_Control_Admin::form_open( 'refresh_lists', array( 'what' => 'feed' ), 'botctl-inline' ); ?>
 			<button class="button"><?php esc_html_e( 'Download bot feed', 'bot-control' ); ?></button>

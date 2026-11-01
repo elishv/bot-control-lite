@@ -506,6 +506,11 @@ final class Bot_Control_Admin {
 			self::done( 'lists', sprintf( __( 'Bot feed updated: %d bots loaded.', 'bot-control' ), (int) $status['count'] ) );
 		}
 
+		$settings = Bot_Control_Settings::get();
+		if ( empty( $settings['ip_lists_optin'] ) ) {
+			self::done( 'lists', __( 'Official IP list downloads are off. Turn on "Download official crawler IP lists" and save first.', 'bot-control' ), 'warning' );
+		}
+
 		$urls   = Bot_Control_IP_Lists::refresh();
 		$failed = count( array_filter( $urls, function ( $u ) {
 			return empty( $u['ok'] );

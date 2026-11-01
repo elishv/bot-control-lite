@@ -70,7 +70,7 @@ final class Bot_Control_Install {
 			wp_schedule_event( time() + 300, 'hourly', self::CRON_HOOK );
 		}
 		if ( ! wp_next_scheduled( self::DAILY_HOOK ) ) {
-			// First run soon, so official IP lists are available right after activation.
+			// Daily housekeeping. It only downloads anything if the owner opted in (see daily()).
 			wp_schedule_event( time() + 60, 'daily', self::DAILY_HOOK );
 		}
 	}
@@ -82,7 +82,7 @@ final class Bot_Control_Install {
 	 */
 	public static function daily() {
 		$s = Bot_Control_Settings::get();
-		if ( ! empty( $s['ip_lists_enabled'] ) ) {
+		if ( ! empty( $s['ip_lists_optin'] ) ) {
 			Bot_Control_IP_Lists::refresh();
 		}
 		if ( ! empty( $s['remote_list_enabled'] ) ) {

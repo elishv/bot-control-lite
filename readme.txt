@@ -20,7 +20,7 @@ Much of your traffic is bots. Some bring you customers: Google, Bing, ChatGPT se
 * **One-click presets**: Balanced, Maximum AI visibility, Protect content from AI training, Lockdown.
 * **IP / CIDR allow and block lists** (IPv4 and IPv6), and excluded paths for webhooks and payment callbacks.
 * **Protect content from AI training, stay in AI answers**: training crawlers (GPTBot, ClaudeBot, CCBot…) are handled separately from AI search and assistant agents (OAI-SearchBot, ChatGPT-User, Claude-User, Perplexity-User…).
-* **Real search engines only**: forward-confirmed reverse DNS plus official crawler IP lists (Google, Bing, Apple, OpenAI, Perplexity, refreshed daily) catch fake Googlebots and GPTBots.
+* **Real search engines only**: forward-confirmed reverse DNS plus optional official crawler IP lists (Google, Bing, Apple, OpenAI, Perplexity; off until you turn them on) catch fake Googlebots and GPTBots.
 * **Overload protection**: rate limits per IP or per bot with 429 + Retry-After, load shedding with 503 + Retry-After when server load per CPU core crosses your threshold, and an optional per-IP limit for "human" visitors (logged-in users are exempt). SEO-safe status codes only, never cached.
 * **robots.txt and llms.txt**: manage robots.txt rules (including Google-Extended, Applebot-Extended and an optional Crawl-delay) and generate an llms.txt that skips noindex content.
 * **Block before PHP**: export rules to .htaccess (Apache/LiteSpeed) or nginx, or use the optional early loader (mu-plugin).
@@ -62,6 +62,14 @@ Not without blocking Google Search. AI Overviews use regular Googlebot. Google-E
 
 No. It complements them. Large DDoS attacks must be stopped before they reach PHP.
 
+= Does Bot Control contact any outside service by default? =
+
+No. Out of the box it makes no outgoing requests: search engine bots are verified with DNS lookups through your own server's resolver. Two features can download data, and both are off until you turn them on in the Bot Lists tab: the official crawler IP lists (from Google, Bing, Apple, OpenAI and Perplexity) and a bot-list feed URL of your own. See "External services" below for exactly what is requested.
+
+= Why would I turn on the official crawler IP lists? =
+
+OpenAI and Perplexity bots have no reverse DNS, so without their published IP lists Bot Control can't tell a real GPTBot or PerplexityBot from a scraper using the same name; they stay "unverified". With the lists on, a request claiming to be one of those bots from an unlisted IP is treated as an impostor. A list is only used while it is fresh (under 7 days old), so a failed download never blocks a genuine bot.
+
 = Does a page cache bypass it? =
 
 Pages served from a full-page cache don't run WordPress, so Bot Control doesn't see them. Those requests are cheap anyway. Denials are sent with `Cache-Control: no-store` and are never cached.
@@ -70,7 +78,7 @@ Pages served from a full-page cache don't run WordPress, so Bot Control doesn't 
 
 Bot Control works without any external service. These features contact third parties:
 
-* **Official crawler IP lists** (Lists tab, on by default; untick "Use official IP lists" to turn it off). Once a day the site downloads the public IP range files published by the crawler operators, to verify that a request claiming to be their bot really comes from them. No data about your site or visitors is sent; it is a plain HTTPS GET. Sources:
+* **Official crawler IP lists** (Bot Lists tab → "Download official crawler IP lists", **off by default, opt-in**). Nothing is downloaded until you tick the box and save; the "Download official IP lists" button is also disabled until then. Once enabled, the site downloads the public IP range files published by the crawler operators once a day, to verify that a request claiming to be their bot really comes from them. No data about your site or visitors is sent: it is a plain HTTPS GET with a generic `BotControl/<version>` User-Agent, so the publisher only sees your server's IP address. Untick the box to stop the downloads at any time. Sources:
   * Google: `https://developers.google.com/static/search/apis/ipranges/` ([Terms](https://policies.google.com/terms), [Privacy](https://policies.google.com/privacy))
   * Bing: `https://www.bing.com/toolbox/bingbot.json` ([Terms](https://www.microsoft.com/servicesagreement), [Privacy](https://privacy.microsoft.com/privacystatement))
   * Apple: `https://search.developer.apple.com/applebot.json` ([Terms](https://www.apple.com/legal/internet-services/terms/site.html), [Privacy](https://www.apple.com/legal/privacy/))
@@ -92,6 +100,7 @@ Bot Control works without any external service. These features contact third par
 = 1.1.1 =
 * Changed: extra bot definitions (`data/bots.json`) are bundled and always used; no network request is needed for them.
 * Changed: there is no default remote feed any more. The feed downloads only from a URL you enter.
+* Changed: official crawler IP list downloads are opt-in and off by default. Nothing is downloaded until you enable them on the Bot Lists tab, and a setting saved by an older version never turns them on. The IP-list requests no longer include your site URL.
 * Changed: requires WordPress 6.1 (object-cache group flush).
 * Docs: External services section, GPL LICENSE file, Tested up to 7.1. Description condensed, Donate link, 5 screenshots with captions.
 

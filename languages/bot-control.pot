@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-31T11:28:54+00:00\n"
+"POT-Creation-Date: 2026-11-01T14:02:38+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: bot-control\n"
@@ -254,31 +254,35 @@ msgstr ""
 msgid "Bot feed updated: %d bots loaded."
 msgstr ""
 
+#: admin/class-botctl-admin.php:511
+msgid "Official IP list downloads are off. Turn on \"Download official crawler IP lists\" and save first."
+msgstr ""
+
 #. translators: 1: failed lists, 2: total lists
-#: admin/class-botctl-admin.php:515
+#: admin/class-botctl-admin.php:520
 #, php-format
 msgid "%1$d of %2$d IP lists could not be downloaded. Previous data (if any) is kept – see the table for details."
 msgstr ""
 
-#: admin/class-botctl-admin.php:517
+#: admin/class-botctl-admin.php:522
 msgid "All official IP lists were updated."
 msgstr ""
 
-#: admin/class-botctl-admin.php:532
+#: admin/class-botctl-admin.php:537
 msgid "Bot Control rules removed from .htaccess."
 msgstr ""
 
-#: admin/class-botctl-admin.php:532
+#: admin/class-botctl-admin.php:537
 msgid ".htaccess updated. A backup of the previous file was saved as .htaccess.botctl-backup."
 msgstr ""
 
 #. translators: %s: recipients
-#: admin/class-botctl-admin.php:545
+#: admin/class-botctl-admin.php:550
 #, php-format
 msgid "Report sent to %s."
 msgstr ""
 
-#: admin/class-botctl-admin.php:547
+#: admin/class-botctl-admin.php:552
 msgid "The report could not be sent. Check that your site can send email (an SMTP plugin is recommended)."
 msgstr ""
 
@@ -648,7 +652,7 @@ msgid "Top bots – last 7 days"
 msgstr ""
 
 #: admin/views/dashboard.php:179
-#: admin/views/lists.php:33
+#: admin/views/lists.php:34
 #: admin/views/logs.php:78
 #: admin/views/rules.php:98
 msgid "Bot"
@@ -693,105 +697,109 @@ msgid "Official crawler IP lists"
 msgstr ""
 
 #: admin/views/lists.php:22
-msgid "Google, Bing, Apple, OpenAI and Perplexity publish the IP addresses their crawlers use. Bot Control downloads them daily and uses them to prove a bot is genuine – this also covers OpenAI and Perplexity bots, which have no reverse DNS. A request claiming to be GPTBot from any other IP is treated as an impostor."
+msgid "Google, Bing, Apple, OpenAI and Perplexity publish the IP addresses their crawlers use. If you turn this on, Bot Control downloads them daily and uses them to prove a bot is genuine – this also covers OpenAI and Perplexity bots, which have no reverse DNS. A request claiming to be GPTBot from any other IP is then treated as an impostor."
 msgstr ""
 
 #: admin/views/lists.php:23
+msgid "Off by default. While it is off, nothing is downloaded and bots are verified with DNS lookups only (OpenAI and Perplexity bots stay unverified). When on, your server sends a plain HTTPS request once a day to each publisher listed in the table below (Google, Microsoft/Bing, Apple, OpenAI, Perplexity). No data about your site or visitors is sent; the publishers see your server's IP address, as with any download."
+msgstr ""
+
+#: admin/views/lists.php:24
 msgid "Safety: a list is only used while it is fresh (downloaded within 7 days). If downloads keep failing, Bot Control falls back to DNS checks or treats the bot as unverified – it never blocks a genuine bot because of an outdated list."
 msgstr ""
 
-#: admin/views/lists.php:26
-msgid "Use official IP lists"
-msgstr ""
-
 #: admin/views/lists.php:27
-msgid "Download daily and verify bots against them"
+msgid "Download official crawler IP lists"
 msgstr ""
 
-#: admin/views/lists.php:34
-msgid "Source"
+#: admin/views/lists.php:28
+msgid "Yes, download the lists daily from the crawler publishers and verify bots against them"
 msgstr ""
 
 #: admin/views/lists.php:35
-msgid "IP ranges"
+msgid "Source"
 msgstr ""
 
 #: admin/views/lists.php:36
-msgid "Last update"
+msgid "IP ranges"
 msgstr ""
 
 #: admin/views/lists.php:37
+msgid "Last update"
+msgstr ""
+
+#: admin/views/lists.php:38
 msgid "Status"
 msgstr ""
 
 #. translators: %s: time
-#: admin/views/lists.php:47
-#: admin/views/lists.php:100
+#: admin/views/lists.php:48
+#: admin/views/lists.php:101
 #, php-format
 msgid "%s ago"
 msgstr ""
 
-#: admin/views/lists.php:50
+#: admin/views/lists.php:51
 msgid "Not downloaded yet"
 msgstr ""
 
-#: admin/views/lists.php:52
+#: admin/views/lists.php:53
 msgid "OK"
 msgstr ""
 
-#: admin/views/lists.php:54
-#: admin/views/lists.php:104
+#: admin/views/lists.php:55
+#: admin/views/lists.php:105
 msgid "Failed"
 msgstr ""
 
 #. translators: %s: time
-#: admin/views/lists.php:67
+#: admin/views/lists.php:68
 #, php-format
 msgid "Next automatic update in %s."
 msgstr ""
 
-#: admin/views/lists.php:68
+#: admin/views/lists.php:69
 msgid "Automatic updates are not scheduled – deactivate and re-activate the plugin."
 msgstr ""
 
-#: admin/views/lists.php:74
+#: admin/views/lists.php:75
 msgid "Bot list updates (feed)"
 msgstr ""
 
-#: admin/views/lists.php:75
+#: admin/views/lists.php:76
 msgid "New AI crawlers appear every month. The feed adds new bot definitions daily without waiting for a plugin update. Feed bots can only be added – they can never change or weaken built-in bots – and any pattern that would match a real browser is rejected automatically."
 msgstr ""
 
-#: admin/views/lists.php:78
+#: admin/views/lists.php:79
 msgid "Enable feed"
 msgstr ""
 
-#: admin/views/lists.php:79
+#: admin/views/lists.php:80
 msgid "Download bot definitions daily"
 msgstr ""
 
-#: admin/views/lists.php:82
+#: admin/views/lists.php:83
 msgid "Feed URL"
 msgstr ""
 
-#: admin/views/lists.php:85
+#: admin/views/lists.php:86
 msgid "Leave empty to use only the bot list bundled with the plugin (nothing is downloaded). Agencies can host their own feed (same JSON format – see docs/DEVELOPER.md) and use it across all client sites. When a URL is set, your site requests it once a day."
 msgstr ""
 
-#: admin/views/lists.php:89
+#: admin/views/lists.php:90
 msgid "Access key"
 msgstr ""
 
-#: admin/views/lists.php:92
+#: admin/views/lists.php:93
 msgid "Optional. Sent as a Bearer token for private or commercial feeds."
 msgstr ""
 
-#: admin/views/lists.php:99
+#: admin/views/lists.php:100
 msgid "Last check:"
 msgstr ""
 
 #. translators: %d: count
-#: admin/views/lists.php:102
+#: admin/views/lists.php:103
 #, php-format
 msgid "%d bot loaded"
 msgid_plural "%d bots loaded"
@@ -799,36 +807,36 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. translators: %d: count
-#: admin/views/lists.php:108
+#: admin/views/lists.php:109
 #, php-format
 msgid "%d entries rejected by the safety checks"
 msgstr ""
 
-#: admin/views/lists.php:116
+#: admin/views/lists.php:117
 msgid "Bots from the feed"
 msgstr ""
 
-#: admin/views/lists.php:126
+#: admin/views/lists.php:127
 msgid "Feed bots appear on the Bot Rules tab (marked \"feed\") where you can override them like any other bot."
 msgstr ""
 
-#: admin/views/lists.php:131
+#: admin/views/lists.php:132
 msgid "Save bot list settings"
 msgstr ""
 
-#: admin/views/lists.php:135
+#: admin/views/lists.php:136
 msgid "Update now"
 msgstr ""
 
-#: admin/views/lists.php:138
+#: admin/views/lists.php:139
 msgid "Download official IP lists"
 msgstr ""
 
-#: admin/views/lists.php:141
+#: admin/views/lists.php:142
 msgid "Download bot feed"
 msgstr ""
 
-#: admin/views/lists.php:144
+#: admin/views/lists.php:145
 msgid "Save your settings first – downloads use the saved feed URL and key."
 msgstr ""
 
@@ -1838,54 +1846,54 @@ msgstr ""
 msgid "Writing .htaccess failed."
 msgstr ""
 
-#: includes/class-botctl-settings.php:225
+#: includes/class-botctl-settings.php:228
 msgid "Balanced (recommended)"
 msgstr ""
 
-#: includes/class-botctl-settings.php:226
+#: includes/class-botctl-settings.php:229
 msgid "Search engines and social previews allowed, AI assistants lightly limited, training crawlers, SEO tools and scripts throttled, scanners blocked."
 msgstr ""
 
-#: includes/class-botctl-settings.php:230
+#: includes/class-botctl-settings.php:233
 msgid "Maximum AI visibility"
 msgstr ""
 
-#: includes/class-botctl-settings.php:231
+#: includes/class-botctl-settings.php:234
 msgid "For publishers who want to be cited by ChatGPT, Claude, Perplexity & co. AI assistants fully allowed, training crawlers only gently limited."
 msgstr ""
 
-#: includes/class-botctl-settings.php:235
+#: includes/class-botctl-settings.php:238
 msgid "Protect content from AI training"
 msgstr ""
 
-#: includes/class-botctl-settings.php:236
+#: includes/class-botctl-settings.php:239
 msgid "Blocks AI training crawlers while staying visible in AI search answers and classic search."
 msgstr ""
 
-#: includes/class-botctl-settings.php:240
+#: includes/class-botctl-settings.php:243
 msgid "Lockdown (under attack)"
 msgstr ""
 
-#: includes/class-botctl-settings.php:241
+#: includes/class-botctl-settings.php:244
 msgid "Only verified search engines, social previews and monitoring get through freely. Use temporarily while the site is being hammered."
 msgstr ""
 
 #. translators: %s: pattern
-#: includes/class-botctl-settings.php:351
+#: includes/class-botctl-settings.php:354
 #, php-format
 msgid "Invalid regular expression skipped: %s"
 msgstr ""
 
-#: includes/class-botctl-settings.php:420
+#: includes/class-botctl-settings.php:424
 msgid "The feed URL must start with https:// – only the bundled bot list is used."
 msgstr ""
 
-#: includes/class-botctl-settings.php:440
+#: includes/class-botctl-settings.php:444
 msgid "An invalid email address was skipped."
 msgstr ""
 
 #. translators: %s: entry
-#: includes/class-botctl-settings.php:499
+#: includes/class-botctl-settings.php:503
 #, php-format
 msgid "Invalid IP/CIDR skipped: %s"
 msgstr ""

@@ -2267,3 +2267,18 @@ msgstr "מתחזה (לא אמיתי)"
 #: includes/class-botctl-verifier.php:213
 msgid "Unverified (no reverse DNS)"
 msgstr "לא מאומת (אין Reverse DNS)"
+
+msgid "Google, Bing, Apple, OpenAI and Perplexity publish the IP addresses their crawlers use. If you turn this on, Bot Control downloads them daily and uses them to prove a bot is genuine – this also covers OpenAI and Perplexity bots, which have no reverse DNS. A request claiming to be GPTBot from any other IP is then treated as an impostor."
+msgstr "גוגל, בינג, אפל, OpenAI ו-Perplexity מפרסמות את כתובות ה-IP שהסורקים שלהן משתמשים בהן. אם מפעילים את האפשרות, Bot Control מוריד אותן מדי יום ומשתמש בהן כדי לוודא שבוט הוא אמיתי – כולל הבוטים של OpenAI ו-Perplexity, שאין להם DNS הפוך. בקשה שמתיימרת להיות GPTBot מכל כתובת IP אחרת תטופל אז כהתחזות."
+
+msgid "Off by default. While it is off, nothing is downloaded and bots are verified with DNS lookups only (OpenAI and Perplexity bots stay unverified). When on, your server sends a plain HTTPS request once a day to each publisher listed in the table below (Google, Microsoft/Bing, Apple, OpenAI, Perplexity). No data about your site or visitors is sent; the publishers see your server's IP address, as with any download."
+msgstr "כבוי כברירת מחדל. כל עוד האפשרות כבויה, שום דבר לא מורד והבוטים מאומתים בבדיקות DNS בלבד (הבוטים של OpenAI ו-Perplexity נשארים לא מאומתים). כשהיא מופעלת, השרת שולח פעם ביום בקשת HTTPS פשוטה לכל מפרסם שמופיע בטבלה למטה (Google, Microsoft/Bing, Apple, OpenAI, Perplexity). לא נשלח שום מידע על האתר או על המבקרים; המפרסמים רואים רק את כתובת ה-IP של השרת, כמו בכל הורדה."
+
+msgid "Download official crawler IP lists"
+msgstr "הורדת רשימות IP רשמיות של סורקים"
+
+msgid "Yes, download the lists daily from the crawler publishers and verify bots against them"
+msgstr "כן, להוריד את הרשימות מדי יום ממפרסמי הסורקים ולאמת מולן את הבוטים"
+
+msgid "Official IP list downloads are off. Turn on \"Download official crawler IP lists\" and save first."
+msgstr "הורדת רשימות ה-IP הרשמיות כבויה. יש להפעיל את \"הורדת רשימות IP רשמיות של סורקים\" ולשמור קודם."

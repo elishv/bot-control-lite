@@ -49,7 +49,7 @@ Bot Control lets you:
 | Keep SEO and AI visibility | Search engines, social previews and AI assistants are allowed by default. Every response is an SEO-safe status code. |
 | Stop AI training without losing AI search | Separates *AI training crawlers* (GPTBot, ClaudeBot…) from *AI search/assistant bots* (OAI-SearchBot, ChatGPT-User, Claude-User…). |
 | Manage robots.txt | Adds `Disallow` rules for blocked bots, including robots-only tokens such as **Google-Extended**. |
-| Verify AI bots too | Checks GPTBot, ChatGPT-User, PerplexityBot and others against the vendors' **official IP lists** (updated daily). |
+| Verify AI bots too | Optional (off by default): checks GPTBot, ChatGPT-User, PerplexityBot and others against the vendors' **official IP lists** (updated daily once you opt in). |
 | Block before PHP | Exports blocked bots as **.htaccess** or **nginx** rules. |
 | Help AI understand you | Generates **llms.txt**. |
 | Prove the value | Sends **weekly/monthly email reports**, white-label ready. |
@@ -305,7 +305,7 @@ Retention is set on **Advanced** (default 14 days for the log, 90 days for stati
 
 ### 12.1 Official crawler IP lists
 
-Google, Bing, Apple, OpenAI and Perplexity publish the IP addresses their crawlers use. Bot Control downloads these lists once a day. It then uses them to prove that a request really comes from the bot it claims to be:
+Google, Bing, Apple, OpenAI and Perplexity publish the IP addresses their crawlers use. **This is off by default.** Tick **Download official crawler IP lists** on the Bot Lists tab and save to opt in; until then nothing is downloaded. Once on, Bot Control downloads these lists once a day. It then uses them to prove that a request really comes from the bot it claims to be:
 
 | Bot | List |
 |---|---|

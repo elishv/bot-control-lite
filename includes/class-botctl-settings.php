@@ -100,7 +100,10 @@ final class Bot_Control_Settings {
 			'keep_data'             => 0,         // Keep data when the plugin is uninstalled.
 
 			// Official IP lists & remote bot feed.
-			'ip_lists_enabled'      => 1,
+			// Off by default: nothing is downloaded until the site owner opts in on the Bot Lists tab.
+			// A new key on purpose, so a value stored by an older build (where this was on by default)
+			// never switches the downloads on by itself.
+			'ip_lists_optin'        => 0,
 			'remote_list_enabled'   => 0,
 			'remote_list_url'       => '',        // Empty = bundled data/bots.json only (no download).
 			'remote_list_key'       => '',        // Optional access key (Bearer token) for private/commercial feeds.
@@ -412,7 +415,8 @@ final class Bot_Control_Settings {
 				break;
 
 			case 'lists':
-				$s['ip_lists_enabled']    = empty( $input['ip_lists_enabled'] ) ? 0 : 1;
+				$s['ip_lists_optin']      = empty( $input['ip_lists_optin'] ) ? 0 : 1;
+				unset( $s['ip_lists_enabled'] ); // Legacy key from older builds; never used as consent.
 				$s['remote_list_enabled'] = empty( $input['remote_list_enabled'] ) ? 0 : 1;
 				$raw_url                  = isset( $input['remote_list_url'] ) ? trim( (string) $input['remote_list_url'] ) : '';
 				$url                      = esc_url_raw( $raw_url, array( 'https' ) );
