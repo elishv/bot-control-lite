@@ -1,5 +1,5 @@
 === Bot Control – Crawler, AI Agent & Scraper Manager ===
-Contributors: elishvarzman
+Contributors: elis85
 Donate link: https://a-in.co.il/plugins/bot-control/
 Tags: bots, rate limit, crawler, ai crawler, robots.txt
 Requires at least: 6.1

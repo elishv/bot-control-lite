@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Bot Control 1.1.0\n"
-"Report-Msgid-Bugs-To: https://github.com/elishv/bot-control/issues\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/bot-control\n"
 "Last-Translator: Eli Shvarzman\n"
 "Language-Team: Eli Shvarzman\n"
 "Language: he_IL\n"
