@@ -102,30 +102,6 @@ $botctl_samples = array(
 
 <div class="botctl-grid">
 	<div class="botctl-panel">
-		<h2><?php esc_html_e( 'Early loader (recommended)', 'bot-control' ); ?></h2>
-		<p class="description"><?php esc_html_e( 'Installs a tiny file in wp-content/mu-plugins so Bot Control runs before every other plugin. Denied requests then cost almost nothing – WooCommerce, page builders etc. are never loaded for them.', 'bot-control' ); ?></p>
-		<p>
-			<?php esc_html_e( 'Status:', 'bot-control' ); ?>
-			<?php if ( Bot_Control_Early_Loader::is_active() ) : ?>
-				<strong class="botctl-good"><?php esc_html_e( 'Installed and active', 'bot-control' ); ?></strong>
-			<?php elseif ( Bot_Control_Early_Loader::is_installed() ) : ?>
-				<strong class="botctl-warn"><?php esc_html_e( 'Installed (active from the next request)', 'bot-control' ); ?></strong>
-			<?php else : ?>
-				<strong><?php esc_html_e( 'Not installed', 'bot-control' ); ?></strong>
-			<?php endif; ?>
-		</p>
-		<?php if ( Bot_Control_Early_Loader::is_installed() ) : ?>
-			<?php Bot_Control_Admin::form_open( 'early_loader', array( 'op' => 'remove' ) ); ?>
-				<button class="button"><?php esc_html_e( 'Remove early loader', 'bot-control' ); ?></button>
-			</form>
-		<?php else : ?>
-			<?php Bot_Control_Admin::form_open( 'early_loader', array( 'op' => 'install' ) ); ?>
-				<button class="button button-primary"><?php esc_html_e( 'Install early loader', 'bot-control' ); ?></button>
-			</form>
-		<?php endif; ?>
-	</div>
-
-	<div class="botctl-panel">
 		<h2><?php esc_html_e( 'Export / import settings', 'bot-control' ); ?></h2>
 		<p class="description"><?php esc_html_e( 'Move your configuration between sites (e.g. staging → production, or across client sites).', 'bot-control' ); ?></p>
 		<?php Bot_Control_Admin::form_open( 'export' ); ?>

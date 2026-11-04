@@ -95,9 +95,11 @@ final class Bot_Control_Logger {
 		global $wpdb;
 		$table = $wpdb->prefix . 'botctl_events';
 
-		$uri = isset( $_SERVER['REQUEST_URI'] ) ? wp_unslash( $_SERVER['REQUEST_URI'] ) : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
-		$ua  = isset( $_SERVER['HTTP_USER_AGENT'] ) ? wp_unslash( $_SERVER['HTTP_USER_AGENT'] ) : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
-		$method = isset( $_SERVER['REQUEST_METHOD'] ) ? strtoupper( substr( sanitize_key( wp_unslash( $_SERVER['REQUEST_METHOD'] ) ), 0, 8 ) ) : 'GET';
+		// Sanitized when read (esc_url_raw / sanitize_text_field / sanitize_key), escaped again on output.
+		$uri    = Bot_Control_Request::uri();
+		$ua     = Bot_Control_Request::user_agent();
+		$method = Bot_Control_Request::method();
+		$method = '' === $method ? 'GET' : $method;
 
 		$suppress = $wpdb->suppress_errors( true );
 		$result   = $wpdb->insert(
@@ -111,8 +113,8 @@ final class Bot_Control_Logger {
 				'action'   => substr( (string) $event['action'], 0, 16 ),
 				'enforced' => (int) $event['enforced'],
 				'method'   => $method,
-				'uri'      => substr( (string) $uri, 0, 255 ),
-				'ua'       => substr( (string) $ua, 0, 255 ),
+				'uri'      => substr( $uri, 0, 255 ),
+				'ua'       => substr( $ua, 0, 255 ),
 			),
 			array( '%s', '%s', '%s', '%s', '%s', '%s', '%d', '%s', '%s', '%s' )
 		);

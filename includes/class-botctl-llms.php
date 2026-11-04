@@ -58,8 +58,7 @@ final class Bot_Control_Llms {
 		if ( empty( $s['llms_enabled'] ) ) {
 			return;
 		}
-		$uri  = isset( $_SERVER['REQUEST_URI'] ) ? (string) wp_unslash( $_SERVER['REQUEST_URI'] ) : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
-		$path = (string) wp_parse_url( $uri, PHP_URL_PATH );
+		$path = Bot_Control_Request::path();
 		$home = rtrim( (string) wp_parse_url( home_url(), PHP_URL_PATH ), '/' );
 		if ( $path !== $home . '/llms.txt' ) {
 			return;

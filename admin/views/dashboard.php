@@ -44,9 +44,7 @@ $botctl_backend_labels = array(
 		<?php endif; ?>
 		<p class="description">
 			<?php
-			echo Bot_Control_Early_Loader::is_active()
-				? esc_html__( 'Early loader active – runs before all plugins.', 'bot-control' )
-				: esc_html__( 'Runs as a regular plugin. Install the early loader (Tools) to run even earlier.', 'bot-control' );
+			esc_html_e( 'Runs while WordPress loads plugins, before the theme and most of the site start.', 'bot-control' );
 			?>
 		</p>
 	</div>

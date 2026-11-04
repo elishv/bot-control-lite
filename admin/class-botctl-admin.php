@@ -23,11 +23,10 @@ final class Bot_Control_Admin {
 	public static function init() {
 		add_action( 'admin_menu', array( __CLASS__, 'menu' ) );
 		add_action( 'admin_init', array( 'Bot_Control_Install', 'maybe_upgrade' ) );
-		add_action( 'admin_init', array( 'Bot_Control_Early_Loader', 'maybe_refresh' ) );
 		add_action( 'admin_enqueue_scripts', array( __CLASS__, 'assets' ) );
 		add_filter( 'plugin_action_links_' . plugin_basename( BOTCTL_FILE ), array( __CLASS__, 'action_links' ) );
 
-		$actions = array( 'save', 'preset', 'ip_action', 'clear_logs', 'clear_stats', 'clear_verify', 'export', 'import', 'reset', 'early_loader', 'refresh_lists', 'htaccess', 'send_report', 'preview_report' );
+		$actions = array( 'save', 'preset', 'ip_action', 'clear_logs', 'clear_stats', 'clear_verify', 'export', 'import', 'reset', 'refresh_lists', 'htaccess', 'send_report', 'preview_report' );
 		foreach ( $actions as $action ) {
 			add_action( 'admin_post_botctl_' . $action, array( __CLASS__, 'handle_' . $action ) );
 		}
@@ -307,7 +306,8 @@ final class Bot_Control_Admin {
 	public static function handle_save() {
 		self::guard( 'save' );
 		$tab   = isset( $_POST['tab'] ) ? sanitize_key( wp_unslash( $_POST['tab'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Missing -- Nonce verified in self::guard().
-		$input = isset( $_POST['botctl'] ) && is_array( $_POST['botctl'] ) ? wp_unslash( $_POST['botctl'] ) : array(); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.NonceVerification.Missing -- sanitized in sanitize_tab().
+		// Whitelisted, type-cast and sanitized key by key in clean_input(), then validated per field in sanitize_tab().
+		$input = isset( $_POST['botctl'] ) && is_array( $_POST['botctl'] ) ? Bot_Control_Settings::clean_input( wp_unslash( $_POST['botctl'] ) ) : array(); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.NonceVerification.Missing -- Sanitized in clean_input(); nonce verified in self::guard().
 
 		if ( ! in_array( $tab, array( 'rules', 'custom', 'protection', 'robots', 'advanced', 'lists', 'server', 'reports', 'llms' ), true ) ) {
 			self::done( 'dashboard', __( 'Unknown settings section.', 'bot-control' ), 'error' );
@@ -349,7 +349,7 @@ final class Bot_Control_Admin {
 	public static function handle_ip_action() {
 		self::guard( 'ip_action' );
 		$ip   = isset( $_POST['ip'] ) ? Bot_Control_IP::normalize( sanitize_text_field( wp_unslash( $_POST['ip'] ) ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Missing -- Nonce verified in self::guard().
-		$list = isset( $_POST['list'] ) && 'allow' === $_POST['list'] ? 'ip_allowlist' : 'ip_blocklist'; // phpcs:ignore WordPress.Security.NonceVerification.Missing -- Nonce verified in self::guard().
+		$list = isset( $_POST['list'] ) && 'allow' === sanitize_key( wp_unslash( $_POST['list'] ) ) ? 'ip_allowlist' : 'ip_blocklist'; // phpcs:ignore WordPress.Security.NonceVerification.Missing -- Nonce verified in self::guard().
 		$back = isset( $_POST['back'] ) ? sanitize_key( wp_unslash( $_POST['back'] ) ) : 'logs'; // phpcs:ignore WordPress.Security.NonceVerification.Missing -- Nonce verified in self::guard().
 
 		if ( ! Bot_Control_IP::is_valid_ip( $ip ) ) {
@@ -443,15 +443,21 @@ final class Bot_Control_Admin {
 	 */
 	public static function handle_import() {
 		self::guard( 'import' );
-		$raw  = isset( $_POST['json'] ) ? wp_unslash( $_POST['json'] ) : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.NonceVerification.Missing -- decoded and fully sanitized below.
-		$data = json_decode( (string) $raw, true );
+		// The JSON document itself cannot be run through a text sanitizer without corrupting it, so it is
+		// size-checked, decoded, and then every field of the decoded data is whitelisted, type-cast and
+		// sanitized in Bot_Control_Settings::sanitize_import() before anything is stored.
+		$raw = isset( $_POST['json'] ) && is_string( $_POST['json'] ) ? wp_unslash( $_POST['json'] ) : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.NonceVerification.Missing -- Decoded data is sanitized field by field below; nonce verified in self::guard().
+		$settings = null;
+		if ( '' !== $raw && strlen( $raw ) <= 1048576 ) {
+			$settings = Bot_Control_Settings::sanitize_import( json_decode( $raw, true, 16 ) );
+		}
 
-		if ( ! is_array( $data ) || empty( $data['settings'] ) || ! is_array( $data['settings'] ) || ( isset( $data['plugin'] ) && 'bot-control' !== $data['plugin'] ) ) {
+		if ( null === $settings ) {
 			Bot_Control_Logger::debug( 'Admin', 'Import rejected: invalid JSON', array( 'json_error' => json_last_error_msg() ) );
 			self::done( 'tools', __( 'Import failed: this is not a valid Bot Control export.', 'bot-control' ), 'error' );
 		}
 
-		Bot_Control_Settings::update( Bot_Control_Settings::sanitize_all( $data['settings'] ) );
+		Bot_Control_Settings::update( $settings );
 		self::done( 'tools', __( 'Settings imported.', 'bot-control' ) );
 	}
 
@@ -464,25 +470,6 @@ final class Bot_Control_Admin {
 		self::guard( 'reset' );
 		Bot_Control_Settings::reset();
 		self::done( 'tools', __( 'All settings were reset to defaults.', 'bot-control' ) );
-	}
-
-	/**
-	 * Install/remove early loader.
-	 *
-	 * @return void
-	 */
-	public static function handle_early_loader() {
-		self::guard( 'early_loader' );
-		$op = isset( $_POST['op'] ) ? sanitize_key( wp_unslash( $_POST['op'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Missing -- Nonce verified in self::guard().
-		if ( 'remove' === $op ) {
-			Bot_Control_Early_Loader::uninstall();
-			self::done( 'tools', __( 'Early loader removed.', 'bot-control' ) );
-		}
-		$result = Bot_Control_Early_Loader::install();
-		if ( is_wp_error( $result ) ) {
-			self::done( 'tools', $result->get_error_message(), 'error' );
-		}
-		self::done( 'tools', __( 'Early loader installed. Bot Control now runs before all other plugins.', 'bot-control' ) );
 	}
 
 	/**
@@ -529,7 +516,7 @@ final class Bot_Control_Admin {
 	 */
 	public static function handle_htaccess() {
 		self::guard( 'htaccess' );
-		$remove = isset( $_POST['op'] ) && 'remove' === $_POST['op']; // phpcs:ignore WordPress.Security.NonceVerification.Missing -- Nonce verified in self::guard().
+		$remove = isset( $_POST['op'] ) && 'remove' === sanitize_key( wp_unslash( $_POST['op'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing -- Nonce verified in self::guard().
 		$result = Bot_Control_Server_Rules::write_htaccess( null, $remove );
 		if ( is_wp_error( $result ) ) {
 			self::done( 'server', $result->get_error_message(), 'error' );

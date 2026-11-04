@@ -12,7 +12,8 @@ defined( 'ABSPATH' ) || exit;
  */
 final class Bot_Control_Install {
 
-	const DB_OPTION = 'botctl_db_version';
+	const DB_OPTION      = 'botctl_db_version';
+	const VERSION_OPTION = 'botctl_version';
 	const CRON_HOOK  = 'botctl_cleanup';
 	const DAILY_HOOK = 'botctl_daily';
 
@@ -32,7 +33,7 @@ final class Bot_Control_Install {
 	}
 
 	/**
-	 * Deactivation: stop cron and remove the early loader (it checks activation anyway).
+	 * Deactivation: stop cron, remove server rules and any mu-plugin loader left by an older build.
 	 *
 	 * @return void
 	 */
@@ -40,7 +41,7 @@ final class Bot_Control_Install {
 		wp_clear_scheduled_hook( self::CRON_HOOK );
 		wp_clear_scheduled_hook( self::DAILY_HOOK );
 		wp_clear_scheduled_hook( Bot_Control_Reports::CRON );
-		Bot_Control_Early_Loader::uninstall();
+		Bot_Control_Legacy::remove_early_loader();
 		// Server rules must not keep blocking once the plugin is off.
 		if ( Bot_Control_Server_Rules::htaccess_has_rules() ) {
 			Bot_Control_Server_Rules::write_htaccess( null, true );
@@ -56,6 +57,11 @@ final class Bot_Control_Install {
 	public static function maybe_upgrade() {
 		if ( BOTCTL_DB_VERSION !== get_option( self::DB_OPTION ) ) {
 			self::create_tables();
+		}
+		if ( BOTCTL_VERSION !== get_option( self::VERSION_OPTION ) ) {
+			// Once per version change: drop the mu-plugin loader an older build may have created.
+			Bot_Control_Legacy::remove_early_loader();
+			update_option( self::VERSION_OPTION, BOTCTL_VERSION, false );
 		}
 		self::schedule();
 	}

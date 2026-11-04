@@ -78,7 +78,7 @@ Follow these steps in order:
    - If it shows a private address such as `10.x`, `172.16–31.x`, `192.168.x` or `127.0.0.1`, or your hosting provider's IP, you are behind a proxy/CDN. Go to **Advanced → Client IP detection** and pick the right source (usually *Automatic* works, or *Cloudflare* when you use Cloudflare). If your proxy has a public IP, add it under *Additional trusted proxies*.
 2. **Optional: start in Monitor mode.** On **Protection → Mode**, select *Monitor*. For a few days Bot Control logs what it *would* deny without denying anything. Review the **Logs**, then switch back to *Enforce*.
 3. **Choose a preset** on **Bot Rules** (see §5). *Balanced* is right for most sites.
-4. **Install the early loader** (**Tools → Early loader → Install**). It makes Bot Control run before all other plugins, so denied requests cost almost nothing.
+4. **Optional: export server rules** (**Server Rules** tab) so the web server rejects blocked bots before PHP starts. Inside WordPress, Bot Control decides while plugins load, before the theme runs.
 5. **Add your own services to the allow list.** On **Protection → Always allow**, add the IPs of your office, your SEO agency's crawler, or integrations that call your site (ERP, CRM, stock sync). On **Excluded paths**, add payment-gateway callback URLs and webhooks.
 6. **Check robots.txt** (**robots.txt** tab). If a red notice says a physical robots.txt exists, read §8.
 
@@ -90,7 +90,7 @@ That's it. Look at the Dashboard again after a day or two.
 
 **Status cards**
 
-- **Protection:** *Enforcing*, *Monitor only* or *Disabled*, and whether the early loader is active.
+- **Protection:** *Enforcing*, *Monitor only* or *Disabled*.
 - **Rate-limit storage:** where counters are kept.
   - *APCu*: fastest (shared memory).
   - *Object Cache*: Redis/Memcached, fast and shared across servers.
@@ -279,7 +279,6 @@ Retention is set on **Advanced** (default 14 days for the log, 90 days for stati
 ## 10. Tools
 
 - **User-Agent tester:** paste any User-Agent (and optionally an IP) to see the bot, category, policy and, for verified bots, the live DNS verification result. It includes sample User-Agents.
-- **Early loader:** installs `wp-content/mu-plugins/bot-control-early-loader.php`. WordPress loads must-use plugins before regular ones, so denied requests are handled before WooCommerce, page builders and so on load. It is removed automatically when you deactivate Bot Control.
 - **Export / import:** copy your configuration between sites (staging → production, or your standard set-up across client sites).
 - **Maintenance:** clear statistics, clear the DNS verification cache, or reset all settings.
 
@@ -488,7 +487,7 @@ Look in Logs for the integration's IP or User-Agent. Add the IP to *Always allow
 | Reports don't arrive | Install an SMTP plugin; check spam; use **Send report now** to test. |
 | Need details | Enable Debug mode and search the PHP error log for `[BotControl]`. |
 
-Emergency off switch: rename the folder `wp-content/plugins/bot-control` via FTP/file manager. If you installed the early loader, also delete `wp-content/mu-plugins/bot-control-early-loader.php`. (The loader does nothing when the plugin is inactive, so this is optional.) If you wrote server rules to `.htaccess`, also remove the `# BEGIN Bot Control … # END Bot Control` block: renaming the folder does not trigger deactivation.
+Emergency off switch: rename the folder `wp-content/plugins/bot-control` via FTP/file manager. If you wrote server rules to `.htaccess`, also remove the `# BEGIN Bot Control … # END Bot Control` block: renaming the folder does not trigger deactivation.
 
 ---
 

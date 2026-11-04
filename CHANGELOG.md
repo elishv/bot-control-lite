@@ -3,6 +3,12 @@
 All notable changes to Bot Control are documented here.
 Format: [Keep a Changelog](https://keepachangelog.com/). Versioning: [SemVer](https://semver.org/).
 
+## [1.2.0] – 2026-11-05
+WordPress.org review fixes.
+- **Removed: early loader.** No file is ever written to `wp-content/mu-plugins`. A loader created by an older build is deleted on upgrade (admin), deactivation and uninstall, only when its header and guard constant show Bot Control generated it. The firewall still runs when WordPress includes the plugin file, before `plugins_loaded`.
+- **Security:** new `Bot_Control_Request` reads `REQUEST_URI` (`esc_url_raw`), `HTTP_USER_AGENT` (`sanitize_text_field`), `REQUEST_METHOD` (`sanitize_key`) and cookie names (`sanitize_key`) once, sanitized. Settings import: the decoded JSON is whitelisted against known keys, type-cast and sanitized per field (`Bot_Control_Settings::sanitize_import()` / `clean_input()`) before the strict per-tab validation. Admin form input goes through the same `clean_input()`.
+- **i18n:** removed `load_plugin_textdomain()` and the `Domain Path` header; `.po`/`.mo` files are no longer shipped in the WordPress.org zip (translations come from translate.wordpress.org). The `.pot` template stays in the repo.
+
 ## [1.1.1] – 2026-10-31
 - Bundled `data/bots.json` is always used (no download needed); no default remote feed (the old default pointed at a private repo and returned 404).
 - Requires WordPress 6.1.

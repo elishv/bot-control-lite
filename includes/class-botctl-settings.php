@@ -480,6 +480,89 @@ final class Bot_Control_Settings {
 	}
 
 	/**
+	 * First-pass clean-up of raw settings input (admin form or imported JSON).
+	 *
+	 * Only known setting keys are kept. Each value is type-cast to the type of its
+	 * default and sanitized (keys with sanitize_key(), text with sanitize_text_field()
+	 * / sanitize_textarea_field(), the feed URL with esc_url_raw()). sanitize_tab()
+	 * then applies the strict per-field rules (allowed values, ranges, IP/e-mail checks).
+	 *
+	 * @param mixed $input Raw, unslashed input.
+	 * @return array
+	 */
+	public static function clean_input( $input ) {
+		if ( ! is_array( $input ) ) {
+			return array();
+		}
+		$clean = array();
+		foreach ( self::defaults() as $key => $default ) {
+			if ( ! array_key_exists( $key, $input ) ) {
+				continue;
+			}
+			$value = $input[ $key ];
+			if ( is_array( $default ) ) {
+				$clean[ $key ] = is_array( $value ) ? self::clean_deep( $value, 3 ) : array();
+			} elseif ( is_array( $value ) || is_object( $value ) ) {
+				continue; // A scalar setting never accepts an array.
+			} elseif ( is_int( $default ) ) {
+				$clean[ $key ] = (int) $value;
+			} elseif ( is_float( $default ) ) {
+				$clean[ $key ] = (float) $value;
+			} elseif ( 'remote_list_url' === $key ) {
+				$clean[ $key ] = esc_url_raw( trim( (string) $value ) ); // https-only is enforced in sanitize_tab().
+			} else {
+				$clean[ $key ] = sanitize_textarea_field( (string) $value );
+			}
+		}
+		return $clean;
+	}
+
+	/**
+	 * Recursively sanitize a nested settings array (keys and scalar leaves).
+	 *
+	 * @param array $value Raw array.
+	 * @param int   $depth Levels still allowed.
+	 * @return array
+	 */
+	private static function clean_deep( array $value, $depth ) {
+		$out = array();
+		foreach ( $value as $k => $v ) {
+			$k = is_int( $k ) ? $k : sanitize_key( (string) $k );
+			if ( '' === $k ) {
+				continue;
+			}
+			if ( is_array( $v ) ) {
+				if ( $depth > 1 ) {
+					$out[ $k ] = self::clean_deep( $v, $depth - 1 );
+				}
+			} elseif ( is_bool( $v ) || is_int( $v ) || is_float( $v ) ) {
+				$out[ $k ] = $v;
+			} elseif ( is_string( $v ) ) {
+				$out[ $k ] = sanitize_text_field( $v );
+			}
+		}
+		return $out;
+	}
+
+	/**
+	 * Validate and sanitize a decoded settings export (json_decode() output), field by field.
+	 *
+	 * @param mixed $data Decoded JSON.
+	 * @return array|null Sanitized settings, or null when it is not a valid export.
+	 */
+	public static function sanitize_import( $data ) {
+		if ( ! is_array( $data ) || empty( $data['settings'] ) || ! is_array( $data['settings'] ) ) {
+			return null;
+		}
+		// Envelope: only these keys are read; everything else is ignored.
+		$plugin = isset( $data['plugin'] ) && is_string( $data['plugin'] ) ? sanitize_key( $data['plugin'] ) : '';
+		if ( '' !== $plugin && 'bot-control' !== $plugin ) {
+			return null;
+		}
+		return self::sanitize_all( self::clean_input( $data['settings'] ) );
+	}
+
+	/**
 	 * Validate an IP / CIDR list, dropping invalid entries (comments with # are kept).
 	 *
 	 * @param mixed $value Raw textarea.

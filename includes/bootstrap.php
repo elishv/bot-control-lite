@@ -2,9 +2,9 @@
 /**
  * Bootstrap: defines constants, loads classes and runs the firewall as early as possible.
  *
- * This file is loaded either by the main plugin file or, earlier, by the optional
- * mu-plugin "early loader" (see Bot_Control_Early_Loader). require_once guarantees
- * it only ever runs once per request.
+ * Loaded by the main plugin file. WordPress includes active plugins before the
+ * `plugins_loaded` action fires, so running the firewall right here is the earliest
+ * point a regular plugin gets, without writing any file outside its own folder.
  *
  * @package BotControl
  */
@@ -15,12 +15,12 @@ if ( defined( 'BOTCTL_VERSION' ) ) {
 	return;
 }
 
-define( 'BOTCTL_VERSION', '1.1.1' );
+define( 'BOTCTL_VERSION', '1.2.0' );
 define( 'BOTCTL_DB_VERSION', '1' );
 define( 'BOTCTL_DIR', dirname( __DIR__ ) . '/' );
-// The early loader passes the plugin path as WordPress sees it (keeps symlinked installs working).
-define( 'BOTCTL_FILE', defined( 'BOTCTL_PLUGIN_FILE' ) ? BOTCTL_PLUGIN_FILE : BOTCTL_DIR . 'bot-control.php' );
+define( 'BOTCTL_FILE', BOTCTL_DIR . 'bot-control.php' );
 
+require_once BOTCTL_DIR . 'includes/class-botctl-request.php';
 require_once BOTCTL_DIR . 'includes/class-botctl-logger.php';
 require_once BOTCTL_DIR . 'includes/class-botctl-bot-registry.php';
 require_once BOTCTL_DIR . 'includes/class-botctl-settings.php';
@@ -39,7 +39,7 @@ require_once BOTCTL_DIR . 'includes/class-botctl-server-rules.php';
 require_once BOTCTL_DIR . 'includes/class-botctl-reports.php';
 require_once BOTCTL_DIR . 'includes/class-botctl-llms.php';
 require_once BOTCTL_DIR . 'includes/class-botctl-install.php';
-require_once BOTCTL_DIR . 'includes/class-botctl-early-loader.php';
+require_once BOTCTL_DIR . 'includes/class-botctl-legacy.php';
 require_once BOTCTL_DIR . 'includes/class-botctl-plugin.php';
 
 Bot_Control_Plugin::init();

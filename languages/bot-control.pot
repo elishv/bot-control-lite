@@ -2,14 +2,14 @@
 # This file is distributed under the GPL-2.0-or-later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Bot Control – Crawler, AI Agent & Scraper Manager 1.1.1\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/bot-control\n"
+"Project-Id-Version: Bot Control – Crawler, AI Agent & Scraper Manager 1.2.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/bot-control-lite\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-11-01T14:02:38+00:00\n"
+"POT-Creation-Date: 2026-11-04T22:51:21+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: bot-control\n"
@@ -39,142 +39,142 @@ msgstr ""
 msgid "https://a-in.co.il/"
 msgstr ""
 
-#: admin/class-botctl-admin.php:43
+#: admin/class-botctl-admin.php:42
 msgid "Dashboard"
 msgstr ""
 
-#: admin/class-botctl-admin.php:44
+#: admin/class-botctl-admin.php:43
 msgid "Bot Rules"
 msgstr ""
 
-#: admin/class-botctl-admin.php:45
+#: admin/class-botctl-admin.php:44
 msgid "Custom Bots"
 msgstr ""
 
-#: admin/class-botctl-admin.php:46
+#: admin/class-botctl-admin.php:45
 #: admin/views/dashboard.php:37
 msgid "Protection"
 msgstr ""
 
-#: admin/class-botctl-admin.php:47
+#: admin/class-botctl-admin.php:46
 msgid "robots.txt"
 msgstr ""
 
-#: admin/class-botctl-admin.php:48
+#: admin/class-botctl-admin.php:47
 #: admin/views/llms.php:20
 msgid "llms.txt"
 msgstr ""
 
-#: admin/class-botctl-admin.php:49
+#: admin/class-botctl-admin.php:48
 msgid "Bot Lists"
 msgstr ""
 
-#: admin/class-botctl-admin.php:50
+#: admin/class-botctl-admin.php:49
 msgid "Server Rules"
 msgstr ""
 
-#: admin/class-botctl-admin.php:51
+#: admin/class-botctl-admin.php:50
 msgid "Reports"
 msgstr ""
 
-#: admin/class-botctl-admin.php:52
+#: admin/class-botctl-admin.php:51
 msgid "Logs"
 msgstr ""
 
-#: admin/class-botctl-admin.php:53
+#: admin/class-botctl-admin.php:52
 msgid "Tools"
 msgstr ""
 
-#: admin/class-botctl-admin.php:54
+#: admin/class-botctl-admin.php:53
 msgid "Advanced"
 msgstr ""
 
+#: admin/class-botctl-admin.php:64
 #: admin/class-botctl-admin.php:65
-#: admin/class-botctl-admin.php:66
-#: admin/class-botctl-admin.php:142
+#: admin/class-botctl-admin.php:141
 msgid "Bot Control"
 msgstr ""
 
-#: admin/class-botctl-admin.php:92
+#: admin/class-botctl-admin.php:91
 msgid "Are you sure?"
 msgstr ""
 
-#: admin/class-botctl-admin.php:104
+#: admin/class-botctl-admin.php:103
 msgid "Settings"
 msgstr ""
 
-#: admin/class-botctl-admin.php:136
+#: admin/class-botctl-admin.php:135
 msgid "You do not have permission to access this page."
 msgstr ""
 
-#: admin/class-botctl-admin.php:171
+#: admin/class-botctl-admin.php:170
 msgid "Bot Control is disabled."
 msgstr ""
 
-#: admin/class-botctl-admin.php:171
+#: admin/class-botctl-admin.php:170
 msgid "No request is being filtered. Enable it on the Protection tab."
 msgstr ""
 
-#: admin/class-botctl-admin.php:173
+#: admin/class-botctl-admin.php:172
 msgid "Monitor mode:"
 msgstr ""
 
-#: admin/class-botctl-admin.php:173
+#: admin/class-botctl-admin.php:172
 msgid "decisions are logged but nothing is blocked. Switch to Enforce on the Protection tab when you are happy with the results."
 msgstr ""
 
-#: admin/class-botctl-admin.php:176
+#: admin/class-botctl-admin.php:175
 msgid "Bot Control database tables are missing. Deactivate and re-activate the plugin."
 msgstr ""
 
-#: admin/class-botctl-admin.php:192
+#: admin/class-botctl-admin.php:191
 #: includes/class-botctl-reports.php:323
 msgid "Impostors (fake search engines)"
 msgstr ""
 
-#: admin/class-botctl-admin.php:195
+#: admin/class-botctl-admin.php:194
 #: admin/views/protection.php:106
 #: includes/class-botctl-reports.php:326
 msgid "Human visitors"
 msgstr ""
 
-#: admin/class-botctl-admin.php:209
+#: admin/class-botctl-admin.php:208
 msgid "— Category default —"
 msgstr ""
 
-#: admin/class-botctl-admin.php:211
+#: admin/class-botctl-admin.php:210
 msgid "Allow"
 msgstr ""
 
-#: admin/class-botctl-admin.php:212
+#: admin/class-botctl-admin.php:211
 msgid "Rate limit"
 msgstr ""
 
-#: admin/class-botctl-admin.php:213
+#: admin/class-botctl-admin.php:212
 msgid "Block"
 msgstr ""
 
-#: admin/class-botctl-admin.php:225
+#: admin/class-botctl-admin.php:224
 msgid "Blocked (403)"
 msgstr ""
 
-#: admin/class-botctl-admin.php:226
+#: admin/class-botctl-admin.php:225
 msgid "Rate limited (429)"
 msgstr ""
 
-#: admin/class-botctl-admin.php:227
+#: admin/class-botctl-admin.php:226
 msgid "Impostor (403)"
 msgstr ""
 
-#: admin/class-botctl-admin.php:228
+#: admin/class-botctl-admin.php:227
 msgid "Load shed (503)"
 msgstr ""
 
-#: admin/class-botctl-admin.php:229
+#: admin/class-botctl-admin.php:228
 msgid "IP blocked (403)"
 msgstr ""
 
-#: admin/class-botctl-admin.php:280
+#: admin/class-botctl-admin.php:279
 msgid "You do not have permission to do this."
 msgstr ""
 
@@ -228,61 +228,53 @@ msgstr ""
 msgid "Verification cache cleared."
 msgstr ""
 
-#: admin/class-botctl-admin.php:451
+#: admin/class-botctl-admin.php:457
 msgid "Import failed: this is not a valid Bot Control export."
 msgstr ""
 
-#: admin/class-botctl-admin.php:455
+#: admin/class-botctl-admin.php:461
 msgid "Settings imported."
 msgstr ""
 
-#: admin/class-botctl-admin.php:466
+#: admin/class-botctl-admin.php:472
 msgid "All settings were reset to defaults."
 msgstr ""
 
-#: admin/class-botctl-admin.php:479
-msgid "Early loader removed."
-msgstr ""
-
-#: admin/class-botctl-admin.php:485
-msgid "Early loader installed. Bot Control now runs before all other plugins."
-msgstr ""
-
 #. translators: %d: number of bots
-#: admin/class-botctl-admin.php:506
+#: admin/class-botctl-admin.php:493
 #, php-format
 msgid "Bot feed updated: %d bots loaded."
 msgstr ""
 
-#: admin/class-botctl-admin.php:511
+#: admin/class-botctl-admin.php:498
 msgid "Official IP list downloads are off. Turn on \"Download official crawler IP lists\" and save first."
 msgstr ""
 
 #. translators: 1: failed lists, 2: total lists
-#: admin/class-botctl-admin.php:520
+#: admin/class-botctl-admin.php:507
 #, php-format
 msgid "%1$d of %2$d IP lists could not be downloaded. Previous data (if any) is kept – see the table for details."
 msgstr ""
 
-#: admin/class-botctl-admin.php:522
+#: admin/class-botctl-admin.php:509
 msgid "All official IP lists were updated."
 msgstr ""
 
-#: admin/class-botctl-admin.php:537
+#: admin/class-botctl-admin.php:524
 msgid "Bot Control rules removed from .htaccess."
 msgstr ""
 
-#: admin/class-botctl-admin.php:537
+#: admin/class-botctl-admin.php:524
 msgid ".htaccess updated. A backup of the previous file was saved as .htaccess.botctl-backup."
 msgstr ""
 
 #. translators: %s: recipients
-#: admin/class-botctl-admin.php:550
+#: admin/class-botctl-admin.php:537
 #, php-format
 msgid "Report sent to %s."
 msgstr ""
 
-#: admin/class-botctl-admin.php:552
+#: admin/class-botctl-admin.php:539
 msgid "The report could not be sent. Check that your site can send email (an SMTP plugin is recommended)."
 msgstr ""
 
@@ -484,8 +476,8 @@ msgid "Match"
 msgstr ""
 
 #: admin/views/custom.php:79
-#: admin/views/dashboard.php:108
-#: admin/views/dashboard.php:180
+#: admin/views/dashboard.php:106
+#: admin/views/dashboard.php:178
 #: admin/views/rules.php:44
 #: admin/views/tools.php:56
 #: includes/class-botctl-reports.php:260
@@ -542,153 +534,149 @@ msgstr ""
 msgid "Enforcing"
 msgstr ""
 
-#: admin/views/dashboard.php:48
-msgid "Early loader active – runs before all plugins."
+#: admin/views/dashboard.php:47
+msgid "Runs while WordPress loads plugins, before the theme and most of the site start."
 msgstr ""
 
-#: admin/views/dashboard.php:49
-msgid "Runs as a regular plugin. Install the early loader (Tools) to run even earlier."
-msgstr ""
-
-#: admin/views/dashboard.php:55
+#: admin/views/dashboard.php:53
 msgid "Rate-limit storage"
 msgstr ""
 
-#: admin/views/dashboard.php:59
+#: admin/views/dashboard.php:57
 msgid "Ask your host to enable APCu or Redis for the best protection under heavy load."
 msgstr ""
 
-#: admin/views/dashboard.php:65
+#: admin/views/dashboard.php:63
 msgid "Your IP as seen by Bot Control"
 msgstr ""
 
 #. translators: %s: header name
-#: admin/views/dashboard.php:70
+#: admin/views/dashboard.php:68
 #, php-format
 msgid "Source: %s."
 msgstr ""
 
-#: admin/views/dashboard.php:72
+#: admin/views/dashboard.php:70
 msgid "This is a private/proxy address – configure the IP source on the Advanced tab before enabling human rate limiting, or all visitors will share one counter."
 msgstr ""
 
-#: admin/views/dashboard.php:79
+#: admin/views/dashboard.php:77
 msgid "Server load"
 msgstr ""
 
-#: admin/views/dashboard.php:83
+#: admin/views/dashboard.php:81
 msgid "per core"
 msgstr ""
 
 #. translators: 1: load, 2: cores
-#: admin/views/dashboard.php:88
+#: admin/views/dashboard.php:86
 #, php-format
 msgid "Load average %1$s on %2$d CPU cores."
 msgstr ""
 
-#: admin/views/dashboard.php:90
+#: admin/views/dashboard.php:88
 msgid "Load shedding is on."
 msgstr ""
 
-#: admin/views/dashboard.php:90
+#: admin/views/dashboard.php:88
 msgid "Load shedding is off."
 msgstr ""
 
-#: admin/views/dashboard.php:94
+#: admin/views/dashboard.php:92
 msgid "Unavailable"
 msgstr ""
 
-#: admin/views/dashboard.php:95
+#: admin/views/dashboard.php:93
 msgid "The server does not expose its load average or CPU count. Set the CPU core count manually on the Protection tab to enable load shedding."
 msgstr ""
 
-#: admin/views/dashboard.php:102
+#: admin/views/dashboard.php:100
 msgid "Last 7 days by category"
 msgstr ""
 
-#: admin/views/dashboard.php:104
+#: admin/views/dashboard.php:102
 msgid "No bot traffic recorded yet. Statistics appear as soon as bots visit your site."
 msgstr ""
 
-#: admin/views/dashboard.php:109
-#: admin/views/dashboard.php:139
-#: admin/views/dashboard.php:181
+#: admin/views/dashboard.php:107
+#: admin/views/dashboard.php:137
+#: admin/views/dashboard.php:179
 #: admin/views/rules.php:145
 #: includes/class-botctl-reports.php:260
 msgid "Allowed"
 msgstr ""
 
-#: admin/views/dashboard.php:110
-#: admin/views/dashboard.php:140
-#: admin/views/dashboard.php:182
+#: admin/views/dashboard.php:108
+#: admin/views/dashboard.php:138
+#: admin/views/dashboard.php:180
 #: includes/class-botctl-reports.php:260
 msgid "Limited"
 msgstr ""
 
-#: admin/views/dashboard.php:111
-#: admin/views/dashboard.php:141
-#: admin/views/dashboard.php:183
+#: admin/views/dashboard.php:109
+#: admin/views/dashboard.php:139
+#: admin/views/dashboard.php:181
 #: includes/class-botctl-reports.php:260
 msgid "Blocked"
 msgstr ""
 
-#: admin/views/dashboard.php:128
+#: admin/views/dashboard.php:126
 msgid "Last 14 days"
 msgstr ""
 
-#: admin/views/dashboard.php:136
-#: admin/views/dashboard.php:175
+#: admin/views/dashboard.php:134
+#: admin/views/dashboard.php:173
 msgid "No data yet."
 msgstr ""
 
 #. translators: 1: date, 2: allowed, 3: limited, 4: blocked
-#: admin/views/dashboard.php:149
+#: admin/views/dashboard.php:147
 #, php-format
 msgid "%1$s — allowed %2$s, limited %3$s, blocked %4$s"
 msgstr ""
 
-#: admin/views/dashboard.php:173
+#: admin/views/dashboard.php:171
 msgid "Top bots – last 7 days"
 msgstr ""
 
-#: admin/views/dashboard.php:179
+#: admin/views/dashboard.php:177
 #: admin/views/lists.php:34
 #: admin/views/logs.php:78
 #: admin/views/rules.php:98
 msgid "Bot"
 msgstr ""
 
-#: admin/views/dashboard.php:197
+#: admin/views/dashboard.php:195
 msgid "Tip: an unidentified bot with lots of traffic? Add it on the Custom Bots tab to give it its own rule."
 msgstr ""
 
-#: admin/views/dashboard.php:202
+#: admin/views/dashboard.php:200
 msgid "Most denied IPs – last 24 hours"
 msgstr ""
 
-#: admin/views/dashboard.php:204
+#: admin/views/dashboard.php:202
 msgid "Nothing denied in the last 24 hours."
 msgstr ""
 
-#: admin/views/dashboard.php:208
+#: admin/views/dashboard.php:206
 #: admin/views/logs.php:77
 msgid "IP"
 msgstr ""
 
-#: admin/views/dashboard.php:209
+#: admin/views/dashboard.php:207
 msgid "Identified as"
 msgstr ""
 
-#: admin/views/dashboard.php:210
+#: admin/views/dashboard.php:208
 msgid "Logged events"
 msgstr ""
 
-#: admin/views/dashboard.php:221
+#: admin/views/dashboard.php:219
 #: admin/views/logs.php:107
 msgid "Block IP"
 msgstr ""
 
-#: admin/views/dashboard.php:227
+#: admin/views/dashboard.php:225
 msgid "Event logging is throttled (max 3 rows per IP per window), so counts here show activity, not total requests."
 msgstr ""
 
@@ -1432,7 +1420,6 @@ msgid "Apache / LiteSpeed (.htaccess)"
 msgstr ""
 
 #: admin/views/server.php:61
-#: admin/views/tools.php:108
 msgid "Status:"
 msgstr ""
 
@@ -1441,7 +1428,6 @@ msgid "Rules are in .htaccess"
 msgstr ""
 
 #: admin/views/server.php:65
-#: admin/views/tools.php:114
 msgid "Not installed"
 msgstr ""
 
@@ -1558,62 +1544,38 @@ msgid "Reverse DNS must end in: %s"
 msgstr ""
 
 #: admin/views/tools.php:105
-msgid "Early loader (recommended)"
-msgstr ""
-
-#: admin/views/tools.php:106
-msgid "Installs a tiny file in wp-content/mu-plugins so Bot Control runs before every other plugin. Denied requests then cost almost nothing – WooCommerce, page builders etc. are never loaded for them."
-msgstr ""
-
-#: admin/views/tools.php:110
-msgid "Installed and active"
-msgstr ""
-
-#: admin/views/tools.php:112
-msgid "Installed (active from the next request)"
-msgstr ""
-
-#: admin/views/tools.php:119
-msgid "Remove early loader"
-msgstr ""
-
-#: admin/views/tools.php:123
-msgid "Install early loader"
-msgstr ""
-
-#: admin/views/tools.php:129
 msgid "Export / import settings"
 msgstr ""
 
-#: admin/views/tools.php:130
+#: admin/views/tools.php:106
 msgid "Move your configuration between sites (e.g. staging → production, or across client sites)."
 msgstr ""
 
-#: admin/views/tools.php:132
+#: admin/views/tools.php:108
 msgid "Download settings (JSON)"
 msgstr ""
 
-#: admin/views/tools.php:135
+#: admin/views/tools.php:111
 msgid "Paste exported JSON here"
 msgstr ""
 
-#: admin/views/tools.php:136
+#: admin/views/tools.php:112
 msgid "Import settings"
 msgstr ""
 
-#: admin/views/tools.php:142
+#: admin/views/tools.php:118
 msgid "Maintenance"
 msgstr ""
 
-#: admin/views/tools.php:145
+#: admin/views/tools.php:121
 msgid "Clear statistics"
 msgstr ""
 
-#: admin/views/tools.php:148
+#: admin/views/tools.php:124
 msgid "Clear DNS verification cache"
 msgstr ""
 
-#: admin/views/tools.php:151
+#: admin/views/tools.php:127
 msgid "Reset all settings to defaults"
 msgstr ""
 
@@ -1711,14 +1673,6 @@ msgstr ""
 
 #: includes/class-botctl-bot-registry.php:110
 msgid "Requests with no User-Agent at all – almost always crude scripts."
-msgstr ""
-
-#: includes/class-botctl-early-loader.php:57
-msgid "Could not create the mu-plugins directory. Check file permissions."
-msgstr ""
-
-#: includes/class-botctl-early-loader.php:87
-msgid "Could not write the early loader file. Check that wp-content/mu-plugins is writable."
 msgstr ""
 
 #: includes/class-botctl-remote-list.php:185
@@ -1893,7 +1847,7 @@ msgid "An invalid email address was skipped."
 msgstr ""
 
 #. translators: %s: entry
-#: includes/class-botctl-settings.php:503
+#: includes/class-botctl-settings.php:586
 #, php-format
 msgid "Invalid IP/CIDR skipped: %s"
 msgstr ""
