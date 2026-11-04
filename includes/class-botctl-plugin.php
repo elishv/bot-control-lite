@@ -2,7 +2,7 @@
 /**
  * Wires everything together.
  *
- * @package BotControl
+ * @package AllInCrawlerAIAgentManager
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -23,7 +23,6 @@ final class Bot_Control_Plugin {
 
 		add_action( Bot_Control_Install::CRON_HOOK, array( 'Bot_Control_Install', 'cleanup' ) );
 		add_action( Bot_Control_Install::DAILY_HOOK, array( 'Bot_Control_Install', 'daily' ) );
-		add_action( 'init', array( __CLASS__, 'load_textdomain' ) );
 
 		Bot_Control_Robots::init();
 		Bot_Control_Llms::init();
@@ -34,14 +33,5 @@ final class Bot_Control_Plugin {
 			require_once BOTCTL_DIR . 'admin/class-botctl-admin.php';
 			Bot_Control_Admin::init();
 		}
-	}
-
-	/**
-	 * Translations.
-	 *
-	 * @return void
-	 */
-	public static function load_textdomain() {
-		load_plugin_textdomain( 'bot-control', false, dirname( plugin_basename( BOTCTL_FILE ) ) . '/languages' );
 	}
 }

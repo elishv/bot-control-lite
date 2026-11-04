@@ -2,7 +2,7 @@
 /**
  * Remote bot-list feed.
  *
- * New bots appear every month. Instead of waiting for a plugin release, Bot Control
+ * New bots appear every month. Instead of waiting for a plugin release, All-IN Crawler & AI Agent Manager
  * ships extra bot definitions in data/bots.json (bundled, always used, no network
  * request) and can optionally download more daily from a JSON feed URL that the
  * site owner enters (an agency feed, or a commercial feed that needs an access key).
@@ -25,7 +25,7 @@
  *  - A pattern is rejected if it is shorter than 3 characters or matches any
  *    common real browser User-Agent (so a feed can't turn visitors into "bots").
  *
- * @package BotControl
+ * @package AllInCrawlerAIAgentManager
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -182,7 +182,7 @@ final class Bot_Control_Remote_List {
 	 */
 	public static function download( $url, $key = '' ) {
 		if ( 0 !== strpos( $url, 'https://' ) || ! wp_http_validate_url( $url ) ) {
-			return new WP_Error( 'botctl_feed_url', __( 'The feed URL must be a valid https:// address.', 'bot-control' ) );
+			return new WP_Error( 'botctl_feed_url', __( 'The feed URL must be a valid https:// address.', 'all-in-crawler-ai-agent-manager' ) );
 		}
 		$headers = array( 'Accept' => 'application/json' );
 		if ( '' !== $key ) {
@@ -193,7 +193,7 @@ final class Bot_Control_Remote_List {
 			array(
 				'timeout'    => 15,
 				'headers'    => $headers,
-				'user-agent' => 'BotControl/' . BOTCTL_VERSION . '; ' . home_url( '/' ),
+				'user-agent' => 'all-in-crawler-ai-agent-manager/' . BOTCTL_VERSION . '; ' . home_url( '/' ),
 			)
 		);
 		if ( is_wp_error( $response ) ) {
@@ -202,7 +202,7 @@ final class Bot_Control_Remote_List {
 		$code = (int) wp_remote_retrieve_response_code( $response );
 		if ( 200 !== $code ) {
 			/* translators: %d: HTTP status code */
-			return new WP_Error( 'botctl_feed_http', sprintf( __( 'The feed returned HTTP %d.', 'bot-control' ), $code ) );
+			return new WP_Error( 'botctl_feed_http', sprintf( __( 'The feed returned HTTP %d.', 'all-in-crawler-ai-agent-manager' ), $code ) );
 		}
 		return self::validate( json_decode( wp_remote_retrieve_body( $response ), true ) );
 	}
@@ -215,7 +215,7 @@ final class Bot_Control_Remote_List {
 	 */
 	public static function validate( $data ) {
 		if ( ! is_array( $data ) || ! isset( $data['bots'] ) || ! is_array( $data['bots'] ) ) {
-			return new WP_Error( 'botctl_feed_format', __( 'The feed is not valid Bot Control JSON.', 'bot-control' ) );
+			return new WP_Error( 'botctl_feed_format', __( 'The feed is not valid All-IN Crawler & AI Agent Manager JSON.', 'all-in-crawler-ai-agent-manager' ) );
 		}
 
 		$builtin    = Bot_Control_Bot_Registry::builtin();

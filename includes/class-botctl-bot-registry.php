@@ -15,7 +15,7 @@
  *
  * Order matters: the first matching bot wins, so more specific entries come first.
  *
- * @package BotControl
+ * @package AllInCrawlerAIAgentManager
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -62,52 +62,52 @@ final class Bot_Control_Bot_Registry {
 	public static function categories() {
 		return array(
 			'search_engine' => array(
-				'label'       => __( 'Search engines', 'bot-control' ),
-				'description' => __( 'Google, Bing, Apple, Yandex, DuckDuckGo… Your organic traffic depends on them. Blocking them removes you from search results.', 'bot-control' ),
+				'label'       => __( 'Search engines', 'all-in-crawler-ai-agent-manager' ),
+				'description' => __( 'Google, Bing, Apple, Yandex, DuckDuckGo… Your organic traffic depends on them. Blocking them removes you from search results.', 'all-in-crawler-ai-agent-manager' ),
 			),
 			'ai_search'     => array(
-				'label'       => __( 'AI search & assistants', 'bot-control' ),
-				'description' => __( 'Bots that fetch pages to answer a user question in ChatGPT, Claude, Perplexity etc. They cite and link to you – this is your AI visibility (AIO/GEO).', 'bot-control' ),
+				'label'       => __( 'AI search & assistants', 'all-in-crawler-ai-agent-manager' ),
+				'description' => __( 'Bots that fetch pages to answer a user question in ChatGPT, Claude, Perplexity etc. They cite and link to you – this is your AI visibility (AIO/GEO).', 'all-in-crawler-ai-agent-manager' ),
 			),
 			'ai_training'   => array(
-				'label'       => __( 'AI training crawlers', 'bot-control' ),
-				'description' => __( 'Bulk crawlers collecting content to train AI models (GPTBot, ClaudeBot, CCBot, Bytespider…). Blocking them does NOT remove you from AI search answers.', 'bot-control' ),
+				'label'       => __( 'AI training crawlers', 'all-in-crawler-ai-agent-manager' ),
+				'description' => __( 'Bulk crawlers collecting content to train AI models (GPTBot, ClaudeBot, CCBot, Bytespider…). Blocking them does NOT remove you from AI search answers.', 'all-in-crawler-ai-agent-manager' ),
 			),
 			'seo_tool'      => array(
-				'label'       => __( 'SEO & marketing tools', 'bot-control' ),
-				'description' => __( 'Ahrefs, Semrush, Majestic, Moz… Heavy crawlers. Your backlink data in those tools comes from them; competitors use them to analyse you.', 'bot-control' ),
+				'label'       => __( 'SEO & marketing tools', 'all-in-crawler-ai-agent-manager' ),
+				'description' => __( 'Ahrefs, Semrush, Majestic, Moz… Heavy crawlers. Your backlink data in those tools comes from them; competitors use them to analyse you.', 'all-in-crawler-ai-agent-manager' ),
 			),
 			'social'        => array(
-				'label'       => __( 'Social link previews', 'bot-control' ),
-				'description' => __( 'Facebook, X/Twitter, LinkedIn, WhatsApp, Slack, Telegram… They build the preview card when someone shares your link. Keep allowed.', 'bot-control' ),
+				'label'       => __( 'Social link previews', 'all-in-crawler-ai-agent-manager' ),
+				'description' => __( 'Facebook, X/Twitter, LinkedIn, WhatsApp, Slack, Telegram… They build the preview card when someone shares your link. Keep allowed.', 'all-in-crawler-ai-agent-manager' ),
 			),
 			'monitoring'    => array(
-				'label'       => __( 'Monitoring & site management', 'bot-control' ),
-				'description' => __( 'Uptime monitors, Jetpack, ManageWP, performance tools you probably use yourself.', 'bot-control' ),
+				'label'       => __( 'Monitoring & site management', 'all-in-crawler-ai-agent-manager' ),
+				'description' => __( 'Uptime monitors, Jetpack, ManageWP, performance tools you probably use yourself.', 'all-in-crawler-ai-agent-manager' ),
 			),
 			'feed_reader'   => array(
-				'label'       => __( 'Feed readers', 'bot-control' ),
-				'description' => __( 'RSS readers (Feedly, Inoreader…) delivering your posts to subscribers.', 'bot-control' ),
+				'label'       => __( 'Feed readers', 'all-in-crawler-ai-agent-manager' ),
+				'description' => __( 'RSS readers (Feedly, Inoreader…) delivering your posts to subscribers.', 'all-in-crawler-ai-agent-manager' ),
 			),
 			'archiver'      => array(
-				'label'       => __( 'Web archives', 'bot-control' ),
-				'description' => __( 'Internet Archive (Wayback Machine) and similar.', 'bot-control' ),
+				'label'       => __( 'Web archives', 'all-in-crawler-ai-agent-manager' ),
+				'description' => __( 'Internet Archive (Wayback Machine) and similar.', 'all-in-crawler-ai-agent-manager' ),
 			),
 			'scripts'       => array(
-				'label'       => __( 'Scripts, HTTP libraries & headless browsers', 'bot-control' ),
-				'description' => __( 'curl, python-requests, Go, Java, Scrapy, headless Chrome… Mostly scrapers, but also some legitimate integrations – rate-limit rather than block.', 'bot-control' ),
+				'label'       => __( 'Scripts, HTTP libraries & headless browsers', 'all-in-crawler-ai-agent-manager' ),
+				'description' => __( 'curl, python-requests, Go, Java, Scrapy, headless Chrome… Mostly scrapers, but also some legitimate integrations – rate-limit rather than block.', 'all-in-crawler-ai-agent-manager' ),
 			),
 			'bad_bot'       => array(
-				'label'       => __( 'Vulnerability scanners & known bad bots', 'bot-control' ),
-				'description' => __( 'sqlmap, Nikto, WPScan, Nuclei, masscan… Nothing good comes from them.', 'bot-control' ),
+				'label'       => __( 'Vulnerability scanners & known bad bots', 'all-in-crawler-ai-agent-manager' ),
+				'description' => __( 'sqlmap, Nikto, WPScan, Nuclei, masscan… Nothing good comes from them.', 'all-in-crawler-ai-agent-manager' ),
 			),
 			'unknown_bot'   => array(
-				'label'       => __( 'Unidentified bots', 'bot-control' ),
-				'description' => __( 'User-Agents that look like a bot (contain "bot", "crawler", "spider"…) but are not in the database.', 'bot-control' ),
+				'label'       => __( 'Unidentified bots', 'all-in-crawler-ai-agent-manager' ),
+				'description' => __( 'User-Agents that look like a bot (contain "bot", "crawler", "spider"…) but are not in the database.', 'all-in-crawler-ai-agent-manager' ),
 			),
 			'no_ua'         => array(
-				'label'       => __( 'Empty User-Agent', 'bot-control' ),
-				'description' => __( 'Requests with no User-Agent at all – almost always crude scripts.', 'bot-control' ),
+				'label'       => __( 'Empty User-Agent', 'all-in-crawler-ai-agent-manager' ),
+				'description' => __( 'Requests with no User-Agent at all – almost always crude scripts.', 'all-in-crawler-ai-agent-manager' ),
 			),
 		);
 	}

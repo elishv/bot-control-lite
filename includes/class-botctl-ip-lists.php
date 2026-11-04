@@ -5,13 +5,13 @@
  * Vendors publish their crawler IP ranges as JSON in a common format:
  *   { "creationTime": "...", "prefixes": [ { "ipv4Prefix": "1.2.3.0/24" }, { "ipv6Prefix": "2001:db8::/32" } ] }
  *
- * The lists are refreshed daily. They let Bot Control verify bots that have no
+ * The lists are refreshed daily. They let All-IN Crawler & AI Agent Manager verify bots that have no
  * reverse DNS (OpenAI, Perplexity) and skip the DNS lookup for listed IPs.
  *
  * Safety: a bot's lists are only used while ALL of its lists are fresh (fetched
  * within 7 days). Stale lists never cause a genuine bot to be flagged as an impostor.
  *
- * @package BotControl
+ * @package AllInCrawlerAIAgentManager
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -180,7 +180,7 @@ final class Bot_Control_IP_Lists {
 			$url,
 			array(
 				'timeout'    => 15,
-				'user-agent' => 'BotControl/' . BOTCTL_VERSION, // No site URL: the readme promises no site data is sent to the list publishers.
+				'user-agent' => 'all-in-crawler-ai-agent-manager/' . BOTCTL_VERSION, // No site URL: the readme promises no site data is sent to the list publishers.
 			)
 		);
 		if ( is_wp_error( $response ) ) {

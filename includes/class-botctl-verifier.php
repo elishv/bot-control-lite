@@ -6,7 +6,7 @@
  * Results are cached (object cache + database) so DNS is only queried once per IP:
  * verified/failed for 7 days, "unknown" (no PTR record) for 1 hour.
  *
- * @package BotControl
+ * @package AllInCrawlerAIAgentManager
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -206,11 +206,11 @@ final class Bot_Control_Verifier {
 	public static function label( $status ) {
 		switch ( (int) $status ) {
 			case self::VERIFIED:
-				return __( 'Verified', 'bot-control' );
+				return __( 'Verified', 'all-in-crawler-ai-agent-manager' );
 			case self::FAILED:
-				return __( 'Impostor (not genuine)', 'bot-control' );
+				return __( 'Impostor (not genuine)', 'all-in-crawler-ai-agent-manager' );
 			default:
-				return __( 'Unverified (no reverse DNS)', 'bot-control' );
+				return __( 'Unverified (no reverse DNS)', 'all-in-crawler-ai-agent-manager' );
 		}
 	}
 }

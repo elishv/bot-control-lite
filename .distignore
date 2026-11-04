@@ -10,3 +10,14 @@ README.md
 node_modules
 build
 *.zip
+# Translations come from translate.wordpress.org; never ship compiled/translated files.
+*.po
+*.mo
+*.l10n.php
+languages/*.json
+tests
+phpcs.xml.dist
+composer.json
+composer.lock
+vendor
+bin

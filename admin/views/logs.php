@@ -2,7 +2,7 @@
 /**
  * Logs tab.
  *
- * @package BotControl
+ * @package AllInCrawlerAIAgentManager
  * @var array $s Settings.
  */
 
@@ -44,11 +44,11 @@ $botctl_allow = Bot_Control_IP::parse_list( $s['ip_allowlist'] );
 $botctl_block = Bot_Control_IP::parse_list( $s['ip_blocklist'] );
 ?>
 <div class="botctl-panel">
-	<h2><?php esc_html_e( 'Denied requests', 'bot-control' ); ?></h2>
+	<h2><?php esc_html_e( 'Denied requests', 'all-in-crawler-ai-agent-manager' ); ?></h2>
 	<p class="description">
-		<?php esc_html_e( 'Every denied request is counted in the statistics, but the log keeps at most 3 rows per IP and action per window, so a bot hammering the site cannot flood your database.', 'bot-control' ); ?>
+		<?php esc_html_e( 'Every denied request is counted in the statistics, but the log keeps at most 3 rows per IP and action per window, so a bot hammering the site cannot flood your database.', 'all-in-crawler-ai-agent-manager' ); ?>
 		<?php if ( empty( $s['log_enabled'] ) ) : ?>
-			<strong class="botctl-bad"><?php esc_html_e( 'Logging is currently disabled (Advanced tab).', 'bot-control' ); ?></strong>
+			<strong class="botctl-bad"><?php esc_html_e( 'Logging is currently disabled (Advanced tab).', 'all-in-crawler-ai-agent-manager' ); ?></strong>
 		<?php endif; ?>
 	</p>
 
@@ -56,34 +56,34 @@ $botctl_block = Bot_Control_IP::parse_list( $s['ip_blocklist'] );
 		<input type="hidden" name="page" value="<?php echo esc_attr( Bot_Control_Admin::SLUG ); ?>">
 		<input type="hidden" name="tab" value="logs">
 		<select name="log_action">
-			<option value=""><?php esc_html_e( 'All actions', 'bot-control' ); ?></option>
+			<option value=""><?php esc_html_e( 'All actions', 'all-in-crawler-ai-agent-manager' ); ?></option>
 			<?php foreach ( array( 'blocked', 'limited', 'impostor', 'shed', 'ip_blocked' ) as $botctl_a ) : ?>
 				<option value="<?php echo esc_attr( $botctl_a ); ?>" <?php selected( $botctl_action, $botctl_a ); ?>><?php echo esc_html( Bot_Control_Admin::action_label( $botctl_a ) ); ?></option>
 			<?php endforeach; ?>
 		</select>
-		<input type="search" name="log_ip" value="<?php echo esc_attr( $botctl_search ); ?>" placeholder="<?php esc_attr_e( 'IP, bot or User-Agent…', 'bot-control' ); ?>">
-		<button class="button"><?php esc_html_e( 'Filter', 'bot-control' ); ?></button>
+		<input type="search" name="log_ip" value="<?php echo esc_attr( $botctl_search ); ?>" placeholder="<?php esc_attr_e( 'IP, bot or User-Agent…', 'all-in-crawler-ai-agent-manager' ); ?>">
+		<button class="button"><?php esc_html_e( 'Filter', 'all-in-crawler-ai-agent-manager' ); ?></button>
 		<span class="botctl-count">
 		<?php
 		/* translators: %s: number of rows */
-		printf( esc_html__( '%s entries', 'bot-control' ), esc_html( number_format_i18n( $botctl_total ) ) );
+		printf( esc_html__( '%s entries', 'all-in-crawler-ai-agent-manager' ), esc_html( number_format_i18n( $botctl_total ) ) );
 		?>
 		</span>
 	</form>
 
 	<table class="widefat striped botctl-log">
 		<thead><tr>
-			<th><?php esc_html_e( 'Time', 'bot-control' ); ?></th>
-			<th><?php esc_html_e( 'IP', 'bot-control' ); ?></th>
-			<th><?php esc_html_e( 'Bot', 'bot-control' ); ?></th>
-			<th><?php esc_html_e( 'Action', 'bot-control' ); ?></th>
-			<th><?php esc_html_e( 'Request', 'bot-control' ); ?></th>
-			<th><?php esc_html_e( 'User-Agent', 'bot-control' ); ?></th>
+			<th><?php esc_html_e( 'Time', 'all-in-crawler-ai-agent-manager' ); ?></th>
+			<th><?php esc_html_e( 'IP', 'all-in-crawler-ai-agent-manager' ); ?></th>
+			<th><?php esc_html_e( 'Bot', 'all-in-crawler-ai-agent-manager' ); ?></th>
+			<th><?php esc_html_e( 'Action', 'all-in-crawler-ai-agent-manager' ); ?></th>
+			<th><?php esc_html_e( 'Request', 'all-in-crawler-ai-agent-manager' ); ?></th>
+			<th><?php esc_html_e( 'User-Agent', 'all-in-crawler-ai-agent-manager' ); ?></th>
 			<th></th>
 		</tr></thead>
 		<tbody>
 		<?php if ( empty( $botctl_rows ) ) : ?>
-			<tr><td colspan="7"><?php esc_html_e( 'No entries.', 'bot-control' ); ?></td></tr>
+			<tr><td colspan="7"><?php esc_html_e( 'No entries.', 'all-in-crawler-ai-agent-manager' ); ?></td></tr>
 		<?php endif; ?>
 		<?php foreach ( $botctl_rows as $botctl_row ) : ?>
 			<tr>
@@ -96,7 +96,7 @@ $botctl_block = Bot_Control_IP::parse_list( $s['ip_blocklist'] );
 				<td>
 					<span class="botctl-pill botctl-pill-<?php echo esc_attr( 'limited' === $botctl_row['action'] || 'shed' === $botctl_row['action'] ? 'limit' : 'block' ); ?>"><?php echo esc_html( Bot_Control_Admin::action_label( $botctl_row['action'] ) ); ?></span>
 					<?php if ( ! (int) $botctl_row['enforced'] ) : ?>
-						<br><em class="description"><?php esc_html_e( 'monitor only', 'bot-control' ); ?></em>
+						<br><em class="description"><?php esc_html_e( 'monitor only', 'all-in-crawler-ai-agent-manager' ); ?></em>
 					<?php endif; ?>
 				</td>
 				<td class="botctl-uri"><code><?php echo esc_html( $botctl_row['method'] . ' ' . $botctl_row['uri'] ); ?></code></td>
@@ -104,11 +104,11 @@ $botctl_block = Bot_Control_IP::parse_list( $s['ip_blocklist'] );
 				<td class="botctl-actions">
 					<?php if ( ! in_array( $botctl_row['ip'], $botctl_block, true ) ) : ?>
 						<?php Bot_Control_Admin::form_open( 'ip_action', array( 'ip' => $botctl_row['ip'], 'list' => 'block', 'back' => 'logs' ), 'botctl-inline' ); ?>
-						<button class="button button-small botctl-confirm"><?php esc_html_e( 'Block IP', 'bot-control' ); ?></button></form>
+						<button class="button button-small botctl-confirm"><?php esc_html_e( 'Block IP', 'all-in-crawler-ai-agent-manager' ); ?></button></form>
 					<?php endif; ?>
 					<?php if ( ! in_array( $botctl_row['ip'], $botctl_allow, true ) ) : ?>
 						<?php Bot_Control_Admin::form_open( 'ip_action', array( 'ip' => $botctl_row['ip'], 'list' => 'allow', 'back' => 'logs' ), 'botctl-inline' ); ?>
-						<button class="button button-small botctl-confirm"><?php esc_html_e( 'Allow IP', 'bot-control' ); ?></button></form>
+						<button class="button button-small botctl-confirm"><?php esc_html_e( 'Allow IP', 'all-in-crawler-ai-agent-manager' ); ?></button></form>
 					<?php endif; ?>
 				</td>
 			</tr>
@@ -134,6 +134,6 @@ $botctl_block = Bot_Control_IP::parse_list( $s['ip_blocklist'] );
 	<?php endif; ?>
 
 	<?php Bot_Control_Admin::form_open( 'clear_logs' ); ?>
-		<p><button class="button botctl-confirm"><?php esc_html_e( 'Clear log', 'bot-control' ); ?></button></p>
+		<p><button class="button botctl-confirm"><?php esc_html_e( 'Clear log', 'all-in-crawler-ai-agent-manager' ); ?></button></p>
 	</form>
 </div>

@@ -1,6 +1,6 @@
-# Bot Control – User Manual
+# All-IN Crawler & AI Agent Manager – User Manual
 
-**Plugin:** Bot Control – Crawler, AI Agent & Scraper Manager
+**Plugin:** All-IN Crawler & AI Agent Manager
 **Version:** 1.1.1
 **Author:** Eli Shvarzman
 
@@ -10,7 +10,7 @@ This manual is for site owners, marketers and agencies. You don't need to be a d
 
 ## Contents
 
-1. [What Bot Control does](#1-what-bot-control-does)
+1. [What All-IN Crawler & AI Agent Manager does](#1-what-all-in-crawler--ai-agent-manager-does)
 2. [Installation](#2-installation)
 3. [First-time setup (10 minutes)](#3-first-time-setup-10-minutes)
 4. [The Dashboard](#4-the-dashboard)
@@ -34,13 +34,13 @@ This manual is for site owners, marketers and agencies. You don't need to be a d
 
 ---
 
-## 1. What Bot Control does
+## 1. What All-IN Crawler & AI Agent Manager does
 
 Much of the traffic to a typical website comes from bots, not people. Some bots are essential (Google, Bing, social-media previews), some bring new visibility (ChatGPT, Claude, Perplexity), and some only consume resources (aggressive AI training crawlers, SEO tools, scrapers, vulnerability scanners).
 
-Bot Control lets you:
+All-IN Crawler & AI Agent Manager lets you:
 
-| You want to… | Bot Control… |
+| You want to… | All-IN Crawler & AI Agent Manager… |
 |---|---|
 | Choose who may access the site | Recognises ~120 known bots in 12 categories and applies **Allow**, **Rate limit** or **Block** per category or per bot. |
 | Stop bots overloading the site | Limits requests per minute per bot (or per IP). Returns `429 Too Many Requests` + `Retry-After`, the standard "slow down" signal. |
@@ -60,7 +60,7 @@ Bot Control lets you:
 
 1. Download the plugin as a ZIP (from GitHub: *Code → Download ZIP*).
 2. In WordPress go to **Plugins → Add New → Upload Plugin**, choose the ZIP, click **Install Now**, then **Activate**.
-3. A new **Bot Control** menu item (shield icon) appears in the admin sidebar.
+3. A new **All-IN Crawler & AI Agent Manager** menu item (shield icon) appears in the admin sidebar.
 
 **Requirements:** WordPress 6.1+, PHP 7.4+, MySQL 5.7+/MariaDB 10.3+.
 **Recommended:** APCu or Redis/Memcached (persistent object cache) for the fastest rate limiting.
@@ -73,12 +73,12 @@ On activation the plugin creates four small database tables and starts in **Enfo
 
 Follow these steps in order:
 
-1. **Check your IP detection.** Open **Bot Control → Dashboard** and look at *"Your IP as seen by Bot Control"*.
+1. **Check your IP detection.** Open **All-IN Crawler → Dashboard** and look at *"Your IP as seen by All-IN Crawler & AI Agent Manager"*.
    - If it shows **your real public IP** (compare with any "what is my IP" site) → good.
    - If it shows a private address such as `10.x`, `172.16–31.x`, `192.168.x` or `127.0.0.1`, or your hosting provider's IP, you are behind a proxy/CDN. Go to **Advanced → Client IP detection** and pick the right source (usually *Automatic* works, or *Cloudflare* when you use Cloudflare). If your proxy has a public IP, add it under *Additional trusted proxies*.
-2. **Optional: start in Monitor mode.** On **Protection → Mode**, select *Monitor*. For a few days Bot Control logs what it *would* deny without denying anything. Review the **Logs**, then switch back to *Enforce*.
+2. **Optional: start in Monitor mode.** On **Protection → Mode**, select *Monitor*. For a few days All-IN Crawler & AI Agent Manager logs what it *would* deny without denying anything. Review the **Logs**, then switch back to *Enforce*.
 3. **Choose a preset** on **Bot Rules** (see §5). *Balanced* is right for most sites.
-4. **Install the early loader** (**Tools → Early loader → Install**). It makes Bot Control run before all other plugins, so denied requests cost almost nothing.
+4. **Optional: export server rules** (**Server Rules** tab) so the web server rejects blocked bots before PHP starts. Inside WordPress, All-IN Crawler & AI Agent Manager decides while plugins load, before the theme runs.
 5. **Add your own services to the allow list.** On **Protection → Always allow**, add the IPs of your office, your SEO agency's crawler, or integrations that call your site (ERP, CRM, stock sync). On **Excluded paths**, add payment-gateway callback URLs and webhooks.
 6. **Check robots.txt** (**robots.txt** tab). If a red notice says a physical robots.txt exists, read §8.
 
@@ -90,7 +90,7 @@ That's it. Look at the Dashboard again after a day or two.
 
 **Status cards**
 
-- **Protection:** *Enforcing*, *Monitor only* or *Disabled*, and whether the early loader is active.
+- **Protection:** *Enforcing*, *Monitor only* or *Disabled*.
 - **Rate-limit storage:** where counters are kept.
   - *APCu*: fastest (shared memory).
   - *Object Cache*: Redis/Memcached, fast and shared across servers.
@@ -189,7 +189,7 @@ Custom bots are checked **before** the built-in list, so they always win. Use **
 
 ### 7.1 General
 
-- **Enable Bot Control**: master switch.
+- **Enable All-IN Crawler & AI Agent Manager**: master switch.
 - **Mode**
   - *Enforce*: deny requests according to the rules.
   - *Monitor*: log only. The Logs show "monitor only" entries, and nothing is denied.
@@ -197,7 +197,7 @@ Custom bots are checked **before** the built-in list, so they always win. Use **
 
 ### 7.2 Fake search-engine protection
 
-Scrapers often pretend to be Googlebot because most sites let Google in. Bot Control checks the claim like this:
+Scrapers often pretend to be Googlebot because most sites let Google in. All-IN Crawler & AI Agent Manager checks the claim like this:
 
 1. It looks up the hostname of the IP (reverse DNS), e.g. `crawl-66-249-66-1.googlebot.com`.
 2. It checks that the hostname belongs to the vendor (`googlebot.com` / `google.com`).
@@ -225,7 +225,7 @@ Google and Bing treat a short-lived 503 as "try again later". It does not hurt r
 
 This is off by default. It limits page requests per IP for visitors that look like normal browsers, which catches scrapers that disguise themselves as Chrome.
 
-- **Before enabling it, check the Dashboard IP (§3 step 1).** If Bot Control sees your proxy's IP instead of visitors' IPs, all visitors would share one counter.
+- **Before enabling it, check the Dashboard IP (§3 step 1).** If All-IN Crawler & AI Agent Manager sees your proxy's IP instead of visitors' IPs, all visitors would share one counter.
 - Logged-in users are never limited.
 - Static files (images, CSS, JS) are normally served without WordPress and are not counted.
 - Keep the limit generous (120/min or more). Offices, schools and mobile networks put many people behind one IP.
@@ -245,14 +245,14 @@ Your own server (loopback requests, WP-Cron spawns, Site Health) is always allow
 Well-behaved bots (all major search engines and AI companies) read `robots.txt` before crawling. Telling them *Disallow* means they never send those requests, which is cheaper than blocking them one by one. Bad bots ignore robots.txt, which is why the firewall exists too.
 
 - **Manage robots.txt**: adds `User-agent: X / Disallow: /` for every bot whose effective policy is *Block*. This includes the robots-only tokens **Google-Extended** and **Applebot-Extended**.
-- **Crawl-delay**: for rate-limited bots, adds `Crawl-delay: N` so polite bots (Bing, Yandex, most SEO tools) slow down to your limit instead of running into 429s. Google ignores Crawl-delay, so Bot Control never adds a Google group. It only adds a delay of 2 seconds or more.
+- **Crawl-delay**: for rate-limited bots, adds `Crawl-delay: N` so polite bots (Bing, Yandex, most SEO tools) slow down to your limit instead of running into 429s. Google ignores Crawl-delay, so All-IN Crawler & AI Agent Manager never adds a Google group. It only adds a delay of 2 seconds or more.
 
 > **Why do the Crawl-delay groups repeat my `User-agent: *` rules?**
-> A bot that finds a group with its own name *ignores* the `*` group. Without the copy, adding a Crawl-delay for Bingbot would silently allow Bing into `/wp-admin/`. Bot Control copies the `*` rules for you.
+> A bot that finds a group with its own name *ignores* the `*` group. Without the copy, adding a Crawl-delay for Bingbot would silently allow Bing into `/wp-admin/`. All-IN Crawler & AI Agent Manager copies the `*` rules for you.
 
-**Physical robots.txt file:** if a real `robots.txt` file exists in your site root, the web server serves it directly and WordPress cannot change it. Either copy the preview lines into that file manually, or delete/rename the file to let Bot Control (and your SEO plugin) manage it.
+**Physical robots.txt file:** if a real `robots.txt` file exists in your site root, the web server serves it directly and WordPress cannot change it. Either copy the preview lines into that file manually, or delete/rename the file to let All-IN Crawler & AI Agent Manager (and your SEO plugin) manage it.
 
-Bot Control adds its rules at the end and never removes lines added by Yoast, Rank Math or other plugins.
+All-IN Crawler & AI Agent Manager adds its rules at the end and never removes lines added by Yoast, Rank Math or other plugins.
 
 ---
 
@@ -279,7 +279,6 @@ Retention is set on **Advanced** (default 14 days for the log, 90 days for stati
 ## 10. Tools
 
 - **User-Agent tester:** paste any User-Agent (and optionally an IP) to see the bot, category, policy and, for verified bots, the live DNS verification result. It includes sample User-Agents.
-- **Early loader:** installs `wp-content/mu-plugins/bot-control-early-loader.php`. WordPress loads must-use plugins before regular ones, so denied requests are handled before WooCommerce, page builders and so on load. It is removed automatically when you deactivate Bot Control.
 - **Export / import:** copy your configuration between sites (staging → production, or your standard set-up across client sites).
 - **Maintenance:** clear statistics, clear the DNS verification cache, or reset all settings.
 
@@ -296,7 +295,7 @@ Retention is set on **Advanced** (default 14 days for the log, 90 days for stati
 - **Additional trusted proxies**: public IPs of your own load balancer or CDN (Sucuri, Fastly, Bunny, AWS ALB…).
 - **Rate-limit counters**: Automatic (APCu → object cache → database) or forced. On multi-server setups use the object cache (Redis) so all servers share counters. APCu is per server.
 - **Statistics / Event log**: switch them off to save database writes on very busy sites.
-- **Debug mode**: writes every decision to the PHP error log (search for `[BotControl]`) and adds an `X-Bot-Control` response header. Turn it off when done. You can also add `define( 'BOTCTL_DEBUG', true );` to `wp-config.php`.
+- **Debug mode**: writes every decision to the PHP error log (search for `[AllIN-Crawler]`) and adds an `X-AllIN-Crawler` response header. Turn it off when done. You can also add `define( 'BOTCTL_DEBUG', true );` to `wp-config.php`.
 - **Keep data on uninstall**: keep settings and statistics when you delete the plugin.
 
 ---
@@ -305,7 +304,7 @@ Retention is set on **Advanced** (default 14 days for the log, 90 days for stati
 
 ### 12.1 Official crawler IP lists
 
-Google, Bing, Apple, OpenAI and Perplexity publish the IP addresses their crawlers use. **This is off by default.** Tick **Download official crawler IP lists** on the Bot Lists tab and save to opt in; until then nothing is downloaded. Once on, Bot Control downloads these lists once a day. It then uses them to prove that a request really comes from the bot it claims to be:
+Google, Bing, Apple, OpenAI and Perplexity publish the IP addresses their crawlers use. **This is off by default.** Tick **Download official crawler IP lists** on the Bot Lists tab and save to opt in; until then nothing is downloaded. Once on, All-IN Crawler & AI Agent Manager downloads these lists once a day. It then uses them to prove that a request really comes from the bot it claims to be:
 
 | Bot | List |
 |---|---|
@@ -318,10 +317,10 @@ Google, Bing, Apple, OpenAI and Perplexity publish the IP addresses their crawle
 How the lists are used:
 
 - **IP is on the list:** the bot is **verified** immediately, with no DNS lookup needed.
-- **IP is not on the list, and the vendor also supports reverse DNS** (Google, Bing, Apple): Bot Control falls back to the DNS check, in case the list is a few hours behind.
+- **IP is not on the list, and the vendor also supports reverse DNS** (Google, Bing, Apple): All-IN Crawler & AI Agent Manager falls back to the DNS check, in case the list is a few hours behind.
 - **IP is not on the list, and the vendor has no reverse DNS** (OpenAI, Perplexity): the request is treated as an **impostor**. This closes a common gap, because scrapers love to pretend to be GPTBot or ChatGPT-User.
 
-**Safety net:** a list is only used while it is **fresh** (downloaded within the last 7 days). If downloads keep failing (for example, your host blocks outgoing connections), Bot Control stops using the list. The bot is then treated as it was in version 1.0 (DNS check, or unverified). An outdated list can never cause a genuine bot to be blocked.
+**Safety net:** a list is only used while it is **fresh** (downloaded within the last 7 days). If downloads keep failing (for example, your host blocks outgoing connections), All-IN Crawler & AI Agent Manager stops using the list. The bot is then treated as it was in version 1.0 (DNS check, or unverified). An outdated list can never cause a genuine bot to be blocked.
 
 The **Bot Lists** tab shows every list with its number of IP ranges, last update and status. **Download official IP lists** updates them immediately.
 
@@ -330,7 +329,7 @@ The **Bot Lists** tab shows every list with its number of IP ranges, last update
 New AI crawlers appear every month. The feed adds new bot definitions daily, so you don't have to wait for a plugin update.
 
 - **Enable feed**: turns daily downloads on or off. It is off by default.
-- **Feed URL**: leave it empty for the default Bot Control feed (`data/bots.json` in the plugin's GitHub repository). **Agencies** can host their own feed in the same format and point all client sites to it.
+- **Feed URL**: leave it empty for the default All-IN Crawler & AI Agent Manager feed (`data/bots.json` in the plugin's GitHub repository). **Agencies** can host their own feed in the same format and point all client sites to it.
 - **Access key**: optional. It is sent as a `Bearer` token, for private or commercial feeds.
 
 **Safety rules**, so a broken or hostile feed can never hurt your site:
@@ -359,11 +358,11 @@ What stays in PHP: rate limits, DNS/IP-list verification (impostors) and load sh
 **Apache / LiteSpeed (.htaccess)**
 - **Write to .htaccess** inserts the rules at the **top** of `.htaccess`. They must come before the WordPress block, because WordPress's rewrite ends processing for most URLs, and rules placed below it would never run.
 - A backup of the previous file is saved as `.htaccess.botctl-backup`.
-- **Keep .htaccess in sync** rewrites the rules automatically whenever you change bot rules. The rules are removed automatically in Monitor mode, when Bot Control is disabled, and when the plugin is deactivated.
+- **Keep .htaccess in sync** rewrites the rules automatically whenever you change bot rules. The rules are removed automatically in Monitor mode, when All-IN Crawler & AI Agent Manager is disabled, and when the plugin is deactivated.
 
 **nginx**
 nginx has no `.htaccess`. The tab shows two snippets:
-1. an `http { }` snippet (e.g. save as `/etc/nginx/conf.d/bot-control.conf`);
+1. an `http { }` snippet (e.g. save as `/etc/nginx/conf.d/all-in-crawler-ai-agent-manager.conf`);
 2. a `server { }` snippet (paste inside your site's server block).
 
 Then run `nginx -t && systemctl reload nginx`. Re-export after changing your rules.
@@ -424,9 +423,9 @@ Tip: use an SMTP plugin for reliable delivery. WordPress's default mail often la
 
 ## 16. Language: Hebrew & RTL
 
-Bot Control ships with a full **Hebrew (עברית)** translation. It is used automatically when your site language, or your personal profile language (Users → Profile → Language), is set to Hebrew. The admin screens and the email reports are right-to-left aware.
+All-IN Crawler & AI Agent Manager ships with a full **Hebrew (עברית)** translation. It is used automatically when your site language, or your personal profile language (Users → Profile → Language), is set to Hebrew. The admin screens and the email reports are right-to-left aware.
 
-To add another language, translate `languages/bot-control.pot` with Poedit or Loco Translate.
+To add another language, translate `languages/all-in-crawler-ai-agent-manager.pot` with Poedit or Loco Translate.
 
 ---
 
@@ -435,9 +434,9 @@ To add another language, translate `languages/bot-control.pot` with Poedit or Lo
 **Rules that protect your rankings**
 
 1. **Search engines stay allowed** by default and are DNS-verified, so allowing them doesn't open a hole for fake Googlebots.
-2. **Rate limits return `429` + `Retry-After`** and overload returns **`503`**. Google and Bing both slow down on these and try again. They are never treated as "page removed". Bot Control never uses `403` for rate limiting.
+2. **Rate limits return `429` + `Retry-After`** and overload returns **`503`**. Google and Bing both slow down on these and try again. They are never treated as "page removed". All-IN Crawler & AI Agent Manager never uses `403` for rate limiting.
 3. **Denials are never cached.** Every denial is sent with `Cache-Control: no-store`, so a CDN or page cache can't serve a 429 to real visitors or Google later.
-4. **Google ignores Crawl-delay**, so Bot Control doesn't pretend otherwise. If Googlebot overloads your server, load shedding (503) handles it. You can also give Googlebot a high limit (e.g. 300/min per IP) instead of *Allow*.
+4. **Google ignores Crawl-delay**, so All-IN Crawler & AI Agent Manager doesn't pretend otherwise. If Googlebot overloads your server, load shedding (503) handles it. You can also give Googlebot a high limit (e.g. 300/min per IP) instead of *Allow*.
 5. **Don't block Google Ads/AdSense bots** (`AdsBot-Google`, `Mediapartners-Google`) if you run ads. Ads quality checks and AdSense targeting depend on them.
 
 **AI visibility (AIO / GEO), in brief**
@@ -446,7 +445,7 @@ To add another language, translate `languages/bot-control.pot` with Poedit or Lo
 - *AI training crawlers* (GPTBot, ClaudeBot, CCBot, Bytespider, Meta-ExternalAgent…) collect content to **train models**. Blocking them does **not** remove you from ChatGPT/Claude/Perplexity answers, because those use the separate search/user agents.
 - **Google AI Overviews and AI Mode use normal Googlebot.** You cannot block them without blocking Google Search. *Google-Extended* only controls use of your content for Gemini training and grounding. Apple works the same way: *Applebot-Extended* controls AI training, while *Applebot* powers Siri and Spotlight.
 
-**Business decision:** blocking training is a content-licensing decision, not a technical one. News publishers, course creators and premium-content businesses usually block it. Brands that want maximum reach in AI answers usually allow it. Bot Control lets you choose per bot.
+**Business decision:** blocking training is a content-licensing decision, not a technical one. News publishers, course creators and premium-content businesses usually block it. Brands that want maximum reach in AI answers usually allow it. All-IN Crawler & AI Agent Manager lets you choose per bot.
 
 ---
 
@@ -480,15 +479,15 @@ Look in Logs for the integration's IP or User-Agent. Add the IP to *Always allow
 | Google Search Console shows many 429/503 errors | Raise the search-engine limit or keep it on *Allow*; raise the load threshold; check server capacity. |
 | Social shares show no preview | The *Social link previews* category or the specific bot must be *Allowed*. |
 | robots.txt doesn't change | A physical robots.txt file exists (see §8), or a page/CDN cache serves an old copy. |
-| Rules don't seem to apply | A full-page cache (WP Rocket, LiteSpeed, Varnish, Cloudflare APO) can serve cached pages without running WordPress. Those requests are cheap and are not seen by Bot Control, which is expected. Denials are never cached. |
+| Rules don't seem to apply | A full-page cache (WP Rocket, LiteSpeed, Varnish, Cloudflare APO) can serve cached pages without running WordPress. Those requests are cheap and are not seen by All-IN Crawler & AI Agent Manager, which is expected. Denials are never cached. |
 | "Database tables are missing" | Deactivate and reactivate the plugin. |
 | Bot Lists show "Failed" | Your host may block outgoing connections. Ask them to allow HTTPS to developers.google.com, bing.com, search.developer.apple.com, openai.com and perplexity.com. Until then, verification falls back to DNS or "unverified"; nothing gets blocked because of it. |
-| Site shows "500 Internal Server Error" after writing .htaccess | Very rare (an unusual server configuration). Restore `.htaccess.botctl-backup` via FTP, or delete the `# BEGIN Bot Control … # END Bot Control` block. |
+| Site shows "500 Internal Server Error" after writing .htaccess | Very rare (an unusual server configuration). Restore `.htaccess.botctl-backup` via FTP, or delete the `# BEGIN All-IN Crawler & AI Agent Manager … # END All-IN Crawler & AI Agent Manager` block. |
 | /llms.txt shows a 404 | Save Settings → Permalinks once, check that no physical llms.txt exists, and purge your page cache/CDN. |
 | Reports don't arrive | Install an SMTP plugin; check spam; use **Send report now** to test. |
-| Need details | Enable Debug mode and search the PHP error log for `[BotControl]`. |
+| Need details | Enable Debug mode and search the PHP error log for `[AllIN-Crawler]`. |
 
-Emergency off switch: rename the folder `wp-content/plugins/bot-control` via FTP/file manager. If you installed the early loader, also delete `wp-content/mu-plugins/bot-control-early-loader.php`. (The loader does nothing when the plugin is inactive, so this is optional.) If you wrote server rules to `.htaccess`, also remove the `# BEGIN Bot Control … # END Bot Control` block: renaming the folder does not trigger deactivation.
+Emergency off switch: rename the folder `wp-content/plugins/all-in-crawler-ai-agent-manager` via FTP/file manager. If you wrote server rules to `.htaccess`, also remove the `# BEGIN All-IN Crawler & AI Agent Manager … # END All-IN Crawler & AI Agent Manager` block: renaming the folder does not trigger deactivation.
 
 ---
 
@@ -501,7 +500,7 @@ For humans, the cost is a User-Agent check (~microseconds) and no database query
 Only if you block *Googlebot* itself. Nothing in the default configuration does that.
 
 **Does it replace Cloudflare / a WAF?**
-No. A PHP plugin runs after the web server has accepted the request. For large DDoS attacks, use an edge service (Cloudflare, your host's firewall). Bot Control complements them: it knows WordPress, knows your SEO priorities, and needs no DNS changes.
+No. A PHP plugin runs after the web server has accepted the request. For large DDoS attacks, use an edge service (Cloudflare, your host's firewall). All-IN Crawler & AI Agent Manager complements them: it knows WordPress, knows your SEO priorities, and needs no DNS changes.
 
 **Does it work on multisite?**
 Yes. Each site has its own settings, tables and statistics. When network-activated, a sub-site's tables are created the first time an administrator opens that site's dashboard. Until then that site runs with default rules but keeps no statistics.

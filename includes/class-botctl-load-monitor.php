@@ -6,7 +6,7 @@
  * bots receive "503 Service Unavailable" + Retry-After. Search engines treat a
  * short-lived 503 as "come back later" – no ranking or indexing impact.
  *
- * @package BotControl
+ * @package AllInCrawlerAIAgentManager
  */
 
 defined( 'ABSPATH' ) || exit;

@@ -5,7 +5,7 @@
  * All settings live in one autoloaded option so reading them on every request
  * costs no extra database query.
  *
- * @package BotControl
+ * @package AllInCrawlerAIAgentManager
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -225,23 +225,23 @@ final class Bot_Control_Settings {
 
 		return array(
 			'balanced'      => array(
-				'label'       => __( 'Balanced (recommended)', 'bot-control' ),
-				'description' => __( 'Search engines and social previews allowed, AI assistants lightly limited, training crawlers, SEO tools and scripts throttled, scanners blocked.', 'bot-control' ),
+				'label'       => __( 'Balanced (recommended)', 'all-in-crawler-ai-agent-manager' ),
+				'description' => __( 'Search engines and social previews allowed, AI assistants lightly limited, training crawlers, SEO tools and scripts throttled, scanners blocked.', 'all-in-crawler-ai-agent-manager' ),
 				'categories'  => $base,
 			),
 			'ai_visibility' => array(
-				'label'       => __( 'Maximum AI visibility', 'bot-control' ),
-				'description' => __( 'For publishers who want to be cited by ChatGPT, Claude, Perplexity & co. AI assistants fully allowed, training crawlers only gently limited.', 'bot-control' ),
+				'label'       => __( 'Maximum AI visibility', 'all-in-crawler-ai-agent-manager' ),
+				'description' => __( 'For publishers who want to be cited by ChatGPT, Claude, Perplexity & co. AI assistants fully allowed, training crawlers only gently limited.', 'all-in-crawler-ai-agent-manager' ),
 				'categories'  => $ai_visibility,
 			),
 			'protect'       => array(
-				'label'       => __( 'Protect content from AI training', 'bot-control' ),
-				'description' => __( 'Blocks AI training crawlers while staying visible in AI search answers and classic search.', 'bot-control' ),
+				'label'       => __( 'Protect content from AI training', 'all-in-crawler-ai-agent-manager' ),
+				'description' => __( 'Blocks AI training crawlers while staying visible in AI search answers and classic search.', 'all-in-crawler-ai-agent-manager' ),
 				'categories'  => $protect,
 			),
 			'lockdown'      => array(
-				'label'       => __( 'Lockdown (under attack)', 'bot-control' ),
-				'description' => __( 'Only verified search engines, social previews and monitoring get through freely. Use temporarily while the site is being hammered.', 'bot-control' ),
+				'label'       => __( 'Lockdown (under attack)', 'all-in-crawler-ai-agent-manager' ),
+				'description' => __( 'Only verified search engines, social previews and monitoring get through freely. Use temporarily while the site is being hammered.', 'all-in-crawler-ai-agent-manager' ),
 				'categories'  => $lockdown,
 			),
 		);
@@ -351,7 +351,7 @@ final class Bot_Control_Settings {
 						}
 						$match = ( isset( $raw['match'] ) && 'regex' === $raw['match'] ) ? 'regex' : 'contains';
 						if ( 'regex' === $match && false === @preg_match( self::regex( $pattern ), '' ) ) { // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged
-							add_settings_error( 'botctl', 'bad_regex', sprintf( /* translators: %s: pattern */ __( 'Invalid regular expression skipped: %s', 'bot-control' ), $pattern ) );
+							add_settings_error( 'botctl', 'bad_regex', sprintf( /* translators: %s: pattern */ __( 'Invalid regular expression skipped: %s', 'all-in-crawler-ai-agent-manager' ), $pattern ) );
 							continue;
 						}
 						$category = isset( $raw['category'] ) ? sanitize_key( $raw['category'] ) : 'unknown_bot';
@@ -421,7 +421,7 @@ final class Bot_Control_Settings {
 				$raw_url                  = isset( $input['remote_list_url'] ) ? trim( (string) $input['remote_list_url'] ) : '';
 				$url                      = esc_url_raw( $raw_url, array( 'https' ) );
 				if ( '' !== $raw_url && '' === $url ) {
-					add_settings_error( 'botctl', 'bad_feed_url', __( 'The feed URL must start with https:// – only the bundled bot list is used.', 'bot-control' ) );
+					add_settings_error( 'botctl', 'bad_feed_url', __( 'The feed URL must start with https:// – only the bundled bot list is used.', 'all-in-crawler-ai-agent-manager' ) );
 				}
 				$s['remote_list_url']     = $url;
 				$s['remote_list_key']     = isset( $input['remote_list_key'] ) ? substr( sanitize_text_field( $input['remote_list_key'] ), 0, 200 ) : '';
@@ -441,7 +441,7 @@ final class Bot_Control_Settings {
 					if ( is_email( $email ) ) {
 						$emails[] = $email;
 					} elseif ( '' !== trim( $email ) ) {
-						add_settings_error( 'botctl', 'bad_email', __( 'An invalid email address was skipped.', 'bot-control' ) );
+						add_settings_error( 'botctl', 'bad_email', __( 'An invalid email address was skipped.', 'all-in-crawler-ai-agent-manager' ) );
 					}
 				}
 				$s['report_recipients'] = implode( ', ', array_unique( $emails ) );
@@ -480,6 +480,90 @@ final class Bot_Control_Settings {
 	}
 
 	/**
+	 * First-pass clean-up of raw settings input (admin form or imported JSON).
+	 *
+	 * Only known setting keys are kept. Each value is type-cast to the type of its
+	 * default and sanitized (keys with sanitize_key(), text with sanitize_text_field()
+	 * / sanitize_textarea_field(), the feed URL with esc_url_raw()). sanitize_tab()
+	 * then applies the strict per-field rules (allowed values, ranges, IP/e-mail checks).
+	 *
+	 * @param mixed $input Raw, unslashed input.
+	 * @return array
+	 */
+	public static function clean_input( $input ) {
+		if ( ! is_array( $input ) ) {
+			return array();
+		}
+		$clean = array();
+		foreach ( self::defaults() as $key => $default ) {
+			if ( ! array_key_exists( $key, $input ) ) {
+				continue;
+			}
+			$value = $input[ $key ];
+			if ( is_array( $default ) ) {
+				$clean[ $key ] = is_array( $value ) ? self::clean_deep( $value, 3 ) : array();
+			} elseif ( is_array( $value ) || is_object( $value ) ) {
+				continue; // A scalar setting never accepts an array.
+			} elseif ( is_int( $default ) ) {
+				$clean[ $key ] = (int) $value;
+			} elseif ( is_float( $default ) ) {
+				$clean[ $key ] = (float) $value;
+			} elseif ( 'remote_list_url' === $key ) {
+				$clean[ $key ] = esc_url_raw( trim( (string) $value ) ); // https-only is enforced in sanitize_tab().
+			} else {
+				$clean[ $key ] = sanitize_textarea_field( (string) $value );
+			}
+		}
+		return $clean;
+	}
+
+	/**
+	 * Recursively sanitize a nested settings array (keys and scalar leaves).
+	 *
+	 * @param array $value Raw array.
+	 * @param int   $depth Levels still allowed.
+	 * @return array
+	 */
+	private static function clean_deep( array $value, $depth ) {
+		$out = array();
+		foreach ( $value as $k => $v ) {
+			$k = is_int( $k ) ? $k : sanitize_key( (string) $k );
+			if ( '' === $k ) {
+				continue;
+			}
+			if ( is_array( $v ) ) {
+				if ( $depth > 1 ) {
+					$out[ $k ] = self::clean_deep( $v, $depth - 1 );
+				}
+			} elseif ( is_bool( $v ) || is_int( $v ) || is_float( $v ) ) {
+				$out[ $k ] = $v;
+			} elseif ( is_string( $v ) ) {
+				$out[ $k ] = sanitize_text_field( $v );
+			}
+		}
+		return $out;
+	}
+
+	/**
+	 * Validate and sanitize a decoded settings export (json_decode() output), field by field.
+	 *
+	 * @param mixed $data Decoded JSON.
+	 * @return array|null Sanitized settings, or null when it is not a valid export.
+	 */
+	public static function sanitize_import( $data ) {
+		if ( ! is_array( $data ) || empty( $data['settings'] ) || ! is_array( $data['settings'] ) ) {
+			return null;
+		}
+		// Envelope: only these keys are read; everything else is ignored.
+		$plugin = isset( $data['plugin'] ) && is_string( $data['plugin'] ) ? sanitize_key( $data['plugin'] ) : '';
+		// Exports made before the rename carry the former slug 'bot-control'; both are accepted.
+		if ( '' !== $plugin && ! in_array( $plugin, array( 'all-in-crawler-ai-agent-manager', 'bot-control' ), true ) ) {
+			return null;
+		}
+		return self::sanitize_all( self::clean_input( $data['settings'] ) );
+	}
+
+	/**
 	 * Validate an IP / CIDR list, dropping invalid entries (comments with # are kept).
 	 *
 	 * @param mixed $value Raw textarea.
@@ -500,7 +584,7 @@ final class Bot_Control_Settings {
 			if ( Bot_Control_IP::is_valid_entry( $entry ) ) {
 				$out[] = $line;
 			} else {
-				add_settings_error( 'botctl', 'bad_ip', sprintf( /* translators: %s: entry */ __( 'Invalid IP/CIDR skipped: %s', 'bot-control' ), $entry ) );
+				add_settings_error( 'botctl', 'bad_ip', sprintf( /* translators: %s: entry */ __( 'Invalid IP/CIDR skipped: %s', 'all-in-crawler-ai-agent-manager' ), $entry ) );
 			}
 		}
 		return implode( "\n", $out );

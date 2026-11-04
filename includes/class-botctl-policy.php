@@ -4,7 +4,7 @@
  *
  * Precedence: custom rule > per-bot override > category default.
  *
- * @package BotControl
+ * @package AllInCrawlerAIAgentManager
  */
 
 defined( 'ABSPATH' ) || exit;

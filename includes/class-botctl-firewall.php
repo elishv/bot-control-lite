@@ -13,7 +13,7 @@
  *
  * Anything unexpected fails OPEN (request allowed) and is written to the error log.
  *
- * @package BotControl
+ * @package AllInCrawlerAIAgentManager
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -91,7 +91,7 @@ final class Bot_Control_Firewall {
 		if ( ( defined( 'DOING_CRON' ) && DOING_CRON ) || ( defined( 'WP_INSTALLING' ) && WP_INSTALLING ) ) {
 			return true;
 		}
-		return empty( $_SERVER['REQUEST_METHOD'] );
+		return '' === Bot_Control_Request::method();
 	}
 
 	/**
@@ -107,7 +107,7 @@ final class Bot_Control_Firewall {
 		if ( '' === trim( (string) $s['excluded_paths'] ) ) {
 			return false;
 		}
-		$uri  = isset( $_SERVER['REQUEST_URI'] ) ? (string) wp_unslash( $_SERVER['REQUEST_URI'] ) : '/'; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+		$uri  = Bot_Control_Request::uri( '/' );
 		$path = (string) wp_parse_url( $uri, PHP_URL_PATH );
 
 		$home_path = (string) wp_parse_url( get_option( 'home' ), PHP_URL_PATH );
@@ -163,7 +163,7 @@ final class Bot_Control_Firewall {
 			return;
 		}
 
-		$ua    = isset( $_SERVER['HTTP_USER_AGENT'] ) ? (string) wp_unslash( $_SERVER['HTTP_USER_AGENT'] ) : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+		$ua    = Bot_Control_Request::user_agent();
 		$match = Bot_Control_Detector::detect( $ua, $s );
 
 		$block = Bot_Control_IP::parse_list( $s['ip_blocklist'] );
@@ -329,12 +329,7 @@ final class Bot_Control_Firewall {
 	 * @return bool
 	 */
 	private static function has_login_cookie() {
-		foreach ( array_keys( $_COOKIE ) as $name ) {
-			if ( 0 === strpos( (string) $name, 'wordpress_logged_in_' ) ) {
-				return true;
-			}
-		}
-		return false;
+		return Bot_Control_Request::has_cookie_prefix( 'wordpress_logged_in_' );
 	}
 
 	/**
@@ -420,7 +415,7 @@ final class Bot_Control_Firewall {
 			header( 'Content-Type: text/plain; charset=utf-8' );
 			// Never let a page cache or CDN store a denial.
 			header( 'Cache-Control: no-store, no-cache, must-revalidate, max-age=0' );
-			header( 'X-Bot-Control: ' . $action );
+			header( 'X-AllIN-Crawler: ' . $action );
 			if ( $retry > 0 ) {
 				header( 'Retry-After: ' . (int) $retry );
 			}
@@ -441,6 +436,6 @@ final class Bot_Control_Firewall {
 		if ( ! Bot_Control_Logger::debug_enabled() || headers_sent() ) {
 			return;
 		}
-		header( 'X-Bot-Control: ' . $action . '; bot=' . preg_replace( '/[^a-z0-9_:\-]/i', '', $match['bot_id'] ) . '; category=' . $match['category'] );
+		header( 'X-AllIN-Crawler: ' . $action . '; bot=' . preg_replace( '/[^a-z0-9_:\-]/i', '', $match['bot_id'] ) . '; category=' . $match['category'] );
 	}
 }

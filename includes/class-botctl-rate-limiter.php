@@ -9,7 +9,7 @@
  * The limiter FAILS OPEN: if storage is unavailable the request is allowed,
  * so a storage problem can never take the site down.
  *
- * @package BotControl
+ * @package AllInCrawlerAIAgentManager
  */
 
 defined( 'ABSPATH' ) || exit;

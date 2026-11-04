@@ -2,7 +2,7 @@
 /**
  * Bot rules tab: presets, category defaults, per-bot overrides.
  *
- * @package BotControl
+ * @package AllInCrawlerAIAgentManager
  * @var array $s Settings.
  */
 
@@ -14,15 +14,15 @@ $botctl_window     = (int) $s['window'];
 $botctl_ipsrc      = Bot_Control_IP_Lists::sources();
 ?>
 <div class="botctl-panel">
-	<h2><?php esc_html_e( 'Quick presets', 'bot-control' ); ?></h2>
-	<p class="description"><?php esc_html_e( 'A preset replaces the category defaults below. Your per-bot overrides are kept.', 'bot-control' ); ?></p>
+	<h2><?php esc_html_e( 'Quick presets', 'all-in-crawler-ai-agent-manager' ); ?></h2>
+	<p class="description"><?php esc_html_e( 'A preset replaces the category defaults below. Your per-bot overrides are kept.', 'all-in-crawler-ai-agent-manager' ); ?></p>
 	<div class="botctl-presets">
 		<?php foreach ( Bot_Control_Settings::presets() as $botctl_id => $botctl_preset ) : ?>
 			<div class="botctl-preset">
 				<h3><?php echo esc_html( $botctl_preset['label'] ); ?></h3>
 				<p><?php echo esc_html( $botctl_preset['description'] ); ?></p>
 				<?php Bot_Control_Admin::form_open( 'preset', array( 'preset' => $botctl_id ) ); ?>
-					<button class="button botctl-confirm"><?php esc_html_e( 'Apply', 'bot-control' ); ?></button>
+					<button class="button botctl-confirm"><?php esc_html_e( 'Apply', 'all-in-crawler-ai-agent-manager' ); ?></button>
 				</form>
 			</div>
 		<?php endforeach; ?>
@@ -32,19 +32,19 @@ $botctl_ipsrc      = Bot_Control_IP_Lists::sources();
 <?php Bot_Control_Admin::form_open( 'save', array( 'tab' => 'rules' ) ); ?>
 
 <div class="botctl-panel">
-	<h2><?php esc_html_e( 'Category defaults', 'bot-control' ); ?></h2>
+	<h2><?php esc_html_e( 'Category defaults', 'all-in-crawler-ai-agent-manager' ); ?></h2>
 	<p class="description">
 		<?php
 		/* translators: %d: seconds */
-		printf( esc_html__( 'Limits are requests per %d seconds (change the window on the Protection tab). "Per IP" counts each IP separately; "Per bot" counts all IPs of the same bot together – best against crawlers that spread over hundreds of IPs.', 'bot-control' ), (int) $botctl_window );
+		printf( esc_html__( 'Limits are requests per %d seconds (change the window on the Protection tab). "Per IP" counts each IP separately; "Per bot" counts all IPs of the same bot together – best against crawlers that spread over hundreds of IPs.', 'all-in-crawler-ai-agent-manager' ), (int) $botctl_window );
 		?>
 	</p>
 	<table class="widefat striped botctl-rules">
 		<thead><tr>
-			<th><?php esc_html_e( 'Category', 'bot-control' ); ?></th>
-			<th><?php esc_html_e( 'Policy', 'bot-control' ); ?></th>
-			<th><?php esc_html_e( 'Limit', 'bot-control' ); ?></th>
-			<th><?php esc_html_e( 'Count', 'bot-control' ); ?></th>
+			<th><?php esc_html_e( 'Category', 'all-in-crawler-ai-agent-manager' ); ?></th>
+			<th><?php esc_html_e( 'Policy', 'all-in-crawler-ai-agent-manager' ); ?></th>
+			<th><?php esc_html_e( 'Limit', 'all-in-crawler-ai-agent-manager' ); ?></th>
+			<th><?php esc_html_e( 'Count', 'all-in-crawler-ai-agent-manager' ); ?></th>
 		</tr></thead>
 		<tbody>
 		<?php foreach ( Bot_Control_Bot_Registry::category_ids() as $botctl_cat ) : ?>
@@ -61,8 +61,8 @@ $botctl_ipsrc      = Bot_Control_IP_Lists::sources();
 					Bot_Control_Admin::select(
 						'botctl[categories][' . $botctl_cat . '][scope]',
 						array(
-							'ip'  => __( 'Per IP', 'bot-control' ),
-							'bot' => __( 'Per bot', 'bot-control' ),
+							'ip'  => __( 'Per IP', 'all-in-crawler-ai-agent-manager' ),
+							'bot' => __( 'Per bot', 'all-in-crawler-ai-agent-manager' ),
 						),
 						$botctl_rule['scope']
 					);
@@ -75,9 +75,9 @@ $botctl_ipsrc      = Bot_Control_IP_Lists::sources();
 </div>
 
 <div class="botctl-panel">
-	<h2><?php esc_html_e( 'Individual bots', 'bot-control' ); ?></h2>
-	<p class="description"><?php esc_html_e( 'Override the category default for a specific bot. Leave the limit empty to use the category limit.', 'bot-control' ); ?></p>
-	<p><input type="search" class="regular-text botctl-filter" placeholder="<?php esc_attr_e( 'Filter bots…', 'bot-control' ); ?>"></p>
+	<h2><?php esc_html_e( 'Individual bots', 'all-in-crawler-ai-agent-manager' ); ?></h2>
+	<p class="description"><?php esc_html_e( 'Override the category default for a specific bot. Leave the limit empty to use the category limit.', 'all-in-crawler-ai-agent-manager' ); ?></p>
+	<p><input type="search" class="regular-text botctl-filter" placeholder="<?php esc_attr_e( 'Filter bots…', 'all-in-crawler-ai-agent-manager' ); ?>"></p>
 
 	<?php foreach ( Bot_Control_Bot_Registry::category_ids() as $botctl_cat ) : ?>
 		<?php
@@ -95,11 +95,11 @@ $botctl_ipsrc      = Bot_Control_IP_Lists::sources();
 			<summary><?php echo esc_html( $botctl_categories[ $botctl_cat ]['label'] ); ?> <span class="count">(<?php echo count( $botctl_in_cat ); ?>)</span></summary>
 			<table class="widefat striped botctl-bots">
 				<thead><tr>
-					<th><?php esc_html_e( 'Bot', 'bot-control' ); ?></th>
-					<th><?php esc_html_e( 'Matches User-Agent', 'bot-control' ); ?></th>
-					<th><?php esc_html_e( 'Policy', 'bot-control' ); ?></th>
-					<th><?php esc_html_e( 'Limit override', 'bot-control' ); ?></th>
-					<th><?php esc_html_e( 'Effective', 'bot-control' ); ?></th>
+					<th><?php esc_html_e( 'Bot', 'all-in-crawler-ai-agent-manager' ); ?></th>
+					<th><?php esc_html_e( 'Matches User-Agent', 'all-in-crawler-ai-agent-manager' ); ?></th>
+					<th><?php esc_html_e( 'Policy', 'all-in-crawler-ai-agent-manager' ); ?></th>
+					<th><?php esc_html_e( 'Limit override', 'all-in-crawler-ai-agent-manager' ); ?></th>
+					<th><?php esc_html_e( 'Effective', 'all-in-crawler-ai-agent-manager' ); ?></th>
 				</tr></thead>
 				<tbody>
 				<?php foreach ( $botctl_in_cat as $botctl_id => $botctl_bot ) : ?>
@@ -116,16 +116,16 @@ $botctl_ipsrc      = Bot_Control_IP_Lists::sources();
 							<strong><?php echo esc_html( $botctl_bot['name'] ); ?></strong>
 							<span class="botctl-vendor"><?php echo esc_html( $botctl_bot['vendor'] ); ?></span>
 							<?php if ( ! empty( $botctl_bot['verify'] ) ) : ?>
-								<span class="botctl-badge" title="<?php esc_attr_e( 'Genuine requests are verified by reverse DNS; fakes are treated as impostors.', 'bot-control' ); ?>"><?php esc_html_e( 'DNS verified', 'bot-control' ); ?></span>
+								<span class="botctl-badge" title="<?php esc_attr_e( 'Genuine requests are verified by reverse DNS; fakes are treated as impostors.', 'all-in-crawler-ai-agent-manager' ); ?>"><?php esc_html_e( 'DNS verified', 'all-in-crawler-ai-agent-manager' ); ?></span>
 							<?php endif; ?>
 							<?php if ( isset( $botctl_ipsrc[ $botctl_id ] ) ) : ?>
-								<span class="botctl-badge" title="<?php esc_attr_e( 'Verified against the IP list the vendor publishes (Bot Lists tab).', 'bot-control' ); ?>"><?php esc_html_e( 'Official IP list', 'bot-control' ); ?></span>
+								<span class="botctl-badge" title="<?php esc_attr_e( 'Verified against the IP list the vendor publishes (Bot Lists tab).', 'all-in-crawler-ai-agent-manager' ); ?>"><?php esc_html_e( 'Official IP list', 'all-in-crawler-ai-agent-manager' ); ?></span>
 							<?php endif; ?>
 							<?php if ( ! empty( $botctl_bot['remote'] ) ) : ?>
-								<span class="botctl-badge botctl-badge-alt"><?php esc_html_e( 'feed', 'bot-control' ); ?></span>
+								<span class="botctl-badge botctl-badge-alt"><?php esc_html_e( 'feed', 'all-in-crawler-ai-agent-manager' ); ?></span>
 							<?php endif; ?>
 							<?php if ( $botctl_bot['robots_only'] ) : ?>
-								<span class="botctl-badge botctl-badge-alt"><?php esc_html_e( 'robots.txt only', 'bot-control' ); ?></span>
+								<span class="botctl-badge botctl-badge-alt"><?php esc_html_e( 'robots.txt only', 'all-in-crawler-ai-agent-manager' ); ?></span>
 							<?php endif; ?>
 							<?php if ( $botctl_bot['note'] ) : ?>
 								<p class="description"><?php echo esc_html( $botctl_bot['note'] ); ?></p>
@@ -142,7 +142,7 @@ $botctl_ipsrc      = Bot_Control_IP_Lists::sources();
 						</td>
 						<td>
 							<?php if ( $botctl_bot['robots_only'] ) : ?>
-								<span class="botctl-pill botctl-pill-<?php echo 'block' === $botctl_effective['policy'] ? 'block' : 'allow'; ?>"><?php echo 'block' === $botctl_effective['policy'] ? esc_html__( 'Disallowed in robots.txt', 'bot-control' ) : esc_html__( 'Allowed', 'bot-control' ); ?></span>
+								<span class="botctl-pill botctl-pill-<?php echo 'block' === $botctl_effective['policy'] ? 'block' : 'allow'; ?>"><?php echo 'block' === $botctl_effective['policy'] ? esc_html__( 'Disallowed in robots.txt', 'all-in-crawler-ai-agent-manager' ) : esc_html__( 'Allowed', 'all-in-crawler-ai-agent-manager' ); ?></span>
 							<?php else : ?>
 								<span class="botctl-pill botctl-pill-<?php echo esc_attr( $botctl_effective['policy'] ); ?>">
 									<?php
@@ -163,5 +163,5 @@ $botctl_ipsrc      = Bot_Control_IP_Lists::sources();
 	<?php endforeach; ?>
 </div>
 
-<?php submit_button( __( 'Save bot rules', 'bot-control' ) ); ?>
+<?php submit_button( __( 'Save bot rules', 'all-in-crawler-ai-agent-manager' ) ); ?>
 </form>
