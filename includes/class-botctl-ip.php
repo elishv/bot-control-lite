@@ -6,7 +6,7 @@
  * when the direct peer (REMOTE_ADDR) is a trusted proxy. Otherwise anyone could
  * send a fake header and bypass rate limits.
  *
- * @package BotControl
+ * @package AllInCrawlerAIAgentManager
  */
 
 defined( 'ABSPATH' ) || exit;

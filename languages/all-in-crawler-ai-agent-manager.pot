@@ -2,40 +2,37 @@
 # This file is distributed under the GPL-2.0-or-later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Bot Control – Crawler, AI Agent & Scraper Manager 1.2.0\n"
+"Project-Id-Version: All-IN Crawler & AI Agent Manager 1.2.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/bot-control-lite\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-11-04T22:51:21+00:00\n"
+"POT-Creation-Date: 2026-11-04T23:15:45+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
-"X-Domain: bot-control\n"
+"X-Domain: all-in-crawler-ai-agent-manager\n"
 
 #. Plugin Name of the plugin
-#: bot-control.php
-msgid "Bot Control – Crawler, AI Agent & Scraper Manager"
-msgstr ""
-
-#. Plugin URI of the plugin
-#: bot-control.php
-msgid "https://a-in.co.il/plugins/bot-control/"
+#: all-in-crawler-ai-agent-manager.php
+#: admin/class-botctl-admin.php:64
+#: admin/class-botctl-admin.php:141
+msgid "All-IN Crawler & AI Agent Manager"
 msgstr ""
 
 #. Description of the plugin
-#: bot-control.php
+#: all-in-crawler-ai-agent-manager.php
 msgid "Decide which bots, crawlers, AI agents and scrapers may access your site, rate-limit them so none can overload it, and stay fully visible to search engines and AI assistants (SEO + AIO safe). Includes official IP-list verification, server rules, email reports and an llms.txt generator."
 msgstr ""
 
 #. Author of the plugin
-#: bot-control.php
+#: all-in-crawler-ai-agent-manager.php
 msgid "Eli Shvarzman"
 msgstr ""
 
 #. Author URI of the plugin
-#: bot-control.php
+#: all-in-crawler-ai-agent-manager.php
 msgid "https://a-in.co.il/"
 msgstr ""
 
@@ -89,10 +86,8 @@ msgstr ""
 msgid "Advanced"
 msgstr ""
 
-#: admin/class-botctl-admin.php:64
 #: admin/class-botctl-admin.php:65
-#: admin/class-botctl-admin.php:141
-msgid "Bot Control"
+msgid "All-IN Crawler"
 msgstr ""
 
 #: admin/class-botctl-admin.php:91
@@ -108,7 +103,7 @@ msgid "You do not have permission to access this page."
 msgstr ""
 
 #: admin/class-botctl-admin.php:170
-msgid "Bot Control is disabled."
+msgid "All-IN Crawler & AI Agent Manager is disabled."
 msgstr ""
 
 #: admin/class-botctl-admin.php:170
@@ -124,7 +119,7 @@ msgid "decisions are logged but nothing is blocked. Switch to Enforce on the Pro
 msgstr ""
 
 #: admin/class-botctl-admin.php:175
-msgid "Bot Control database tables are missing. Deactivate and re-activate the plugin."
+msgid "All-IN Crawler & AI Agent Manager database tables are missing. Deactivate and re-activate the plugin."
 msgstr ""
 
 #: admin/class-botctl-admin.php:191
@@ -229,7 +224,7 @@ msgid "Verification cache cleared."
 msgstr ""
 
 #: admin/class-botctl-admin.php:457
-msgid "Import failed: this is not a valid Bot Control export."
+msgid "Import failed: this is not a valid All-IN Crawler & AI Agent Manager export."
 msgstr ""
 
 #: admin/class-botctl-admin.php:461
@@ -261,7 +256,7 @@ msgid "All official IP lists were updated."
 msgstr ""
 
 #: admin/class-botctl-admin.php:524
-msgid "Bot Control rules removed from .htaccess."
+msgid "All-IN Crawler & AI Agent Manager rules removed from .htaccess."
 msgstr ""
 
 #: admin/class-botctl-admin.php:524
@@ -412,11 +407,11 @@ msgid "Debug mode"
 msgstr ""
 
 #: admin/views/advanced.php:120
-msgid "Write detailed decisions to the PHP error log and add an X-Bot-Control response header"
+msgid "Write detailed decisions to the PHP error log and add an X-AllIN-Crawler response header"
 msgstr ""
 
 #: admin/views/advanced.php:121
-msgid "Search the log for \"[BotControl]\". Turn off when done – it is verbose. You can also define BOTCTL_DEBUG in wp-config.php."
+msgid "Search the log for \"[AllIN-Crawler]\". Turn off when done – it is verbose. You can also define BOTCTL_DEBUG in wp-config.php."
 msgstr ""
 
 #: admin/views/advanced.php:125
@@ -547,7 +542,7 @@ msgid "Ask your host to enable APCu or Redis for the best protection under heavy
 msgstr ""
 
 #: admin/views/dashboard.php:63
-msgid "Your IP as seen by Bot Control"
+msgid "Your IP as seen by All-IN Crawler & AI Agent Manager"
 msgstr ""
 
 #. translators: %s: header name
@@ -685,7 +680,7 @@ msgid "Official crawler IP lists"
 msgstr ""
 
 #: admin/views/lists.php:22
-msgid "Google, Bing, Apple, OpenAI and Perplexity publish the IP addresses their crawlers use. If you turn this on, Bot Control downloads them daily and uses them to prove a bot is genuine – this also covers OpenAI and Perplexity bots, which have no reverse DNS. A request claiming to be GPTBot from any other IP is then treated as an impostor."
+msgid "Google, Bing, Apple, OpenAI and Perplexity publish the IP addresses their crawlers use. If you turn this on, All-IN Crawler & AI Agent Manager downloads them daily and uses them to prove a bot is genuine – this also covers OpenAI and Perplexity bots, which have no reverse DNS. A request claiming to be GPTBot from any other IP is then treated as an impostor."
 msgstr ""
 
 #: admin/views/lists.php:23
@@ -693,7 +688,7 @@ msgid "Off by default. While it is off, nothing is downloaded and bots are verif
 msgstr ""
 
 #: admin/views/lists.php:24
-msgid "Safety: a list is only used while it is fresh (downloaded within 7 days). If downloads keep failing, Bot Control falls back to DNS checks or treats the bot as unverified – it never blocks a genuine bot because of an outdated list."
+msgid "Safety: a list is only used while it is fresh (downloaded within 7 days). If downloads keep failing, All-IN Crawler & AI Agent Manager falls back to DNS checks or treats the bot as unverified – it never blocks a genuine bot because of an outdated list."
 msgstr ""
 
 #: admin/views/lists.php:27
@@ -963,7 +958,7 @@ msgid "General"
 msgstr ""
 
 #: admin/views/protection.php:19
-msgid "Enable Bot Control"
+msgid "Enable All-IN Crawler & AI Agent Manager"
 msgstr ""
 
 #: admin/views/protection.php:20
@@ -1007,7 +1002,7 @@ msgid "Fake search-engine protection"
 msgstr ""
 
 #: admin/views/protection.php:41
-msgid "Scrapers often pretend to be Googlebot because most sites let Google in. Bot Control checks the claim with a reverse + forward DNS lookup (the method Google, Bing, Apple and Yandex officially document) and caches the result per IP."
+msgid "Scrapers often pretend to be Googlebot because most sites let Google in. All-IN Crawler & AI Agent Manager checks the claim with a reverse + forward DNS lookup (the method Google, Bing, Apple and Yandex officially document) and caches the result per IP."
 msgstr ""
 
 #: admin/views/protection.php:44
@@ -1224,7 +1219,7 @@ msgid "A physical robots.txt file exists in your site root."
 msgstr ""
 
 #: admin/views/robots.php:32
-msgid "The web server serves that file directly, so WordPress (and Bot Control) cannot add rules to it. Copy the rules below into the file manually, or delete/rename it to let Bot Control manage robots.txt."
+msgid "The web server serves that file directly, so WordPress (and All-IN Crawler & AI Agent Manager) cannot add rules to it. Copy the rules below into the file manually, or delete/rename it to let All-IN Crawler & AI Agent Manager manage robots.txt."
 msgstr ""
 
 #: admin/views/robots.php:38
@@ -1260,7 +1255,7 @@ msgid "Save robots.txt settings"
 msgstr ""
 
 #: admin/views/robots.php:60
-msgid "Preview of the lines Bot Control adds"
+msgid "Preview of the lines All-IN Crawler & AI Agent Manager adds"
 msgstr ""
 
 #: admin/views/robots.php:62
@@ -1396,7 +1391,7 @@ msgid "Rewrite the .htaccess rules automatically whenever the bot rules change (
 msgstr ""
 
 #: admin/views/server.php:40
-msgid "In Monitor mode, or when Bot Control is disabled or deactivated, the rules are removed automatically."
+msgid "In Monitor mode, or when All-IN Crawler & AI Agent Manager is disabled or deactivated, the rules are removed automatically."
 msgstr ""
 
 #: admin/views/server.php:44
@@ -1432,7 +1427,7 @@ msgid "Not installed"
 msgstr ""
 
 #: admin/views/server.php:71
-msgid "Bot Control places its block at the top of .htaccess, before the WordPress block – rules below WordPress' rewrite would never run. A backup of the previous file is kept as .htaccess.botctl-backup."
+msgid "All-IN Crawler & AI Agent Manager places its block at the top of .htaccess, before the WordPress block – rules below WordPress' rewrite would never run. A backup of the previous file is kept as .htaccess.botctl-backup."
 msgstr ""
 
 #: admin/views/server.php:75
@@ -1476,7 +1471,7 @@ msgid "User-Agent tester"
 msgstr ""
 
 #: admin/views/tools.php:27
-msgid "See how Bot Control would classify a request. Add an IP to also run the DNS verification (a real lookup)."
+msgid "See how All-IN Crawler & AI Agent Manager would classify a request. Add an IP to also run the DNS verification (a real lookup)."
 msgstr ""
 
 #: admin/views/tools.php:31
@@ -1686,7 +1681,7 @@ msgid "The feed returned HTTP %d."
 msgstr ""
 
 #: includes/class-botctl-remote-list.php:218
-msgid "The feed is not valid Bot Control JSON."
+msgid "The feed is not valid All-IN Crawler & AI Agent Manager JSON."
 msgstr ""
 
 #. translators: 1: brand, 2: site name, 3: number of days
@@ -1783,20 +1778,20 @@ msgid "Most denied IPs"
 msgstr ""
 
 #: includes/class-botctl-reports.php:296
-msgid "Open the Bot Control dashboard"
+msgid "Open the All-IN Crawler & AI Agent Manager dashboard"
 msgstr ""
 
 #. translators: %s: brand
 #: includes/class-botctl-reports.php:301
 #, php-format
-msgid "Sent by %s using Bot Control. Change or stop these emails under Bot Control → Reports."
+msgid "Sent by %s using All-IN Crawler & AI Agent Manager. Change or stop these emails under All-IN Crawler → Reports."
 msgstr ""
 
-#: includes/class-botctl-server-rules.php:289
+#: includes/class-botctl-server-rules.php:295
 msgid ".htaccess is not writable. Copy the rules manually or fix the file permissions."
 msgstr ""
 
-#: includes/class-botctl-server-rules.php:312
+#: includes/class-botctl-server-rules.php:321
 msgid "Writing .htaccess failed."
 msgstr ""
 
@@ -1847,7 +1842,7 @@ msgid "An invalid email address was skipped."
 msgstr ""
 
 #. translators: %s: entry
-#: includes/class-botctl-settings.php:586
+#: includes/class-botctl-settings.php:587
 #, php-format
 msgid "Invalid IP/CIDR skipped: %s"
 msgstr ""

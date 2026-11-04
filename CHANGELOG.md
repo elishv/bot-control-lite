@@ -1,11 +1,12 @@
 # Changelog
 
-All notable changes to Bot Control are documented here.
+All notable changes to All-IN Crawler & AI Agent Manager are documented here.
 Format: [Keep a Changelog](https://keepachangelog.com/). Versioning: [SemVer](https://semver.org/).
 
 ## [1.2.0] – 2026-11-05
 WordPress.org review fixes.
-- **Removed: early loader.** No file is ever written to `wp-content/mu-plugins`. A loader created by an older build is deleted on upgrade (admin), deactivation and uninstall, only when its header and guard constant show Bot Control generated it. The firewall still runs when WordPress includes the plugin file, before `plugins_loaded`.
+- **Renamed** to *All-IN Crawler & AI Agent Manager*: slug, text domain, main file (`all-in-crawler-ai-agent-manager.php`), admin page (`?page=all-in-crawler-ai-agent-manager`), export key, `.pot`, robots.txt / `.htaccess` markers, outbound User-Agent (`all-in-crawler-ai-agent-manager/<version>`), debug header (`X-AllIN-Crawler`) and log prefix (`[AllIN-Crawler]`). **Kept on purpose (no migration needed):** option names (`botctl_settings`, `botctl_db_version`, `botctl_version`, `botctl_runtime`, `botctl_ip_ranges`, `botctl_remote_bots`, `botctl_remote_status`), tables (`{prefix}botctl_rate|stats|events|verify`), cron hooks (`botctl_cleanup|daily|report`), filters/actions (`botctl_*`), constants (`BOTCTL_*`) and PHP classes (`Bot_Control_*`). Old exports (`"plugin": "bot-control"`) still import, and an old `# BEGIN Bot Control` `.htaccess` block is replaced/removed.
+- **Removed: early loader.** No file is ever written to `wp-content/mu-plugins`. A loader created by an older build is deleted on upgrade (admin), deactivation and uninstall, only when its header and guard constant show All-IN Crawler & AI Agent Manager generated it. The firewall still runs when WordPress includes the plugin file, before `plugins_loaded`.
 - **Security:** new `Bot_Control_Request` reads `REQUEST_URI` (`esc_url_raw`), `HTTP_USER_AGENT` (`sanitize_text_field`), `REQUEST_METHOD` (`sanitize_key`) and cookie names (`sanitize_key`) once, sanitized. Settings import: the decoded JSON is whitelisted against known keys, type-cast and sanitized per field (`Bot_Control_Settings::sanitize_import()` / `clean_input()`) before the strict per-tab validation. Admin form input goes through the same `clean_input()`.
 - **i18n:** removed `load_plugin_textdomain()` and the `Domain Path` header; `.po`/`.mo` files are no longer shipped in the WordPress.org zip (translations come from translate.wordpress.org). The `.pot` template stays in the repo.
 
@@ -22,7 +23,7 @@ WordPress.org review fixes.
 - **Server rules:** export blocked bots, empty User-Agents and (optionally) blocked IPs as Apache/LiteSpeed `.htaccess` rules (written at the top of the file with a backup, optional auto-sync) or nginx snippets. Excluded paths and allow-listed IPs are respected. New **Server Rules** tab.
 - **Email reports:** weekly or monthly HTML report (totals vs previous period, AI assistant visits, impostors caught, top bots/IPs, estimated server time saved from a measured average page time). White-label brand name, multiple recipients, preview and send-now. New **Reports** tab.
 - **llms.txt generator:** virtual `/llms.txt` with summary, details, selected content types, extra links; excludes password-protected and noindex (Yoast SEO, Rank Math, SEOPress) content. New **llms.txt** tab with live preview.
-- **Hebrew translation (he_IL)** and translation template (`languages/bot-control.pot`); RTL-aware admin and email layout.
+- **Hebrew translation (he_IL)** and translation template (`languages/all-in-crawler-ai-agent-manager.pot`); RTL-aware admin and email layout.
 - Bot Rules: "Official IP list" and "feed" badges. User-Agent tester shows IP-list verification.
 - New hooks: `botctl_settings_updated`, `botctl_ip_list_sources`, `botctl_llms_txt`, `botctl_llms_exclude_post`.
 
@@ -45,5 +46,5 @@ Initial release by Eli Shvarzman.
 - **robots.txt:** Disallow groups for blocked bots, including Google-Extended and Applebot-Extended; optional Crawl-delay that copies the `User-agent: *` rules.
 - **Admin:** dashboard (status, 7/14-day statistics, top bots, top denied IPs), rule editor, custom bots, protection, robots.txt preview, throttled log with block/allow actions, User-Agent tester with live DNS check, settings export/import, reset, early loader installer.
 - **Early loader:** optional mu-plugin that runs the firewall before all other plugins.
-- **Debugging:** `[BotControl][Component]` error_log lines and `X-Bot-Control` headers in debug mode.
+- **Debugging:** `[AllIN-Crawler][Component]` error_log lines and `X-AllIN-Crawler` headers in debug mode.
 - **Documentation:** README, user manual, developer guide.

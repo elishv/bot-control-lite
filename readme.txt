@@ -1,6 +1,5 @@
-=== Bot Control – Crawler, AI Agent & Scraper Manager ===
+=== All-IN Crawler & AI Agent Manager ===
 Contributors: elis85
-Donate link: https://a-in.co.il/plugins/bot-control/
 Tags: bots, rate limit, crawler, ai crawler, robots.txt
 Requires at least: 6.1
 Tested up to: 7.1
@@ -13,7 +12,7 @@ Allow, rate-limit or block bots, AI crawlers and scrapers, and stay visible to s
 
 == Description ==
 
-Much of your traffic is bots. Some bring you customers: Google, Bing, ChatGPT search, social previews. Others only cost you server resources: aggressive AI training crawlers, SEO tools, scrapers and vulnerability scanners. Bot Control lets you decide, per category or per bot, who gets in and how fast, without hiding your site from search engines or AI assistants.
+Much of your traffic is bots. Some bring you customers: Google, Bing, ChatGPT search, social previews. Others only cost you server resources: aggressive AI training crawlers, SEO tools, scrapers and vulnerability scanners. All-IN Crawler & AI Agent Manager lets you decide, per category or per bot, who gets in and how fast, without hiding your site from search engines or AI assistants.
 
 * **About 120 known bots in 12 categories**: search engines, AI search & assistants, AI training crawlers, SEO tools, social previews, monitoring, feed readers, archives, scripts & HTTP libraries, vulnerability scanners, unidentified bots and empty User-Agents.
 * **Allow, rate-limit or block** per category, with per-bot overrides and custom User-Agent rules (text or regex).
@@ -39,7 +38,7 @@ This plugin is complete on its own: no licence key, no locked features. Premium 
 == Installation ==
 
 1. Upload the plugin ZIP via Plugins → Add New → Upload Plugin, then activate it.
-2. Open **Bot Control → Dashboard** and check that "Your IP" shows your real public IP. If it doesn't, configure Advanced → IP source.
+2. Open **All-IN Crawler → Dashboard** and check that "Your IP" shows your real public IP. If it doesn't, configure Advanced → IP source.
 3. Optionally switch Protection → Mode to *Monitor* for a few days to review decisions safely.
 4. Pick a preset on Bot Rules.
 5. Optionally export server rules (.htaccess / nginx) on the Server Rules tab so blocked bots are rejected before PHP runs.
@@ -62,23 +61,23 @@ Not without blocking Google Search. AI Overviews use regular Googlebot. Google-E
 
 No. It complements them. Large DDoS attacks must be stopped before they reach PHP.
 
-= Does Bot Control contact any outside service by default? =
+= Does All-IN Crawler & AI Agent Manager contact any outside service by default? =
 
 No. Out of the box it makes no outgoing requests: search engine bots are verified with DNS lookups through your own server's resolver. Two features can download data, and both are off until you turn them on in the Bot Lists tab: the official crawler IP lists (from Google, Bing, Apple, OpenAI and Perplexity) and a bot-list feed URL of your own. See "External services" below for exactly what is requested.
 
 = Why would I turn on the official crawler IP lists? =
 
-OpenAI and Perplexity bots have no reverse DNS, so without their published IP lists Bot Control can't tell a real GPTBot or PerplexityBot from a scraper using the same name; they stay "unverified". With the lists on, a request claiming to be one of those bots from an unlisted IP is treated as an impostor. A list is only used while it is fresh (under 7 days old), so a failed download never blocks a genuine bot.
+OpenAI and Perplexity bots have no reverse DNS, so without their published IP lists All-IN Crawler & AI Agent Manager can't tell a real GPTBot or PerplexityBot from a scraper using the same name; they stay "unverified". With the lists on, a request claiming to be one of those bots from an unlisted IP is treated as an impostor. A list is only used while it is fresh (under 7 days old), so a failed download never blocks a genuine bot.
 
 = Does a page cache bypass it? =
 
-Pages served from a full-page cache don't run WordPress, so Bot Control doesn't see them. Those requests are cheap anyway. Denials are sent with `Cache-Control: no-store` and are never cached.
+Pages served from a full-page cache don't run WordPress, so All-IN Crawler & AI Agent Manager doesn't see them. Those requests are cheap anyway. Denials are sent with `Cache-Control: no-store` and are never cached.
 
 == External services ==
 
-Bot Control works without any external service. These features contact third parties:
+All-IN Crawler & AI Agent Manager works without any external service. These features contact third parties:
 
-* **Official crawler IP lists** (Bot Lists tab → "Download official crawler IP lists", **off by default, opt-in**). Nothing is downloaded until you tick the box and save; the "Download official IP lists" button is also disabled until then. Once enabled, the site downloads the public IP range files published by the crawler operators once a day, to verify that a request claiming to be their bot really comes from them. No data about your site or visitors is sent: it is a plain HTTPS GET with a generic `BotControl/<version>` User-Agent, so the publisher only sees your server's IP address. Untick the box to stop the downloads at any time. Sources:
+* **Official crawler IP lists** (Bot Lists tab → "Download official crawler IP lists", **off by default, opt-in**). Nothing is downloaded until you tick the box and save; the "Download official IP lists" button is also disabled until then. Once enabled, the site downloads the public IP range files published by the crawler operators once a day, to verify that a request claiming to be their bot really comes from them. No data about your site or visitors is sent: it is a plain HTTPS GET with a generic `all-in-crawler-ai-agent-manager/<version>` User-Agent, so the publisher only sees your server's IP address. Untick the box to stop the downloads at any time. Sources:
   * Google: `https://developers.google.com/static/search/apis/ipranges/` ([Terms](https://policies.google.com/terms), [Privacy](https://policies.google.com/privacy))
   * Bing: `https://www.bing.com/toolbox/bingbot.json` ([Terms](https://www.microsoft.com/servicesagreement), [Privacy](https://privacy.microsoft.com/privacystatement))
   * Apple: `https://search.developer.apple.com/applebot.json` ([Terms](https://www.apple.com/legal/internet-services/terms/site.html), [Privacy](https://www.apple.com/legal/privacy/))
@@ -98,7 +97,8 @@ Bot Control works without any external service. These features contact third par
 == Changelog ==
 
 = 1.2.0 =
-* Removed: the optional early loader. The plugin no longer writes any file to wp-content/mu-plugins; a loader created by an older build is removed on upgrade, deactivation and uninstall (only if Bot Control generated it).
+* Changed: new name, All-IN Crawler & AI Agent Manager (slug and text domain all-in-crawler-ai-agent-manager). Settings, statistics and logs are kept: the internal botctl_ option and table names are unchanged, and settings exports from earlier versions can still be imported.
+* Removed: the optional early loader. The plugin no longer writes any file to wp-content/mu-plugins; a loader created by an older build is removed on upgrade, deactivation and uninstall (only if All-IN Crawler & AI Agent Manager generated it).
 * Security: the request URI, User-Agent, method and cookie names are sanitized as soon as they are read; imported settings and admin form input are whitelisted, type-cast and sanitized field by field.
 * Changed: translations are loaded by WordPress from translate.wordpress.org; no translation files are bundled.
 
@@ -123,7 +123,7 @@ Bot Control works without any external service. These features contact third par
 == Upgrade Notice ==
 
 = 1.2.0 =
-Removes the optional mu-plugin early loader (and deletes a leftover copy). Sanitization hardening. No database changes.
+New name (All-IN Crawler & AI Agent Manager); your settings and data are kept. Removes the optional mu-plugin early loader (and deletes a leftover copy). Sanitization hardening. No database changes.
 
 = 1.1.1 =
 Bundled bot list, no default remote feed, readme updates. No database changes.

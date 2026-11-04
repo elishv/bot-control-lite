@@ -2,7 +2,7 @@
 /**
  * Dashboard tab.
  *
- * @package BotControl
+ * @package AllInCrawlerAIAgentManager
  * @var array $s Settings.
  */
 
@@ -27,86 +27,86 @@ $botctl_offenders = (array) $wpdb->get_results(
 );
 
 $botctl_backend_labels = array(
-	'apcu'         => __( 'APCu (shared memory) – fastest', 'bot-control' ),
-	'object_cache' => __( 'Persistent object cache (Redis/Memcached) – fast', 'bot-control' ),
-	'database'     => __( 'Database – works everywhere, slowest', 'bot-control' ),
+	'apcu'         => __( 'APCu (shared memory) – fastest', 'all-in-crawler-ai-agent-manager' ),
+	'object_cache' => __( 'Persistent object cache (Redis/Memcached) – fast', 'all-in-crawler-ai-agent-manager' ),
+	'database'     => __( 'Database – works everywhere, slowest', 'all-in-crawler-ai-agent-manager' ),
 );
 ?>
 <div class="botctl-cards">
 	<div class="botctl-card">
-		<h3><?php esc_html_e( 'Protection', 'bot-control' ); ?></h3>
+		<h3><?php esc_html_e( 'Protection', 'all-in-crawler-ai-agent-manager' ); ?></h3>
 		<?php if ( empty( $s['enabled'] ) ) : ?>
-			<p class="botctl-big botctl-bad"><?php esc_html_e( 'Disabled', 'bot-control' ); ?></p>
+			<p class="botctl-big botctl-bad"><?php esc_html_e( 'Disabled', 'all-in-crawler-ai-agent-manager' ); ?></p>
 		<?php elseif ( 'monitor' === $s['mode'] ) : ?>
-			<p class="botctl-big botctl-warn"><?php esc_html_e( 'Monitor only', 'bot-control' ); ?></p>
+			<p class="botctl-big botctl-warn"><?php esc_html_e( 'Monitor only', 'all-in-crawler-ai-agent-manager' ); ?></p>
 		<?php else : ?>
-			<p class="botctl-big botctl-good"><?php esc_html_e( 'Enforcing', 'bot-control' ); ?></p>
+			<p class="botctl-big botctl-good"><?php esc_html_e( 'Enforcing', 'all-in-crawler-ai-agent-manager' ); ?></p>
 		<?php endif; ?>
 		<p class="description">
 			<?php
-			esc_html_e( 'Runs while WordPress loads plugins, before the theme and most of the site start.', 'bot-control' );
+			esc_html_e( 'Runs while WordPress loads plugins, before the theme and most of the site start.', 'all-in-crawler-ai-agent-manager' );
 			?>
 		</p>
 	</div>
 
 	<div class="botctl-card">
-		<h3><?php esc_html_e( 'Rate-limit storage', 'bot-control' ); ?></h3>
+		<h3><?php esc_html_e( 'Rate-limit storage', 'all-in-crawler-ai-agent-manager' ); ?></h3>
 		<p class="botctl-big <?php echo 'database' === $botctl_backend ? 'botctl-warn' : 'botctl-good'; ?>"><?php echo esc_html( ucwords( str_replace( '_', ' ', $botctl_backend ) ) ); ?></p>
 		<p class="description"><?php echo esc_html( $botctl_backend_labels[ $botctl_backend ] ); ?>
 		<?php if ( 'database' === $botctl_backend ) : ?>
-			<?php esc_html_e( 'Ask your host to enable APCu or Redis for the best protection under heavy load.', 'bot-control' ); ?>
+			<?php esc_html_e( 'Ask your host to enable APCu or Redis for the best protection under heavy load.', 'all-in-crawler-ai-agent-manager' ); ?>
 		<?php endif; ?>
 		</p>
 	</div>
 
 	<div class="botctl-card">
-		<h3><?php esc_html_e( 'Your IP as seen by Bot Control', 'bot-control' ); ?></h3>
+		<h3><?php esc_html_e( 'Your IP as seen by All-IN Crawler & AI Agent Manager', 'all-in-crawler-ai-agent-manager' ); ?></h3>
 		<p class="botctl-big"><code><?php echo esc_html( $botctl_client['ip'] ); ?></code></p>
 		<p class="description">
 			<?php
 			/* translators: %s: header name */
-			printf( esc_html__( 'Source: %s.', 'bot-control' ), esc_html( $botctl_client['source'] ) );
+			printf( esc_html__( 'Source: %s.', 'all-in-crawler-ai-agent-manager' ), esc_html( $botctl_client['source'] ) );
 			if ( Bot_Control_IP::is_private( $botctl_client['ip'] ) ) {
-				echo ' <strong class="botctl-bad">' . esc_html__( 'This is a private/proxy address – configure the IP source on the Advanced tab before enabling human rate limiting, or all visitors will share one counter.', 'bot-control' ) . '</strong>';
+				echo ' <strong class="botctl-bad">' . esc_html__( 'This is a private/proxy address – configure the IP source on the Advanced tab before enabling human rate limiting, or all visitors will share one counter.', 'all-in-crawler-ai-agent-manager' ) . '</strong>';
 			}
 			?>
 		</p>
 	</div>
 
 	<div class="botctl-card">
-		<h3><?php esc_html_e( 'Server load', 'bot-control' ); ?></h3>
+		<h3><?php esc_html_e( 'Server load', 'all-in-crawler-ai-agent-manager' ); ?></h3>
 		<?php if ( $botctl_load['supported'] ) : ?>
 			<p class="botctl-big <?php echo $botctl_load['overloaded'] ? 'botctl-bad' : 'botctl-good'; ?>">
 				<?php echo esc_html( number_format_i18n( $botctl_load['per_core'], 2 ) ); ?>
-				<small>/ <?php echo esc_html( number_format_i18n( (float) $s['load_threshold'], 2 ) ); ?> <?php esc_html_e( 'per core', 'bot-control' ); ?></small>
+				<small>/ <?php echo esc_html( number_format_i18n( (float) $s['load_threshold'], 2 ) ); ?> <?php esc_html_e( 'per core', 'all-in-crawler-ai-agent-manager' ); ?></small>
 			</p>
 			<p class="description">
 				<?php
 				/* translators: 1: load, 2: cores */
-				printf( esc_html__( 'Load average %1$s on %2$d CPU cores.', 'bot-control' ), esc_html( number_format_i18n( $botctl_load['load'], 2 ) ), (int) $botctl_load['cores'] );
+				printf( esc_html__( 'Load average %1$s on %2$d CPU cores.', 'all-in-crawler-ai-agent-manager' ), esc_html( number_format_i18n( $botctl_load['load'], 2 ) ), (int) $botctl_load['cores'] );
 				echo ' ';
-				echo $s['load_shedding'] ? esc_html__( 'Load shedding is on.', 'bot-control' ) : esc_html__( 'Load shedding is off.', 'bot-control' );
+				echo $s['load_shedding'] ? esc_html__( 'Load shedding is on.', 'all-in-crawler-ai-agent-manager' ) : esc_html__( 'Load shedding is off.', 'all-in-crawler-ai-agent-manager' );
 				?>
 			</p>
 		<?php else : ?>
-			<p class="botctl-big botctl-warn"><?php esc_html_e( 'Unavailable', 'bot-control' ); ?></p>
-			<p class="description"><?php esc_html_e( 'The server does not expose its load average or CPU count. Set the CPU core count manually on the Protection tab to enable load shedding.', 'bot-control' ); ?></p>
+			<p class="botctl-big botctl-warn"><?php esc_html_e( 'Unavailable', 'all-in-crawler-ai-agent-manager' ); ?></p>
+			<p class="description"><?php esc_html_e( 'The server does not expose its load average or CPU count. Set the CPU core count manually on the Protection tab to enable load shedding.', 'all-in-crawler-ai-agent-manager' ); ?></p>
 		<?php endif; ?>
 	</div>
 </div>
 
 <div class="botctl-grid">
 	<div class="botctl-panel">
-		<h2><?php esc_html_e( 'Last 7 days by category', 'bot-control' ); ?></h2>
+		<h2><?php esc_html_e( 'Last 7 days by category', 'all-in-crawler-ai-agent-manager' ); ?></h2>
 		<?php if ( empty( $botctl_cats ) ) : ?>
-			<p class="description"><?php esc_html_e( 'No bot traffic recorded yet. Statistics appear as soon as bots visit your site.', 'bot-control' ); ?></p>
+			<p class="description"><?php esc_html_e( 'No bot traffic recorded yet. Statistics appear as soon as bots visit your site.', 'all-in-crawler-ai-agent-manager' ); ?></p>
 		<?php else : ?>
 		<table class="widefat striped">
 			<thead><tr>
-				<th><?php esc_html_e( 'Category', 'bot-control' ); ?></th>
-				<th class="num"><?php esc_html_e( 'Allowed', 'bot-control' ); ?></th>
-				<th class="num"><?php esc_html_e( 'Limited', 'bot-control' ); ?></th>
-				<th class="num"><?php esc_html_e( 'Blocked', 'bot-control' ); ?></th>
+				<th><?php esc_html_e( 'Category', 'all-in-crawler-ai-agent-manager' ); ?></th>
+				<th class="num"><?php esc_html_e( 'Allowed', 'all-in-crawler-ai-agent-manager' ); ?></th>
+				<th class="num"><?php esc_html_e( 'Limited', 'all-in-crawler-ai-agent-manager' ); ?></th>
+				<th class="num"><?php esc_html_e( 'Blocked', 'all-in-crawler-ai-agent-manager' ); ?></th>
 			</tr></thead>
 			<tbody>
 			<?php foreach ( $botctl_cats as $botctl_row ) : ?>
@@ -123,7 +123,7 @@ $botctl_backend_labels = array(
 	</div>
 
 	<div class="botctl-panel">
-		<h2><?php esc_html_e( 'Last 14 days', 'bot-control' ); ?></h2>
+		<h2><?php esc_html_e( 'Last 14 days', 'all-in-crawler-ai-agent-manager' ); ?></h2>
 		<?php
 		$botctl_max = 1;
 		foreach ( $botctl_daily as $botctl_row ) {
@@ -131,12 +131,12 @@ $botctl_backend_labels = array(
 		}
 		?>
 		<?php if ( empty( $botctl_daily ) ) : ?>
-			<p class="description"><?php esc_html_e( 'No data yet.', 'bot-control' ); ?></p>
+			<p class="description"><?php esc_html_e( 'No data yet.', 'all-in-crawler-ai-agent-manager' ); ?></p>
 		<?php else : ?>
 			<div class="botctl-legend">
-				<span class="botctl-sw botctl-sw-allowed"></span><?php esc_html_e( 'Allowed', 'bot-control' ); ?>
-				<span class="botctl-sw botctl-sw-limited"></span><?php esc_html_e( 'Limited', 'bot-control' ); ?>
-				<span class="botctl-sw botctl-sw-blocked"></span><?php esc_html_e( 'Blocked', 'bot-control' ); ?>
+				<span class="botctl-sw botctl-sw-allowed"></span><?php esc_html_e( 'Allowed', 'all-in-crawler-ai-agent-manager' ); ?>
+				<span class="botctl-sw botctl-sw-limited"></span><?php esc_html_e( 'Limited', 'all-in-crawler-ai-agent-manager' ); ?>
+				<span class="botctl-sw botctl-sw-blocked"></span><?php esc_html_e( 'Blocked', 'all-in-crawler-ai-agent-manager' ); ?>
 			</div>
 			<div class="botctl-bars">
 			<?php foreach ( $botctl_daily as $botctl_row ) : ?>
@@ -144,7 +144,7 @@ $botctl_backend_labels = array(
 				$botctl_total = (int) $botctl_row['allowed'] + (int) $botctl_row['limited'] + (int) $botctl_row['blocked'];
 				$botctl_tip   = sprintf(
 					/* translators: 1: date, 2: allowed, 3: limited, 4: blocked */
-					__( '%1$s — allowed %2$s, limited %3$s, blocked %4$s', 'bot-control' ),
+					__( '%1$s — allowed %2$s, limited %3$s, blocked %4$s', 'all-in-crawler-ai-agent-manager' ),
 					$botctl_row['day'],
 					number_format_i18n( (int) $botctl_row['allowed'] ),
 					number_format_i18n( (int) $botctl_row['limited'] ),
@@ -168,17 +168,17 @@ $botctl_backend_labels = array(
 
 <div class="botctl-grid">
 	<div class="botctl-panel">
-		<h2><?php esc_html_e( 'Top bots – last 7 days', 'bot-control' ); ?></h2>
+		<h2><?php esc_html_e( 'Top bots – last 7 days', 'all-in-crawler-ai-agent-manager' ); ?></h2>
 		<?php if ( empty( $botctl_top ) ) : ?>
-			<p class="description"><?php esc_html_e( 'No data yet.', 'bot-control' ); ?></p>
+			<p class="description"><?php esc_html_e( 'No data yet.', 'all-in-crawler-ai-agent-manager' ); ?></p>
 		<?php else : ?>
 		<table class="widefat striped">
 			<thead><tr>
-				<th><?php esc_html_e( 'Bot', 'bot-control' ); ?></th>
-				<th><?php esc_html_e( 'Category', 'bot-control' ); ?></th>
-				<th class="num"><?php esc_html_e( 'Allowed', 'bot-control' ); ?></th>
-				<th class="num"><?php esc_html_e( 'Limited', 'bot-control' ); ?></th>
-				<th class="num"><?php esc_html_e( 'Blocked', 'bot-control' ); ?></th>
+				<th><?php esc_html_e( 'Bot', 'all-in-crawler-ai-agent-manager' ); ?></th>
+				<th><?php esc_html_e( 'Category', 'all-in-crawler-ai-agent-manager' ); ?></th>
+				<th class="num"><?php esc_html_e( 'Allowed', 'all-in-crawler-ai-agent-manager' ); ?></th>
+				<th class="num"><?php esc_html_e( 'Limited', 'all-in-crawler-ai-agent-manager' ); ?></th>
+				<th class="num"><?php esc_html_e( 'Blocked', 'all-in-crawler-ai-agent-manager' ); ?></th>
 			</tr></thead>
 			<tbody>
 			<?php foreach ( $botctl_top as $botctl_row ) : ?>
@@ -192,20 +192,20 @@ $botctl_backend_labels = array(
 			<?php endforeach; ?>
 			</tbody>
 		</table>
-		<p class="description"><?php esc_html_e( 'Tip: an unidentified bot with lots of traffic? Add it on the Custom Bots tab to give it its own rule.', 'bot-control' ); ?></p>
+		<p class="description"><?php esc_html_e( 'Tip: an unidentified bot with lots of traffic? Add it on the Custom Bots tab to give it its own rule.', 'all-in-crawler-ai-agent-manager' ); ?></p>
 		<?php endif; ?>
 	</div>
 
 	<div class="botctl-panel">
-		<h2><?php esc_html_e( 'Most denied IPs – last 24 hours', 'bot-control' ); ?></h2>
+		<h2><?php esc_html_e( 'Most denied IPs – last 24 hours', 'all-in-crawler-ai-agent-manager' ); ?></h2>
 		<?php if ( empty( $botctl_offenders ) ) : ?>
-			<p class="description"><?php esc_html_e( 'Nothing denied in the last 24 hours.', 'bot-control' ); ?></p>
+			<p class="description"><?php esc_html_e( 'Nothing denied in the last 24 hours.', 'all-in-crawler-ai-agent-manager' ); ?></p>
 		<?php else : ?>
 		<table class="widefat striped">
 			<thead><tr>
-				<th><?php esc_html_e( 'IP', 'bot-control' ); ?></th>
-				<th><?php esc_html_e( 'Identified as', 'bot-control' ); ?></th>
-				<th class="num"><?php esc_html_e( 'Logged events', 'bot-control' ); ?></th>
+				<th><?php esc_html_e( 'IP', 'all-in-crawler-ai-agent-manager' ); ?></th>
+				<th><?php esc_html_e( 'Identified as', 'all-in-crawler-ai-agent-manager' ); ?></th>
+				<th class="num"><?php esc_html_e( 'Logged events', 'all-in-crawler-ai-agent-manager' ); ?></th>
 				<th></th>
 			</tr></thead>
 			<tbody>
@@ -216,13 +216,13 @@ $botctl_backend_labels = array(
 					<td class="num"><?php echo esc_html( number_format_i18n( (int) $botctl_row['events'] ) ); ?></td>
 					<td class="botctl-actions">
 						<?php Bot_Control_Admin::form_open( 'ip_action', array( 'ip' => $botctl_row['ip'], 'list' => 'block', 'back' => 'dashboard' ), 'botctl-inline' ); ?>
-						<button class="button button-small botctl-confirm"><?php esc_html_e( 'Block IP', 'bot-control' ); ?></button></form>
+						<button class="button button-small botctl-confirm"><?php esc_html_e( 'Block IP', 'all-in-crawler-ai-agent-manager' ); ?></button></form>
 					</td>
 				</tr>
 			<?php endforeach; ?>
 			</tbody>
 		</table>
-		<p class="description"><?php esc_html_e( 'Event logging is throttled (max 3 rows per IP per window), so counts here show activity, not total requests.', 'bot-control' ); ?></p>
+		<p class="description"><?php esc_html_e( 'Event logging is throttled (max 3 rows per IP per window), so counts here show activity, not total requests.', 'all-in-crawler-ai-agent-manager' ); ?></p>
 		<?php endif; ?>
 	</div>
 </div>

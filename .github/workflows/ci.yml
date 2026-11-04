@@ -35,15 +35,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Build WordPress.org package
-        run: bin/build-zip.sh bot-control
+        run: bin/build-zip.sh all-in-crawler-ai-agent-manager
       - uses: actions/upload-artifact@v4
         with:
-          name: bot-control-wporg-zip
-          path: build/bot-control.zip
+          name: all-in-crawler-ai-agent-manager-wporg-zip
+          path: build/all-in-crawler-ai-agent-manager.zip
       - name: Run Plugin Check
         uses: wordpress/plugin-check-action@v1
         with:
-          build-dir: ./build/bot-control
-          slug: bot-control
+          build-dir: ./build/all-in-crawler-ai-agent-manager
+          slug: all-in-crawler-ai-agent-manager
           # Warnings are shown as annotations; errors fail the job.
           ignore-warnings: true

@@ -1,5 +1,5 @@
 /**
- * Bot Control admin UI.
+ * All-IN Crawler & AI Agent Manager admin UI.
  * Author: Eli Shvarzman
  */
 ( function () {

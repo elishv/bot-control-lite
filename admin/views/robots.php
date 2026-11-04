@@ -2,7 +2,7 @@
 /**
  * robots.txt tab.
  *
- * @package BotControl
+ * @package AllInCrawlerAIAgentManager
  * @var array $s Settings.
  */
 
@@ -28,40 +28,40 @@ $botctl_ours = Bot_Control_Robots::build( $s, $botctl_base );
 ?>
 <?php if ( $botctl_physical ) : ?>
 	<div class="notice notice-error inline"><p>
-		<strong><?php esc_html_e( 'A physical robots.txt file exists in your site root.', 'bot-control' ); ?></strong>
-		<?php esc_html_e( 'The web server serves that file directly, so WordPress (and Bot Control) cannot add rules to it. Copy the rules below into the file manually, or delete/rename it to let Bot Control manage robots.txt.', 'bot-control' ); ?>
+		<strong><?php esc_html_e( 'A physical robots.txt file exists in your site root.', 'all-in-crawler-ai-agent-manager' ); ?></strong>
+		<?php esc_html_e( 'The web server serves that file directly, so WordPress (and All-IN Crawler & AI Agent Manager) cannot add rules to it. Copy the rules below into the file manually, or delete/rename it to let All-IN Crawler & AI Agent Manager manage robots.txt.', 'all-in-crawler-ai-agent-manager' ); ?>
 	</p></div>
 <?php endif; ?>
 
 <?php Bot_Control_Admin::form_open( 'save', array( 'tab' => 'robots' ) ); ?>
 <div class="botctl-panel">
-	<h2><?php esc_html_e( 'robots.txt rules', 'bot-control' ); ?></h2>
-	<p class="description"><?php esc_html_e( 'Well-behaved bots (all major search engines and AI companies) read robots.txt before crawling. Telling them "Disallow" means they never send the requests at all – cheaper than blocking them one by one. Bad bots ignore robots.txt, which is why the firewall rules exist too.', 'bot-control' ); ?></p>
+	<h2><?php esc_html_e( 'robots.txt rules', 'all-in-crawler-ai-agent-manager' ); ?></h2>
+	<p class="description"><?php esc_html_e( 'Well-behaved bots (all major search engines and AI companies) read robots.txt before crawling. Telling them "Disallow" means they never send the requests at all – cheaper than blocking them one by one. Bad bots ignore robots.txt, which is why the firewall rules exist too.', 'all-in-crawler-ai-agent-manager' ); ?></p>
 	<table class="form-table" role="presentation">
 		<tr>
-			<th scope="row"><?php esc_html_e( 'Manage robots.txt', 'bot-control' ); ?></th>
+			<th scope="row"><?php esc_html_e( 'Manage robots.txt', 'all-in-crawler-ai-agent-manager' ); ?></th>
 			<td>
-				<label><input type="checkbox" name="botctl[robots_enabled]" value="1" <?php checked( $s['robots_enabled'] ); ?>> <?php esc_html_e( 'Add "Disallow: /" for every bot whose policy is Block (including Google-Extended and Applebot-Extended)', 'bot-control' ); ?></label>
+				<label><input type="checkbox" name="botctl[robots_enabled]" value="1" <?php checked( $s['robots_enabled'] ); ?>> <?php esc_html_e( 'Add "Disallow: /" for every bot whose policy is Block (including Google-Extended and Applebot-Extended)', 'all-in-crawler-ai-agent-manager' ); ?></label>
 			</td>
 		</tr>
 		<tr>
-			<th scope="row"><?php esc_html_e( 'Crawl-delay', 'bot-control' ); ?></th>
+			<th scope="row"><?php esc_html_e( 'Crawl-delay', 'all-in-crawler-ai-agent-manager' ); ?></th>
 			<td>
-				<label><input type="checkbox" name="botctl[robots_crawl_delay]" value="1" <?php checked( $s['robots_crawl_delay'] ); ?>> <?php esc_html_e( 'Add Crawl-delay for rate-limited bots', 'bot-control' ); ?></label>
-				<p class="description"><?php esc_html_e( 'Asks polite bots (Bing, Yandex, most SEO tools) to slow down to your limit instead of hitting it and receiving 429s. Google ignores Crawl-delay, so no Google group is ever added. Each group repeats your "User-agent: *" rules, because a bot with its own group ignores the "*" group.', 'bot-control' ); ?></p>
+				<label><input type="checkbox" name="botctl[robots_crawl_delay]" value="1" <?php checked( $s['robots_crawl_delay'] ); ?>> <?php esc_html_e( 'Add Crawl-delay for rate-limited bots', 'all-in-crawler-ai-agent-manager' ); ?></label>
+				<p class="description"><?php esc_html_e( 'Asks polite bots (Bing, Yandex, most SEO tools) to slow down to your limit instead of hitting it and receiving 429s. Google ignores Crawl-delay, so no Google group is ever added. Each group repeats your "User-agent: *" rules, because a bot with its own group ignores the "*" group.', 'all-in-crawler-ai-agent-manager' ); ?></p>
 			</td>
 		</tr>
 	</table>
 </div>
-<?php submit_button( __( 'Save robots.txt settings', 'bot-control' ) ); ?>
+<?php submit_button( __( 'Save robots.txt settings', 'all-in-crawler-ai-agent-manager' ) ); ?>
 </form>
 
 <div class="botctl-panel">
-	<h2><?php esc_html_e( 'Preview of the lines Bot Control adds', 'bot-control' ); ?></h2>
+	<h2><?php esc_html_e( 'Preview of the lines All-IN Crawler & AI Agent Manager adds', 'all-in-crawler-ai-agent-manager' ); ?></h2>
 	<?php if ( '' === $botctl_ours ) : ?>
-		<p class="description"><?php esc_html_e( 'Nothing to add with the current rules (no blocked bots with a robots.txt token).', 'bot-control' ); ?></p>
+		<p class="description"><?php esc_html_e( 'Nothing to add with the current rules (no blocked bots with a robots.txt token).', 'all-in-crawler-ai-agent-manager' ); ?></p>
 	<?php else : ?>
 		<pre class="botctl-pre"><?php echo esc_html( $botctl_ours ); ?></pre>
 	<?php endif; ?>
-	<p><a href="<?php echo esc_url( home_url( '/robots.txt' ) ); ?>" target="_blank" rel="noopener"><?php esc_html_e( 'View your live robots.txt', 'bot-control' ); ?> ↗</a></p>
+	<p><a href="<?php echo esc_url( home_url( '/robots.txt' ) ); ?>" target="_blank" rel="noopener"><?php esc_html_e( 'View your live robots.txt', 'all-in-crawler-ai-agent-manager' ); ?> ↗</a></p>
 </div>

@@ -2,7 +2,7 @@
 /**
  * Custom bots tab.
  *
- * @package BotControl
+ * @package AllInCrawlerAIAgentManager
  * @var array $s Settings.
  */
 
@@ -28,18 +28,18 @@ $botctl_render_row = function ( $index, array $row, array $cat_opts ) {
 	<tr class="botctl-custom-row">
 		<td>
 			<input type="hidden" name="<?php echo esc_attr( $base ); ?>[id]" value="<?php echo esc_attr( $row['id'] ); ?>">
-			<input type="text" class="regular-text" name="<?php echo esc_attr( $base ); ?>[name]" value="<?php echo esc_attr( $row['name'] ); ?>" placeholder="<?php esc_attr_e( 'e.g. Partner feed importer', 'bot-control' ); ?>">
+			<input type="text" class="regular-text" name="<?php echo esc_attr( $base ); ?>[name]" value="<?php echo esc_attr( $row['name'] ); ?>" placeholder="<?php esc_attr_e( 'e.g. Partner feed importer', 'all-in-crawler-ai-agent-manager' ); ?>">
 		</td>
 		<td>
-			<input type="text" class="regular-text code" name="<?php echo esc_attr( $base ); ?>[pattern]" value="<?php echo esc_attr( $row['pattern'] ); ?>" placeholder="<?php esc_attr_e( 'e.g. MyPartnerBot', 'bot-control' ); ?>">
+			<input type="text" class="regular-text code" name="<?php echo esc_attr( $base ); ?>[pattern]" value="<?php echo esc_attr( $row['pattern'] ); ?>" placeholder="<?php esc_attr_e( 'e.g. MyPartnerBot', 'all-in-crawler-ai-agent-manager' ); ?>">
 		</td>
 		<td>
 			<?php
 			Bot_Control_Admin::select(
 				$base . '[match]',
 				array(
-					'contains' => __( 'Contains', 'bot-control' ),
-					'regex'    => __( 'Regex', 'bot-control' ),
+					'contains' => __( 'Contains', 'all-in-crawler-ai-agent-manager' ),
+					'regex'    => __( 'Regex', 'all-in-crawler-ai-agent-manager' ),
 				),
 				$row['match']
 			);
@@ -48,7 +48,7 @@ $botctl_render_row = function ( $index, array $row, array $cat_opts ) {
 		<td><?php Bot_Control_Admin::select( $base . '[category]', $cat_opts, $row['category'] ); ?></td>
 		<td><?php Bot_Control_Admin::select( $base . '[policy]', Bot_Control_Admin::policy_options( true ), $row['policy'] ); ?></td>
 		<td><input type="number" min="0" max="100000" class="small-text" name="<?php echo esc_attr( $base ); ?>[limit]" value="<?php echo $row['limit'] ? esc_attr( $row['limit'] ) : ''; ?>"></td>
-		<td><button type="button" class="button-link botctl-remove-row" aria-label="<?php esc_attr_e( 'Remove', 'bot-control' ); ?>"><span class="dashicons dashicons-trash"></span></button></td>
+		<td><button type="button" class="button-link botctl-remove-row" aria-label="<?php esc_attr_e( 'Remove', 'all-in-crawler-ai-agent-manager' ); ?>"><span class="dashicons dashicons-trash"></span></button></td>
 	</tr>
 	<?php
 };
@@ -65,20 +65,20 @@ $botctl_empty = array(
 ?>
 <?php Bot_Control_Admin::form_open( 'save', array( 'tab' => 'custom' ) ); ?>
 <div class="botctl-panel">
-	<h2><?php esc_html_e( 'Custom bots', 'bot-control' ); ?></h2>
+	<h2><?php esc_html_e( 'Custom bots', 'all-in-crawler-ai-agent-manager' ); ?></h2>
 	<p class="description">
-		<?php esc_html_e( 'Add bots that are not in the built-in list, or override how a specific User-Agent is treated. Custom rules are checked before the built-in list, so they always win.', 'bot-control' ); ?><br>
-		<?php esc_html_e( '"Contains" is a case-insensitive text match. "Regex" is a PCRE pattern without delimiters (e.g. ^MyBot/\d+).', 'bot-control' ); ?>
+		<?php esc_html_e( 'Add bots that are not in the built-in list, or override how a specific User-Agent is treated. Custom rules are checked before the built-in list, so they always win.', 'all-in-crawler-ai-agent-manager' ); ?><br>
+		<?php esc_html_e( '"Contains" is a case-insensitive text match. "Regex" is a PCRE pattern without delimiters (e.g. ^MyBot/\d+).', 'all-in-crawler-ai-agent-manager' ); ?>
 	</p>
 
 	<table class="widefat botctl-custom">
 		<thead><tr>
-			<th><?php esc_html_e( 'Name', 'bot-control' ); ?></th>
-			<th><?php esc_html_e( 'User-Agent pattern', 'bot-control' ); ?></th>
-			<th><?php esc_html_e( 'Match', 'bot-control' ); ?></th>
-			<th><?php esc_html_e( 'Category', 'bot-control' ); ?></th>
-			<th><?php esc_html_e( 'Policy', 'bot-control' ); ?></th>
-			<th><?php esc_html_e( 'Limit', 'bot-control' ); ?></th>
+			<th><?php esc_html_e( 'Name', 'all-in-crawler-ai-agent-manager' ); ?></th>
+			<th><?php esc_html_e( 'User-Agent pattern', 'all-in-crawler-ai-agent-manager' ); ?></th>
+			<th><?php esc_html_e( 'Match', 'all-in-crawler-ai-agent-manager' ); ?></th>
+			<th><?php esc_html_e( 'Category', 'all-in-crawler-ai-agent-manager' ); ?></th>
+			<th><?php esc_html_e( 'Policy', 'all-in-crawler-ai-agent-manager' ); ?></th>
+			<th><?php esc_html_e( 'Limit', 'all-in-crawler-ai-agent-manager' ); ?></th>
 			<th></th>
 		</tr></thead>
 		<tbody id="botctl-custom-body">
@@ -94,8 +94,8 @@ $botctl_empty = array(
 		<?php $botctl_render_row( '__INDEX__', $botctl_empty, $botctl_cat_opts ); ?>
 	</script>
 
-	<p><button type="button" class="button" id="botctl-add-row"><span class="dashicons dashicons-plus-alt2"></span> <?php esc_html_e( 'Add bot', 'bot-control' ); ?></button></p>
-	<p class="description"><?php esc_html_e( 'Tip: use the User-Agent tester on the Tools tab to check which rule a User-Agent hits.', 'bot-control' ); ?></p>
+	<p><button type="button" class="button" id="botctl-add-row"><span class="dashicons dashicons-plus-alt2"></span> <?php esc_html_e( 'Add bot', 'all-in-crawler-ai-agent-manager' ); ?></button></p>
+	<p class="description"><?php esc_html_e( 'Tip: use the User-Agent tester on the Tools tab to check which rule a User-Agent hits.', 'all-in-crawler-ai-agent-manager' ); ?></p>
 </div>
-<?php submit_button( __( 'Save custom bots', 'bot-control' ) ); ?>
+<?php submit_button( __( 'Save custom bots', 'all-in-crawler-ai-agent-manager' ) ); ?>
 </form>

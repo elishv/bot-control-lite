@@ -4,7 +4,7 @@
  *
  * One atomic upsert per bot request; human requests are only counted when denied.
  *
- * @package BotControl
+ * @package AllInCrawlerAIAgentManager
  */
 
 defined( 'ABSPATH' ) || exit;

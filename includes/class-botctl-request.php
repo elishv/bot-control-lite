@@ -5,7 +5,7 @@
  * Every value is unslashed and sanitized the moment it is read, so no other
  * class touches the superglobals directly for these fields.
  *
- * @package BotControl
+ * @package AllInCrawlerAIAgentManager
  */
 
 defined( 'ABSPATH' ) || exit;

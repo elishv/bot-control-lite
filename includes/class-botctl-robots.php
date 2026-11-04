@@ -14,7 +14,7 @@
  *
  * Only works with WordPress' virtual robots.txt (no physical robots.txt file).
  *
- * @package BotControl
+ * @package AllInCrawlerAIAgentManager
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -122,7 +122,7 @@ final class Bot_Control_Robots {
 			return '';
 		}
 
-		return "# BEGIN Bot Control\n" . implode( "\n\n", $groups ) . "\n# END Bot Control";
+		return "# BEGIN All-IN Crawler & AI Agent Manager\n" . implode( "\n\n", $groups ) . "\n# END All-IN Crawler & AI Agent Manager";
 	}
 
 	/**

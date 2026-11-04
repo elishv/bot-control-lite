@@ -2,7 +2,7 @@
 /**
  * User-Agent classification.
  *
- * @package BotControl
+ * @package AllInCrawlerAIAgentManager
  */
 
 defined( 'ABSPATH' ) || exit;

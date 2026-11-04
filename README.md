@@ -1,6 +1,6 @@
-# Bot Control – Crawler, AI Agent & Scraper Manager (WordPress.org edition)
+# All-IN Crawler & AI Agent Manager (WordPress.org edition)
 
-The free, GPL-2.0-or-later edition of **Bot Control – Crawler, AI Agent & Scraper Manager** for the WordPress.org plugin directory (proposed slug: `bot-control`, text domain: `bot-control`).
+The free, GPL-2.0-or-later edition of **All-IN Crawler & AI Agent Manager** for the WordPress.org plugin directory (slug and text domain: `all-in-crawler-ai-agent-manager`; formerly submitted as `bot-control`).
 
 - No licence check, no custom updater, no calls home without opt-in. Updates come from WordPress.org only.
 - `.wordpress-org/` holds the directory assets (banners, icons, screenshots) for the SVN `/assets` folder. It is not part of the plugin zip.

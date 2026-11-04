@@ -6,7 +6,7 @@
  * assistants understand what the site is about and which pages matter.
  * Pages marked "noindex" in Yoast SEO, Rank Math or SEOPress are left out.
  *
- * @package BotControl
+ * @package AllInCrawlerAIAgentManager
  */
 
 defined( 'ABSPATH' ) || exit;

@@ -2,7 +2,7 @@
 /**
  * Wires everything together.
  *
- * @package BotControl
+ * @package AllInCrawlerAIAgentManager
  */
 
 defined( 'ABSPATH' ) || exit;

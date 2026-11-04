@@ -2,7 +2,7 @@
   "format": 1,
   "updated": "2026-09-24",
   "maintainer": "Eli Shvarzman",
-  "description": "Bot Control community feed: bots added between plugin releases. Built-in bot ids cannot be overridden by a feed.",
+  "description": "All-IN Crawler & AI Agent Manager community feed: bots added between plugin releases. Built-in bot ids cannot be overridden by a feed.",
   "bots": {
     "friendlycrawler": { "name": "FriendlyCrawler", "vendor": "Unknown", "category": "ai_training", "patterns": ["FriendlyCrawler"], "robots": ["FriendlyCrawler"], "note": "Collects data for AI training datasets." },
     "kangaroo_bot": { "name": "Kangaroo Bot", "vendor": "Kangaroo LLM", "category": "ai_training", "patterns": ["Kangaroo Bot"], "robots": ["Kangaroo Bot"] },

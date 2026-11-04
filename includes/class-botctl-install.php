@@ -2,7 +2,7 @@
 /**
  * Activation, database tables, upgrades and scheduled cleanup.
  *
- * @package BotControl
+ * @package AllInCrawlerAIAgentManager
  */
 
 defined( 'ABSPATH' ) || exit;

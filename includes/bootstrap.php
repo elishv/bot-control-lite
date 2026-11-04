@@ -6,7 +6,7 @@
  * `plugins_loaded` action fires, so running the firewall right here is the earliest
  * point a regular plugin gets, without writing any file outside its own folder.
  *
- * @package BotControl
+ * @package AllInCrawlerAIAgentManager
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -18,7 +18,7 @@ if ( defined( 'BOTCTL_VERSION' ) ) {
 define( 'BOTCTL_VERSION', '1.2.0' );
 define( 'BOTCTL_DB_VERSION', '1' );
 define( 'BOTCTL_DIR', dirname( __DIR__ ) . '/' );
-define( 'BOTCTL_FILE', BOTCTL_DIR . 'bot-control.php' );
+define( 'BOTCTL_FILE', BOTCTL_DIR . 'all-in-crawler-ai-agent-manager.php' );
 
 require_once BOTCTL_DIR . 'includes/class-botctl-request.php';
 require_once BOTCTL_DIR . 'includes/class-botctl-logger.php';

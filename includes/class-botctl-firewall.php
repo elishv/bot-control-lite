@@ -13,7 +13,7 @@
  *
  * Anything unexpected fails OPEN (request allowed) and is written to the error log.
  *
- * @package BotControl
+ * @package AllInCrawlerAIAgentManager
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -415,7 +415,7 @@ final class Bot_Control_Firewall {
 			header( 'Content-Type: text/plain; charset=utf-8' );
 			// Never let a page cache or CDN store a denial.
 			header( 'Cache-Control: no-store, no-cache, must-revalidate, max-age=0' );
-			header( 'X-Bot-Control: ' . $action );
+			header( 'X-AllIN-Crawler: ' . $action );
 			if ( $retry > 0 ) {
 				header( 'Retry-After: ' . (int) $retry );
 			}
@@ -436,6 +436,6 @@ final class Bot_Control_Firewall {
 		if ( ! Bot_Control_Logger::debug_enabled() || headers_sent() ) {
 			return;
 		}
-		header( 'X-Bot-Control: ' . $action . '; bot=' . preg_replace( '/[^a-z0-9_:\-]/i', '', $match['bot_id'] ) . '; category=' . $match['category'] );
+		header( 'X-AllIN-Crawler: ' . $action . '; bot=' . preg_replace( '/[^a-z0-9_:\-]/i', '', $match['bot_id'] ) . '; category=' . $match['category'] );
 	}
 }

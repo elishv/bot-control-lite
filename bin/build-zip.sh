@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 # Build the WordPress.org package: build/<slug>/ and build/<slug>.zip, honouring .distignore.
-# Usage: bin/build-zip.sh [slug]   (default: bot-control)
+# Usage: bin/build-zip.sh [slug]   (default: all-in-crawler-ai-agent-manager)
 set -euo pipefail
 cd "$(dirname "$0")/.."
-SLUG="${1:-bot-control}"
+SLUG="${1:-all-in-crawler-ai-agent-manager}"
 rm -rf "build/$SLUG" "build/$SLUG.zip"
 mkdir -p "build/$SLUG"
 EXCLUDES=()

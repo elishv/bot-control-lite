@@ -10,7 +10,7 @@
  * when reports are enabled, ~2% of normal front-end page views record how long
  * WordPress took (rolling average). No guessing, no hard-coded numbers.
  *
- * @package BotControl
+ * @package AllInCrawlerAIAgentManager
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -95,7 +95,7 @@ final class Bot_Control_Reports {
 
 		$brand = '' !== trim( (string) $s['report_brand'] ) ? $s['report_brand'] : get_bloginfo( 'name' );
 		/* translators: 1: brand, 2: site name, 3: number of days */
-		$subject = sprintf( __( '[%1$s] Bot report for %2$s – last %3$d days', 'bot-control' ), $brand, get_bloginfo( 'name' ), $days );
+		$subject = sprintf( __( '[%1$s] Bot report for %2$s – last %3$d days', 'all-in-crawler-ai-agent-manager' ), $brand, get_bloginfo( 'name' ), $days );
 
 		$sent = wp_mail( self::recipients( $s ), $subject, $html, array( 'Content-Type: text/html; charset=UTF-8' ) );
 
@@ -171,7 +171,7 @@ final class Bot_Control_Reports {
 	 */
 	private static function change( $now, $prev ) {
 		if ( $prev <= 0 ) {
-			return $now > 0 ? __( 'new', 'bot-control' ) : '–';
+			return $now > 0 ? __( 'new', 'all-in-crawler-ai-agent-manager' ) : '–';
 		}
 		$pct = round( ( $now - $prev ) / $prev * 100 );
 		// Left-to-right marks keep "+12%" readable inside right-to-left (Hebrew) text.
@@ -187,14 +187,14 @@ final class Bot_Control_Reports {
 	private static function duration( $seconds ) {
 		if ( $seconds >= 3600 ) {
 			/* translators: %s: hours */
-			return sprintf( __( '%s hours', 'bot-control' ), number_format_i18n( $seconds / 3600, 1 ) );
+			return sprintf( __( '%s hours', 'all-in-crawler-ai-agent-manager' ), number_format_i18n( $seconds / 3600, 1 ) );
 		}
 		if ( $seconds >= 60 ) {
 			/* translators: %s: minutes */
-			return sprintf( __( '%s minutes', 'bot-control' ), number_format_i18n( $seconds / 60 ) );
+			return sprintf( __( '%s minutes', 'all-in-crawler-ai-agent-manager' ), number_format_i18n( $seconds / 60 ) );
 		}
 		/* translators: %s: seconds */
-		return sprintf( __( '%s seconds', 'bot-control' ), number_format_i18n( $seconds ) );
+		return sprintf( __( '%s seconds', 'all-in-crawler-ai-agent-manager' ), number_format_i18n( $seconds ) );
 	}
 
 	/**
@@ -232,17 +232,17 @@ final class Bot_Control_Reports {
 <table role="presentation" width="640" cellpadding="0" cellspacing="0" style="max-width:640px;width:100%;background:#fff;border-radius:10px;overflow:hidden">
 	<tr><td style="background:#1d2327;color:#fff;padding:20px 24px;text-align:<?php echo esc_attr( $align ); ?>">
 		<div style="font-size:13px;opacity:.8"><?php echo esc_html( $brand ); ?></div>
-		<div style="font-size:20px;font-weight:700;margin-top:4px"><?php esc_html_e( 'Bot traffic report', 'bot-control' ); ?> – <?php echo esc_html( get_bloginfo( 'name' ) ); ?></div>
+		<div style="font-size:20px;font-weight:700;margin-top:4px"><?php esc_html_e( 'Bot traffic report', 'all-in-crawler-ai-agent-manager' ); ?> – <?php echo esc_html( get_bloginfo( 'name' ) ); ?></div>
 		<div style="font-size:13px;opacity:.8;margin-top:4px"><?php echo esc_html( $d['start'] . ' → ' . $d['end'] ); ?></div>
 	</td></tr>
 	<tr><td style="padding:20px 24px">
 		<table role="presentation" width="100%" cellpadding="0" cellspacing="6"><tr>
 			<?php
 			/* translators: %s: change vs previous period */
-			echo $kpi( __( 'Bot requests', 'bot-control' ), number_format_i18n( $total ), sprintf( __( '%s vs previous period', 'bot-control' ), self::change( $total, $ptot ) ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-			echo $kpi( __( 'Stopped', 'bot-control' ), number_format_i18n( $c['limited'] + $c['blocked'] ), __( 'rate-limited or blocked', 'bot-control' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-			echo $kpi( __( 'AI assistant visits', 'bot-control' ), number_format_i18n( $d['ai_total'] ), __( 'ChatGPT, Claude, Perplexity…', 'bot-control' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-			echo $kpi( __( 'Fake bots caught', 'bot-control' ), number_format_i18n( $d['impostors'] ), __( 'pretending to be Google/Bing', 'bot-control' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			echo $kpi( __( 'Bot requests', 'all-in-crawler-ai-agent-manager' ), number_format_i18n( $total ), sprintf( __( '%s vs previous period', 'all-in-crawler-ai-agent-manager' ), self::change( $total, $ptot ) ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			echo $kpi( __( 'Stopped', 'all-in-crawler-ai-agent-manager' ), number_format_i18n( $c['limited'] + $c['blocked'] ), __( 'rate-limited or blocked', 'all-in-crawler-ai-agent-manager' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			echo $kpi( __( 'AI assistant visits', 'all-in-crawler-ai-agent-manager' ), number_format_i18n( $d['ai_total'] ), __( 'ChatGPT, Claude, Perplexity…', 'all-in-crawler-ai-agent-manager' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			echo $kpi( __( 'Fake bots caught', 'all-in-crawler-ai-agent-manager' ), number_format_i18n( $d['impostors'] ), __( 'pretending to be Google/Bing', 'all-in-crawler-ai-agent-manager' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			?>
 		</tr></table>
 
@@ -250,24 +250,24 @@ final class Bot_Control_Reports {
 		<p style="background:#e7f5ea;color:#00661a;padding:12px 14px;border-radius:8px;margin:16px 0">
 			<?php
 			/* translators: 1: duration, 2: milliseconds */
-			printf( esc_html__( 'Estimated server time saved: %1$s (based on a measured average page time of %2$s ms).', 'bot-control' ), esc_html( self::duration( $d['saved_s'] ) ), esc_html( number_format_i18n( $d['avg_ms'] ) ) );
+			printf( esc_html__( 'Estimated server time saved: %1$s (based on a measured average page time of %2$s ms).', 'all-in-crawler-ai-agent-manager' ), esc_html( self::duration( $d['saved_s'] ) ), esc_html( number_format_i18n( $d['avg_ms'] ) ) );
 			?>
 		</p>
 		<?php endif; ?>
 
-		<h3 style="margin:22px 0 8px;font-size:16px"><?php esc_html_e( 'By category', 'bot-control' ); ?></h3>
+		<h3 style="margin:22px 0 8px;font-size:16px"><?php esc_html_e( 'By category', 'all-in-crawler-ai-agent-manager' ); ?></h3>
 		<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="font-size:13px;border-collapse:collapse">
-			<tr style="background:#f6f7f9"><th <?php echo $td; // phpcs:ignore ?>><?php esc_html_e( 'Category', 'bot-control' ); ?></th><th <?php echo $tdn; // phpcs:ignore ?>><?php esc_html_e( 'Allowed', 'bot-control' ); ?></th><th <?php echo $tdn; // phpcs:ignore ?>><?php esc_html_e( 'Limited', 'bot-control' ); ?></th><th <?php echo $tdn; // phpcs:ignore ?>><?php esc_html_e( 'Blocked', 'bot-control' ); ?></th></tr>
+			<tr style="background:#f6f7f9"><th <?php echo $td; // phpcs:ignore ?>><?php esc_html_e( 'Category', 'all-in-crawler-ai-agent-manager' ); ?></th><th <?php echo $tdn; // phpcs:ignore ?>><?php esc_html_e( 'Allowed', 'all-in-crawler-ai-agent-manager' ); ?></th><th <?php echo $tdn; // phpcs:ignore ?>><?php esc_html_e( 'Limited', 'all-in-crawler-ai-agent-manager' ); ?></th><th <?php echo $tdn; // phpcs:ignore ?>><?php esc_html_e( 'Blocked', 'all-in-crawler-ai-agent-manager' ); ?></th></tr>
 			<?php foreach ( $d['categories'] as $row ) : ?>
 			<tr><td <?php echo $td; // phpcs:ignore ?>><?php echo esc_html( self::category_label( $row['category'] ) ); ?></td><td <?php echo $tdn; // phpcs:ignore ?>><?php echo esc_html( number_format_i18n( (int) $row['allowed'] ) ); ?></td><td <?php echo $tdn; // phpcs:ignore ?>><?php echo esc_html( number_format_i18n( (int) $row['limited'] ) ); ?></td><td <?php echo $tdn; // phpcs:ignore ?>><?php echo esc_html( number_format_i18n( (int) $row['blocked'] ) ); ?></td></tr>
 			<?php endforeach; ?>
 			<?php if ( empty( $d['categories'] ) ) : ?>
-			<tr><td colspan="4" <?php echo $td; // phpcs:ignore ?>><?php esc_html_e( 'No bot traffic recorded in this period.', 'bot-control' ); ?></td></tr>
+			<tr><td colspan="4" <?php echo $td; // phpcs:ignore ?>><?php esc_html_e( 'No bot traffic recorded in this period.', 'all-in-crawler-ai-agent-manager' ); ?></td></tr>
 			<?php endif; ?>
 		</table>
 
 		<?php if ( $d['top'] ) : ?>
-		<h3 style="margin:22px 0 8px;font-size:16px"><?php esc_html_e( 'Top bots', 'bot-control' ); ?></h3>
+		<h3 style="margin:22px 0 8px;font-size:16px"><?php esc_html_e( 'Top bots', 'all-in-crawler-ai-agent-manager' ); ?></h3>
 		<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="font-size:13px;border-collapse:collapse">
 			<?php foreach ( $d['top'] as $row ) : ?>
 			<tr><td <?php echo $td; // phpcs:ignore ?>><strong><?php echo esc_html( $row['label'] ); ?></strong><br><span style="color:#646970"><?php echo esc_html( self::category_label( $row['category'] ) ); ?></span></td><td <?php echo $tdn; // phpcs:ignore ?>><?php echo esc_html( number_format_i18n( (int) $row['total'] ) ); ?></td></tr>
@@ -276,7 +276,7 @@ final class Bot_Control_Reports {
 		<?php endif; ?>
 
 		<?php if ( $d['ai'] ) : ?>
-		<h3 style="margin:22px 0 8px;font-size:16px"><?php esc_html_e( 'AI visibility – assistants that fetched your pages', 'bot-control' ); ?></h3>
+		<h3 style="margin:22px 0 8px;font-size:16px"><?php esc_html_e( 'AI visibility – assistants that fetched your pages', 'all-in-crawler-ai-agent-manager' ); ?></h3>
 		<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="font-size:13px;border-collapse:collapse">
 			<?php foreach ( $d['ai'] as $row ) : ?>
 			<tr><td <?php echo $td; // phpcs:ignore ?>><?php echo esc_html( $row['label'] ); ?></td><td <?php echo $tdn; // phpcs:ignore ?>><?php echo esc_html( number_format_i18n( (int) $row['total'] ) ); ?></td></tr>
@@ -285,7 +285,7 @@ final class Bot_Control_Reports {
 		<?php endif; ?>
 
 		<?php if ( $d['ips'] ) : ?>
-		<h3 style="margin:22px 0 8px;font-size:16px"><?php esc_html_e( 'Most denied IPs', 'bot-control' ); ?></h3>
+		<h3 style="margin:22px 0 8px;font-size:16px"><?php esc_html_e( 'Most denied IPs', 'all-in-crawler-ai-agent-manager' ); ?></h3>
 		<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="font-size:13px;border-collapse:collapse">
 			<?php foreach ( $d['ips'] as $row ) : ?>
 			<tr><td <?php echo $td; // phpcs:ignore ?>><code><?php echo esc_html( $row['ip'] ); ?></code></td><td <?php echo $td; // phpcs:ignore ?>><?php echo esc_html( $row['label'] ); ?></td></tr>
@@ -293,12 +293,12 @@ final class Bot_Control_Reports {
 		</table>
 		<?php endif; ?>
 
-		<p style="margin:24px 0 0"><a href="<?php echo esc_url( admin_url( 'admin.php?page=bot-control' ) ); ?>" style="display:inline-block;background:#2271b1;color:#fff;text-decoration:none;padding:10px 16px;border-radius:6px"><?php esc_html_e( 'Open the Bot Control dashboard', 'bot-control' ); ?></a></p>
+		<p style="margin:24px 0 0"><a href="<?php echo esc_url( admin_url( 'admin.php?page=all-in-crawler-ai-agent-manager' ) ); ?>" style="display:inline-block;background:#2271b1;color:#fff;text-decoration:none;padding:10px 16px;border-radius:6px"><?php esc_html_e( 'Open the All-IN Crawler & AI Agent Manager dashboard', 'all-in-crawler-ai-agent-manager' ); ?></a></p>
 	</td></tr>
 	<tr><td style="padding:14px 24px;background:#f6f7f9;color:#646970;font-size:12px;text-align:<?php echo esc_attr( $align ); ?>">
 		<?php
 		/* translators: %s: brand */
-		printf( esc_html__( 'Sent by %s using Bot Control. Change or stop these emails under Bot Control → Reports.', 'bot-control' ), esc_html( $brand ) );
+		printf( esc_html__( 'Sent by %s using All-IN Crawler & AI Agent Manager. Change or stop these emails under All-IN Crawler → Reports.', 'all-in-crawler-ai-agent-manager' ), esc_html( $brand ) );
 		?>
 	</td></tr>
 </table>
@@ -320,10 +320,10 @@ final class Bot_Control_Reports {
 			return $cats[ $cat ]['label'];
 		}
 		if ( 'impostor' === $cat ) {
-			return __( 'Impostors (fake search engines)', 'bot-control' );
+			return __( 'Impostors (fake search engines)', 'all-in-crawler-ai-agent-manager' );
 		}
 		if ( 'human' === $cat ) {
-			return __( 'Human visitors', 'bot-control' );
+			return __( 'Human visitors', 'all-in-crawler-ai-agent-manager' );
 		}
 		return $cat;
 	}
