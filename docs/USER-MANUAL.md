@@ -1,7 +1,7 @@
 # All-IN Crawler & AI Agent Manager – User Manual
 
 **Plugin:** All-IN Crawler & AI Agent Manager
-**Version:** 1.1.1
+**Version:** 1.2.1
 **Author:** Eli Shvarzman
 
 This manual is for site owners, marketers and agencies. You don't need to be a developer to follow it.
@@ -65,7 +65,7 @@ All-IN Crawler & AI Agent Manager lets you:
 **Requirements:** WordPress 6.1+, PHP 7.4+, MySQL 5.7+/MariaDB 10.3+.
 **Recommended:** APCu or Redis/Memcached (persistent object cache) for the fastest rate limiting.
 
-On activation the plugin creates four small database tables and starts in **Enforce** mode with the *Balanced* preset. These defaults were chosen to be safe for SEO.
+On activation the plugin creates four small database tables. A **new install starts in Watch-only mode** with the *Balanced* category rules saved but not applied: nothing is blocked, rate-limited or load-shed, and robots.txt is not changed. Switch to **Enforce** when you have looked at the logs. An update from 1.2.0 keeps the mode you already saved, including Enforce.
 
 ---
 
@@ -76,7 +76,7 @@ Follow these steps in order:
 1. **Check your IP detection.** Open **All-IN Crawler → Dashboard** and look at *"Your IP as seen by All-IN Crawler & AI Agent Manager"*.
    - If it shows **your real public IP** (compare with any "what is my IP" site) → good.
    - If it shows a private address such as `10.x`, `172.16–31.x`, `192.168.x` or `127.0.0.1`, or your hosting provider's IP, you are behind a proxy/CDN. Go to **Advanced → Client IP detection** and pick the right source (usually *Automatic* works, or *Cloudflare* when you use Cloudflare). If your proxy has a public IP, add it under *Additional trusted proxies*.
-2. **Optional: start in Monitor mode.** On **Protection → Mode**, select *Monitor*. For a few days All-IN Crawler & AI Agent Manager logs what it *would* deny without denying anything. Review the **Logs**, then switch back to *Enforce*.
+2. **Stay in Watch-only until the logs look right.** A new install is already in Watch-only. For a few days All-IN Crawler & AI Agent Manager logs what it *would* deny without denying anything, without rate limits, load shedding or robots.txt edits. Review the **Logs**, then switch to *Enforce* from the banner or from **Protection → Mode**.
 3. **Choose a preset** on **Bot Rules** (see §5). *Balanced* is right for most sites.
 4. **Optional: export server rules** (**Server Rules** tab) so the web server rejects blocked bots before PHP starts. Inside WordPress, All-IN Crawler & AI Agent Manager decides while plugins load, before the theme runs.
 5. **Add your own services to the allow list.** On **Protection → Always allow**, add the IPs of your office, your SEO agency's crawler, or integrations that call your site (ERP, CRM, stock sync). On **Excluded paths**, add payment-gateway callback URLs and webhooks.
@@ -90,7 +90,7 @@ That's it. Look at the Dashboard again after a day or two.
 
 **Status cards**
 
-- **Protection:** *Enforcing*, *Monitor only* or *Disabled*.
+- **Protection:** *Enforcing*, *Watch-only* or *Disabled*.
 - **Rate-limit storage:** where counters are kept.
   - *APCu*: fastest (shared memory).
   - *Object Cache*: Redis/Memcached, fast and shared across servers.
@@ -191,8 +191,8 @@ Custom bots are checked **before** the built-in list, so they always win. Use **
 
 - **Enable All-IN Crawler & AI Agent Manager**: master switch.
 - **Mode**
-  - *Enforce*: deny requests according to the rules.
-  - *Monitor*: log only. The Logs show "monitor only" entries, and nothing is denied.
+  - *Watch-only* (stored as monitor): log and report only. Nothing is blocked, rate-limited or load-shed, and robots.txt is not changed. The Logs mark those rows "watch-only". This is the default on a new install.
+  - *Enforce*: apply the rules. Matching requests can be denied, rate-limited or load-shed, and robots.txt rules are published when that option is on.
 - **Rate-limit window**: the length of a counting period (default 60 s). All limits are "requests per window".
 
 ### 7.2 Fake search-engine protection
@@ -243,6 +243,8 @@ Your own server (loopback requests, WP-Cron spawns, Site Health) is always allow
 ## 8. robots.txt
 
 Well-behaved bots (all major search engines and AI companies) read `robots.txt` before crawling. Telling them *Disallow* means they never send those requests, which is cheaper than blocking them one by one. Bad bots ignore robots.txt, which is why the firewall exists too.
+
+In **Watch-only** mode the live robots.txt is left untouched. The preview still shows the lines Enforce would add.
 
 - **Manage robots.txt**: adds `User-agent: X / Disallow: /` for every bot whose effective policy is *Block*. This includes the robots-only tokens **Google-Extended** and **Applebot-Extended**.
 - **Crawl-delay**: for rate-limited bots, adds `Crawl-delay: N` so polite bots (Bing, Yandex, most SEO tools) slow down to your limit instead of running into 429s. Google ignores Crawl-delay, so All-IN Crawler & AI Agent Manager never adds a Google group. It only adds a delay of 2 seconds or more.

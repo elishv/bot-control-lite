@@ -4,7 +4,7 @@ Tags: bots, rate limit, crawler, ai crawler, robots.txt
 Requires at least: 6.1
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.2.0
+Stable tag: 1.2.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -38,16 +38,21 @@ This plugin is complete on its own: no licence key, no locked features. Premium 
 == Installation ==
 
 1. Upload the plugin ZIP via Plugins → Add New → Upload Plugin, then activate it.
-2. Open **All-IN Crawler → Dashboard** and check that "Your IP" shows your real public IP. If it doesn't, configure Advanced → IP source.
-3. Optionally switch Protection → Mode to *Monitor* for a few days to review decisions safely.
-4. Pick a preset on Bot Rules.
-5. Optionally export server rules (.htaccess / nginx) on the Server Rules tab so blocked bots are rejected before PHP runs.
+2. A new install starts in **Watch-only** mode. It logs what it would do and does not block, rate-limit, shed load, or change robots.txt.
+3. Open **All-IN Crawler → Dashboard** and check that "Your IP" shows your real public IP. If it doesn't, configure Advanced → IP source.
+4. When the logs look right, switch to **Enforce** (the banner on every tab, or Protection → Mode). Sites that already saved Enforce keep it after an update.
+5. Pick a preset on Bot Rules.
+6. Optionally export server rules (.htaccess / nginx) on the Server Rules tab so blocked bots are rejected before PHP runs. Server rules are not written while Watch-only is on.
 
 == Frequently Asked Questions ==
 
 = Will this hurt my SEO? =
 
-No, with the default configuration. Search engines are allowed and DNS-verified, and throttling uses 429/503 with Retry-After, which search engines treat as "come back later".
+Installing it does not change how crawlers are treated. A new install starts in Watch-only mode: it logs decisions and does not block, rate-limit, shed load, or edit robots.txt until you switch to Enforce.
+
+With the default Balanced rules, search engines stay allowed. Verification is there to catch scrapers that pretend to be a known crawler, not to turn away a crawler that passes the check. In Enforce mode, rate limits and load shedding answer with 429 or 503 and a Retry-After header, which major search engines treat as "try again later".
+
+It can affect SEO if you choose that. Blocking a search engine, using the Lockdown preset, or publishing robots.txt Disallow lines for a bot you set to Block tells that bot to stay out. Read the Bot Rules and the robots.txt preview before you switch to Enforce.
 
 = Can I block AI training but stay in ChatGPT / Claude / Perplexity answers? =
 
@@ -96,6 +101,13 @@ All-IN Crawler & AI Agent Manager works without any external service. These feat
 
 == Changelog ==
 
+= 1.2.1 =
+* Changed: a new install starts in Watch-only mode. It logs and reports only — no blocking, rate limiting, load shedding, or robots.txt changes — until an administrator switches to Enforce.
+* Changed: upgrading keeps every saved setting. A site that was already on Enforce in 1.2.0 stays on Enforce.
+* Added: the settings screens show the current mode, explain what it does, and switch with one click. A dismissible notice after a fresh activation says the plugin is in Watch-only mode.
+* Added: an optional dismissible review notice on this plugin's own screens, shown only after 14 days. No incentive and no effect on features.
+* Docs: the SEO FAQ no longer claims the plugin cannot affect SEO. Tested up to WordPress 7.1 (latest stable release is 7.1.4; 7.2 is still in beta).
+
 = 1.2.0 =
 * Changed: new name, All-IN Crawler & AI Agent Manager (slug and text domain all-in-crawler-ai-agent-manager). Settings, statistics and logs are kept: the internal botctl_ option and table names are unchanged, and settings exports from earlier versions can still be imported.
 * Removed: the optional early loader. The plugin no longer writes any file to wp-content/mu-plugins; a loader created by an older build is removed on upgrade, deactivation and uninstall (only if All-IN Crawler & AI Agent Manager generated it).
@@ -121,6 +133,9 @@ All-IN Crawler & AI Agent Manager works without any external service. These feat
 * Initial release: bot detection (~120 bots, 12 categories), per-category/per-bot/custom rules, presets, rate limiting (APCu / object cache / DB), DNS verification of search engines, load shedding, human rate limiting, IP allow/block lists, robots.txt management, dashboard, logs, UA tester, import/export, early loader, debug logging.
 
 == Upgrade Notice ==
+
+= 1.2.1 =
+New installs start in Watch-only mode and do not block or edit robots.txt until you switch to Enforce. Upgrades keep your saved settings, including Enforce. No database changes.
 
 = 1.2.0 =
 New name (All-IN Crawler & AI Agent Manager); your settings and data are kept. Removes the optional mu-plugin early loader (and deletes a leftover copy). Sanitization hardening. No database changes.

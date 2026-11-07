@@ -51,7 +51,10 @@ final class Bot_Control_Robots {
 	 */
 	public static function filter( $output, $public ) {
 		$s = Bot_Control_Settings::get();
-		if ( empty( $s['enabled'] ) || empty( $s['robots_enabled'] ) ) {
+		// Watch-only (and a disabled plugin) must not publish rules. The preview on
+		// the robots.txt screen still uses build(), so the admin can see the lines
+		// that Enforce would add.
+		if ( empty( $s['enabled'] ) || empty( $s['robots_enabled'] ) || 'monitor' === $s['mode'] ) {
 			return $output;
 		}
 		$rules = self::build( $s, (string) $output );

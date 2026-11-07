@@ -1,6 +1,6 @@
 # All-IN Crawler & AI Agent Manager – Developer Guide
 
-**Author:** Eli Shvarzman · **Version:** 1.1.1
+**Author:** Eli Shvarzman · **Version:** 1.2.1
 
 ## Architecture
 
@@ -50,6 +50,10 @@ Public name/slug/text domain: `All-IN Crawler & AI Agent Manager` / `all-in-craw
 7. Policy → allow / 429 / 403.
 8. Humans: an optional per-IP limit. Requests carrying a login cookie are re-checked on `init` with `is_user_logged_in()`, so a forged cookie gains nothing.
 
+**Watch-only (`mode = monitor`).** Fresh installs save this mode. `Bot_Control_Firewall` still classifies the request and logs a would-be denial (`enforced = 0`) but does not send 403/429/503. `Bot_Control_Robots::filter()` returns the robots.txt output unchanged. `maybe_upgrade()` never rewrites `botctl_settings`, so an upgrade from an enforcing 1.2.0 install stays on Enforce. Switching mode is `mode` = `enforce` in that option (Protection tab or the one-click admin-post action `botctl_mode`).
+
+The firewall ignores CLI (WP-CLI, cron). `tests/run.php` defines `BOTCTL_TEST_REQUESTS` so it can run a normal request from PHP CLI. Leave that constant undefined on a real site.
+
 Every failure path **fails open** and logs `[AllIN-Crawler][...][ERROR]` to the PHP error log.
 
 ### Database tables (`{prefix}` = `$wpdb->prefix`)
@@ -72,8 +76,10 @@ ON DUPLICATE KEY UPDATE hits = LAST_INSERT_ID(IF(win = ?, hits + 1, 1)), win = ?
 
 ### Options
 
-- `botctl_settings`: all settings (autoloaded, a single array).
+- `botctl_settings`: all settings (autoloaded, a single array). New installs store `mode = monitor`.
 - `botctl_db_version`: schema version.
+- `botctl_watch_notice`: `1` after a fresh activation until an admin dismisses it or switches to Enforce. Not created on upgrade.
+- `botctl_activated_at`: unix time used to wait 14 days before the optional review notice.
 - `botctl_runtime`: detected CPU cores (cached for a day) and the average page time (`avg_page_ms`, `page_samples`).
 - `botctl_ip_ranges`: downloaded official IP lists per URL (not autoloaded).
 - `botctl_remote_bots`: validated feed bots (autoloaded, read by the registry).

@@ -3,6 +3,12 @@
 All notable changes to All-IN Crawler & AI Agent Manager are documented here.
 Format: [Keep a Changelog](https://keepachangelog.com/). Versioning: [SemVer](https://semver.org/).
 
+## [1.2.1] – 2026-11-07
+- **Watch-only by default.** A fresh install saves `mode = monitor`. The firewall still classifies and logs what it would deny, but it does not send 403, 429 or 503, and `robots.txt` is not modified, until an administrator switches to Enforce. Load shedding and rate limits are recorded the same way and are not applied.
+- **Upgrades keep saved settings.** `maybe_upgrade()` does not rewrite `botctl_settings`. A 1.2.0 site left on Enforce stays on Enforce, including category rules, verification, load shedding and robots.txt options.
+- **Admin:** title badge and a banner on every tab explain Watch-only vs Enforce and switch with one click. A dismissible notice is shown once after a fresh activation. An optional review notice appears only on this plugin's screens after 14 days, with a dismiss control and no incentive or feature gate.
+- **Readme:** SEO FAQ no longer says the plugin cannot affect SEO. Tested up to WordPress 7.1 (current stable branch; 7.1.4 is the latest release as of 7 November 2026, and 7.2 is still in beta).
+
 ## [1.2.0] – 2026-11-05
 WordPress.org review fixes.
 - **Renamed** to *All-IN Crawler & AI Agent Manager*: slug, text domain, main file (`all-in-crawler-ai-agent-manager.php`), admin page (`?page=all-in-crawler-ai-agent-manager`), export key, `.pot`, robots.txt / `.htaccess` markers, outbound User-Agent (`all-in-crawler-ai-agent-manager/<version>`), debug header (`X-AllIN-Crawler`) and log prefix (`[AllIN-Crawler]`). **Kept on purpose (no migration needed):** option names (`botctl_settings`, `botctl_db_version`, `botctl_version`, `botctl_runtime`, `botctl_ip_ranges`, `botctl_remote_bots`, `botctl_remote_status`), tables (`{prefix}botctl_rate|stats|events|verify`), cron hooks (`botctl_cleanup|daily|report`), filters/actions (`botctl_*`), constants (`BOTCTL_*`) and PHP classes (`Bot_Control_*`). Old exports (`"plugin": "bot-control"`) still import, and an old `# BEGIN Bot Control` `.htaccess` block is replaced/removed.

@@ -22,8 +22,9 @@ $botctl_load = Bot_Control_Load_Monitor::state( $s );
 		<tr>
 			<th scope="row"><?php esc_html_e( 'Mode', 'all-in-crawler-ai-agent-manager' ); ?></th>
 			<td>
-				<label><input type="radio" name="botctl[mode]" value="enforce" <?php checked( $s['mode'], 'enforce' ); ?>> <strong><?php esc_html_e( 'Enforce', 'all-in-crawler-ai-agent-manager' ); ?></strong> – <?php esc_html_e( 'deny requests according to the rules.', 'all-in-crawler-ai-agent-manager' ); ?></label><br>
-				<label><input type="radio" name="botctl[mode]" value="monitor" <?php checked( $s['mode'], 'monitor' ); ?>> <strong><?php esc_html_e( 'Monitor', 'all-in-crawler-ai-agent-manager' ); ?></strong> – <?php esc_html_e( 'only log what would be denied. Use it for a few days after first setup to validate your rules safely.', 'all-in-crawler-ai-agent-manager' ); ?></label>
+				<label><input type="radio" name="botctl[mode]" value="monitor" <?php checked( $s['mode'], 'monitor' ); ?>> <strong><?php esc_html_e( 'Watch-only', 'all-in-crawler-ai-agent-manager' ); ?></strong> – <?php esc_html_e( 'log and report only. Nothing is blocked, rate-limited or load-shed, and robots.txt is left unchanged. This is the default for a new install.', 'all-in-crawler-ai-agent-manager' ); ?></label><br>
+				<label><input type="radio" name="botctl[mode]" value="enforce" <?php checked( $s['mode'], 'enforce' ); ?>> <strong><?php esc_html_e( 'Enforce', 'all-in-crawler-ai-agent-manager' ); ?></strong> – <?php esc_html_e( 'apply the rules below: block and rate-limit matching bots, shed load when the server is busy, and publish robots.txt changes when that option is on.', 'all-in-crawler-ai-agent-manager' ); ?></label>
+				<p class="description"><?php esc_html_e( 'The checkboxes on this screen are saved either way. They take effect only in Enforce mode. Verification still runs in Watch-only so the log can show which visitors would have been treated as impostors.', 'all-in-crawler-ai-agent-manager' ); ?></p>
 			</td>
 		</tr>
 		<tr>

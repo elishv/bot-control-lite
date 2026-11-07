@@ -38,13 +38,19 @@ $botctl_backend_labels = array(
 		<?php if ( empty( $s['enabled'] ) ) : ?>
 			<p class="botctl-big botctl-bad"><?php esc_html_e( 'Disabled', 'all-in-crawler-ai-agent-manager' ); ?></p>
 		<?php elseif ( 'monitor' === $s['mode'] ) : ?>
-			<p class="botctl-big botctl-warn"><?php esc_html_e( 'Monitor only', 'all-in-crawler-ai-agent-manager' ); ?></p>
+			<p class="botctl-big botctl-warn"><?php esc_html_e( 'Watch-only', 'all-in-crawler-ai-agent-manager' ); ?></p>
 		<?php else : ?>
 			<p class="botctl-big botctl-good"><?php esc_html_e( 'Enforcing', 'all-in-crawler-ai-agent-manager' ); ?></p>
 		<?php endif; ?>
 		<p class="description">
 			<?php
-			esc_html_e( 'Runs while WordPress loads plugins, before the theme and most of the site start.', 'all-in-crawler-ai-agent-manager' );
+			if ( empty( $s['enabled'] ) ) {
+				esc_html_e( 'Turn it on from the Protection tab when you want decisions to be logged.', 'all-in-crawler-ai-agent-manager' );
+			} elseif ( 'monitor' === $s['mode'] ) {
+				esc_html_e( 'Logging only. Nothing is blocked, rate-limited or load-shed, and robots.txt is unchanged until you switch to Enforce.', 'all-in-crawler-ai-agent-manager' );
+			} else {
+				esc_html_e( 'Rules are applied while WordPress loads plugins, before the theme and most of the site start.', 'all-in-crawler-ai-agent-manager' );
+			}
 			?>
 		</p>
 	</div>
