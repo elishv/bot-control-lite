@@ -3,6 +3,12 @@
 .botctl-title { display: flex; align-items: center; gap: 8px; }
 .botctl-title .dashicons { font-size: 28px; width: 28px; height: 28px; color: #2271b1; }
 .botctl-version { font-size: 12px; color: #646970; font-weight: 400; }
+.botctl-mode { display: inline-block; font-size: 12px; font-weight: 600; line-height: 1.4; padding: 2px 8px; border-radius: 999px; vertical-align: middle; }
+.botctl-mode-watch { background: #f0f6fc; color: #135e96; }
+.botctl-mode-enforce { background: #edfaef; color: #0a6b2d; }
+.botctl-mode-banner .botctl-mode-actions,
+#botctl-watch-notice .botctl-mode-actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 0 0 8px; }
+.botctl-mode-actions form { margin: 0; }
 .botctl-tab-content { margin-top: 16px; }
 
 .botctl-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin-bottom: 16px; }

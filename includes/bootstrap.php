@@ -15,7 +15,7 @@ if ( defined( 'BOTCTL_VERSION' ) ) {
 	return;
 }
 
-define( 'BOTCTL_VERSION', '1.2.0' );
+define( 'BOTCTL_VERSION', '1.2.1' );
 define( 'BOTCTL_DB_VERSION', '1' );
 define( 'BOTCTL_DIR', dirname( __DIR__ ) . '/' );
 define( 'BOTCTL_FILE', BOTCTL_DIR . 'all-in-crawler-ai-agent-manager.php' );

@@ -37,6 +37,11 @@ $botctl_ours = Bot_Control_Robots::build( $s, $botctl_base );
 <div class="botctl-panel">
 	<h2><?php esc_html_e( 'robots.txt rules', 'all-in-crawler-ai-agent-manager' ); ?></h2>
 	<p class="description"><?php esc_html_e( 'Well-behaved bots (all major search engines and AI companies) read robots.txt before crawling. Telling them "Disallow" means they never send the requests at all – cheaper than blocking them one by one. Bad bots ignore robots.txt, which is why the firewall rules exist too.', 'all-in-crawler-ai-agent-manager' ); ?></p>
+	<?php if ( 'monitor' === $s['mode'] ) : ?>
+		<div class="notice notice-info inline"><p>
+			<?php esc_html_e( 'Watch-only mode is on, so nothing here is written to the live robots.txt. The preview shows what Enforce would add. Lines are published only after you switch to Enforce and this option stays enabled.', 'all-in-crawler-ai-agent-manager' ); ?>
+		</p></div>
+	<?php endif; ?>
 	<table class="form-table" role="presentation">
 		<tr>
 			<th scope="row"><?php esc_html_e( 'Manage robots.txt', 'all-in-crawler-ai-agent-manager' ); ?></th>

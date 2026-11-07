@@ -57,7 +57,10 @@ final class Bot_Control_Settings {
 		return array(
 			// General.
 			'enabled'               => 1,
-			'mode'                  => 'enforce', // enforce | monitor.
+			// Watch-only on a brand-new install. Enforcement (blocking, rate limits,
+			// load shedding, robots.txt) starts only after an admin switches to enforce.
+			// Sites that already saved a mode keep it: get() prefers the stored value.
+			'mode'                  => 'monitor', // enforce | monitor (watch-only).
 			'window'                => 60,        // Rate-limit window in seconds.
 
 			// Bot rules.

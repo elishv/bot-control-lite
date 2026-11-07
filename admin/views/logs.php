@@ -96,7 +96,7 @@ $botctl_block = Bot_Control_IP::parse_list( $s['ip_blocklist'] );
 				<td>
 					<span class="botctl-pill botctl-pill-<?php echo esc_attr( 'limited' === $botctl_row['action'] || 'shed' === $botctl_row['action'] ? 'limit' : 'block' ); ?>"><?php echo esc_html( Bot_Control_Admin::action_label( $botctl_row['action'] ) ); ?></span>
 					<?php if ( ! (int) $botctl_row['enforced'] ) : ?>
-						<br><em class="description"><?php esc_html_e( 'monitor only', 'all-in-crawler-ai-agent-manager' ); ?></em>
+						<br><em class="description"><?php esc_html_e( 'watch-only', 'all-in-crawler-ai-agent-manager' ); ?></em>
 					<?php endif; ?>
 				</td>
 				<td class="botctl-uri"><code><?php echo esc_html( $botctl_row['method'] . ' ' . $botctl_row['uri'] ); ?></code></td>

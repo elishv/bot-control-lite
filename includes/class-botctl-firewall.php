@@ -85,7 +85,10 @@ final class Bot_Control_Firewall {
 	 * @return bool
 	 */
 	private static function should_skip() {
-		if ( 'cli' === PHP_SAPI || ( defined( 'WP_CLI' ) && WP_CLI ) ) {
+		// WP-CLI and cron are not visitor traffic. The test suite sets
+		// BOTCTL_TEST_REQUESTS so it can exercise a normal HTTP decision from PHP CLI.
+		$cli = 'cli' === PHP_SAPI || ( defined( 'WP_CLI' ) && WP_CLI );
+		if ( $cli && ! ( defined( 'BOTCTL_TEST_REQUESTS' ) && BOTCTL_TEST_REQUESTS ) ) {
 			return true;
 		}
 		if ( ( defined( 'DOING_CRON' ) && DOING_CRON ) || ( defined( 'WP_INSTALLING' ) && WP_INSTALLING ) ) {

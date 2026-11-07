@@ -34,4 +34,9 @@ delete_option( 'botctl_runtime' );
 delete_option( 'botctl_ip_ranges' );
 delete_option( 'botctl_remote_bots' );
 delete_option( 'botctl_remote_status' );
+delete_option( 'botctl_watch_notice' );
+delete_option( 'botctl_activated_at' );
 delete_transient( 'botctl_llms_txt' );
+
+// Optional review dismissal, for every user. The meta key matches Bot_Control_Install::REVIEW_META.
+delete_metadata( 'user', 0, 'botctl_review_dismissed', '', true );

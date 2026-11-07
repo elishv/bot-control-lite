@@ -7,11 +7,34 @@
 
 	var cfg = window.botctlAdmin || { confirm: 'Are you sure?' };
 
-	// Confirm destructive buttons.
+	// Confirm destructive buttons. data-confirm overrides the generic message.
 	document.addEventListener( 'click', function ( e ) {
+		if ( ! e.target.closest ) {
+			return;
+		}
 		var btn = e.target.closest( '.botctl-confirm' );
-		if ( btn && ! window.confirm( cfg.confirm ) ) {
+		if ( ! btn ) {
+			return;
+		}
+		var msg = btn.getAttribute( 'data-confirm' ) || cfg.confirm;
+		if ( ! window.confirm( msg ) ) {
 			e.preventDefault();
+		}
+	} );
+
+	// The review notice "X" uses the same persistent dismiss as the Dismiss link.
+	document.addEventListener( 'click', function ( e ) {
+		if ( ! e.target.closest ) {
+			return;
+		}
+		var dismiss = e.target.closest( '.notice-dismiss' );
+		var notice = dismiss ? dismiss.closest( '#botctl-review-notice' ) : null;
+		if ( ! notice ) {
+			return;
+		}
+		var link = notice.querySelector( 'a.botctl-review-dismiss' );
+		if ( link ) {
+			window.location.href = link.href;
 		}
 	} );
 

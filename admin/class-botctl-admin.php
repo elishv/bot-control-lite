@@ -23,10 +23,13 @@ final class Bot_Control_Admin {
 	public static function init() {
 		add_action( 'admin_menu', array( __CLASS__, 'menu' ) );
 		add_action( 'admin_init', array( 'Bot_Control_Install', 'maybe_upgrade' ) );
+		add_action( 'admin_init', array( __CLASS__, 'maybe_dismiss_review' ) );
+		add_action( 'admin_notices', array( __CLASS__, 'watch_notice' ) );
+		add_action( 'wp_ajax_botctl_dismiss_watch', array( __CLASS__, 'ajax_dismiss_watch' ) );
 		add_action( 'admin_enqueue_scripts', array( __CLASS__, 'assets' ) );
 		add_filter( 'plugin_action_links_' . plugin_basename( BOTCTL_FILE ), array( __CLASS__, 'action_links' ) );
 
-		$actions = array( 'save', 'preset', 'ip_action', 'clear_logs', 'clear_stats', 'clear_verify', 'export', 'import', 'reset', 'refresh_lists', 'htaccess', 'send_report', 'preview_report' );
+		$actions = array( 'save', 'preset', 'ip_action', 'clear_logs', 'clear_stats', 'clear_verify', 'export', 'import', 'reset', 'refresh_lists', 'htaccess', 'send_report', 'preview_report', 'mode', 'dismiss_watch' );
 		foreach ( $actions as $action ) {
 			add_action( 'admin_post_botctl_' . $action, array( __CLASS__, 'handle_' . $action ) );
 		}
@@ -78,10 +81,21 @@ final class Bot_Control_Admin {
 	 * @return void
 	 */
 	public static function assets( $hook ) {
+		$url = plugin_dir_url( BOTCTL_FILE );
+		if ( get_option( Bot_Control_Install::WATCH_NOTICE ) && current_user_can( self::CAP ) ) {
+			wp_enqueue_script( 'botctl-notice', $url . 'admin/assets/notice.js', array(), BOTCTL_VERSION, true );
+			wp_localize_script(
+				'botctl-notice',
+				'botctlNotice',
+				array(
+					'ajax'  => admin_url( 'admin-ajax.php' ),
+					'nonce' => wp_create_nonce( 'botctl_dismiss_watch' ),
+				)
+			);
+		}
 		if ( 'toplevel_page_' . self::SLUG !== $hook ) {
 			return;
 		}
-		$url = plugin_dir_url( BOTCTL_FILE );
 		wp_enqueue_style( 'botctl-admin', $url . 'admin/assets/admin.css', array(), BOTCTL_VERSION );
 		wp_enqueue_script( 'botctl-admin', $url . 'admin/assets/admin.js', array(), BOTCTL_VERSION, true );
 		wp_localize_script(
@@ -138,9 +152,12 @@ final class Bot_Control_Admin {
 		$s   = Bot_Control_Settings::get();
 
 		echo '<div class="wrap botctl-wrap">';
-		echo '<h1 class="botctl-title"><span class="dashicons dashicons-shield"></span> ' . esc_html__( 'All-IN Crawler & AI Agent Manager', 'all-in-crawler-ai-agent-manager' ) . ' <span class="botctl-version">v' . esc_html( BOTCTL_VERSION ) . '</span></h1>';
+		echo '<h1 class="botctl-title"><span class="dashicons dashicons-shield"></span> ' . esc_html__( 'All-IN Crawler & AI Agent Manager', 'all-in-crawler-ai-agent-manager' ) . ' <span class="botctl-version">v' . esc_html( BOTCTL_VERSION ) . '</span> ';
+		self::mode_badge( $s );
+		echo '</h1>';
 
 		self::global_notices( $s );
+		self::review_notice();
 		settings_errors( 'botctl' );
 
 		echo '<nav class="nav-tab-wrapper botctl-tabs">';
@@ -168,12 +185,149 @@ final class Bot_Control_Admin {
 	private static function global_notices( array $s ) {
 		if ( empty( $s['enabled'] ) ) {
 			echo '<div class="notice notice-warning"><p><strong>' . esc_html__( 'All-IN Crawler & AI Agent Manager is disabled.', 'all-in-crawler-ai-agent-manager' ) . '</strong> ' . esc_html__( 'No request is being filtered. Enable it on the Protection tab.', 'all-in-crawler-ai-agent-manager' ) . '</p></div>';
-		} elseif ( 'monitor' === $s['mode'] ) {
-			echo '<div class="notice notice-info"><p><strong>' . esc_html__( 'Monitor mode:', 'all-in-crawler-ai-agent-manager' ) . '</strong> ' . esc_html__( 'decisions are logged but nothing is blocked. Switch to Enforce on the Protection tab when you are happy with the results.', 'all-in-crawler-ai-agent-manager' ) . '</p></div>';
+		} else {
+			self::mode_banner( $s );
 		}
 		if ( BOTCTL_DB_VERSION !== get_option( Bot_Control_Install::DB_OPTION ) ) {
 			echo '<div class="notice notice-error"><p>' . esc_html__( 'All-IN Crawler & AI Agent Manager database tables are missing. Deactivate and re-activate the plugin.', 'all-in-crawler-ai-agent-manager' ) . '</p></div>';
 		}
+	}
+
+	/**
+	 * Badge next to the page title.
+	 *
+	 * @param array $s Settings.
+	 * @return void
+	 */
+	private static function mode_badge( array $s ) {
+		$watch = 'monitor' === $s['mode'];
+		echo '<span class="botctl-mode ' . esc_attr( $watch ? 'botctl-mode-watch' : 'botctl-mode-enforce' ) . '">';
+		echo esc_html( $watch ? __( 'Watch-only', 'all-in-crawler-ai-agent-manager' ) : __( 'Enforce', 'all-in-crawler-ai-agent-manager' ) );
+		echo '</span>';
+	}
+
+	/**
+	 * Persistent explanation of the current mode, with a one-click switch.
+	 *
+	 * @param array $s Settings.
+	 * @return void
+	 */
+	private static function mode_banner( array $s ) {
+		$watch = 'monitor' === $s['mode'];
+		echo '<div class="notice ' . esc_attr( $watch ? 'notice-info' : 'notice-warning' ) . ' botctl-mode-banner">';
+		echo '<p>';
+		if ( $watch ) {
+			echo '<strong>' . esc_html__( 'Watch-only.', 'all-in-crawler-ai-agent-manager' ) . '</strong> ';
+			echo esc_html__( 'All-IN Crawler & AI Agent Manager is only logging and reporting. It is not blocking requests, applying rate limits, shedding load, or changing robots.txt. Switch to Enforce when the log looks right.', 'all-in-crawler-ai-agent-manager' );
+		} else {
+			echo '<strong>' . esc_html__( 'Enforce.', 'all-in-crawler-ai-agent-manager' ) . '</strong> ';
+			echo esc_html__( 'Rules are live. Matching bots can be blocked or rate-limited, an overloaded server can answer bots with 503, and robots.txt is updated when that option is enabled.', 'all-in-crawler-ai-agent-manager' );
+		}
+		echo '</p><div class="botctl-mode-actions">';
+		self::mode_switch_form( $watch ? 'enforce' : 'monitor', self::current_tab() );
+		echo '<a class="button button-link" href="' . esc_url( self::url( 'protection' ) ) . '">' . esc_html__( 'Mode settings', 'all-in-crawler-ai-agent-manager' ) . '</a>';
+		echo '</div></div>';
+	}
+
+	/**
+	 * One-click mode switch (admin-post).
+	 *
+	 * @param string $target monitor|enforce.
+	 * @param string $tab    Tab to return to.
+	 * @return void
+	 */
+	private static function mode_switch_form( $target, $tab ) {
+		$enforce = 'enforce' === $target;
+		$label   = $enforce
+			? __( 'Switch to Enforce', 'all-in-crawler-ai-agent-manager' )
+			: __( 'Switch to Watch-only', 'all-in-crawler-ai-agent-manager' );
+		$confirm = $enforce
+			? __( 'Switch to Enforce? Matching bots can be blocked or rate-limited, load shedding can send 503, and robots.txt can be changed.', 'all-in-crawler-ai-agent-manager' )
+			: '';
+		self::form_open( 'mode', array( 'mode' => $target, 'tab' => $tab ), 'botctl-inline' );
+		echo '<button type="submit" class="' . esc_attr( 'button ' . ( $enforce ? 'button-primary botctl-confirm' : '' ) ) . '"';
+		if ( '' !== $confirm ) {
+			echo ' data-confirm="' . esc_attr( $confirm ) . '"';
+		}
+		echo '>' . esc_html( $label ) . '</button></form>';
+	}
+
+	/**
+	 * Dismissible notice shown once after a fresh activation, on every admin screen.
+	 *
+	 * @return void
+	 */
+	public static function watch_notice() {
+		if ( ! current_user_can( self::CAP ) || ! get_option( Bot_Control_Install::WATCH_NOTICE ) ) {
+			return;
+		}
+		$s = Bot_Control_Settings::get();
+		if ( 'monitor' !== $s['mode'] ) {
+			delete_option( Bot_Control_Install::WATCH_NOTICE );
+			return;
+		}
+		$dismiss = wp_nonce_url(
+			add_query_arg(
+				array(
+					'action' => 'botctl_dismiss_watch',
+				),
+				admin_url( 'admin-post.php' )
+			),
+			'botctl_dismiss_watch'
+		);
+		echo '<div id="botctl-watch-notice" class="notice notice-info is-dismissible">';
+		echo '<p><strong>' . esc_html__( 'All-IN Crawler & AI Agent Manager is in Watch-only mode.', 'all-in-crawler-ai-agent-manager' ) . '</strong> ';
+		echo esc_html__( 'A new install only logs and reports. It does not block crawlers, apply rate limits, shed load, or change robots.txt until you switch to Enforce.', 'all-in-crawler-ai-agent-manager' ) . '</p>';
+		echo '<div class="botctl-mode-actions">';
+		self::mode_switch_form( 'enforce', 'protection' );
+		echo '<a class="button button-link" href="' . esc_url( self::url( 'dashboard' ) ) . '">' . esc_html__( 'Open the dashboard', 'all-in-crawler-ai-agent-manager' ) . '</a>';
+		echo '<a class="button button-link" href="' . esc_url( $dismiss ) . '">' . esc_html__( 'Dismiss', 'all-in-crawler-ai-agent-manager' ) . '</a>';
+		echo '</div></div>';
+	}
+
+	/**
+	 * Optional review request. Only on this plugin's screens, only after 14 days,
+	 * dismissible, with no reward and no effect on features.
+	 *
+	 * @return void
+	 */
+	private static function review_notice() {
+		if ( ! current_user_can( self::CAP ) ) {
+			return;
+		}
+		$activated = (int) get_option( Bot_Control_Install::ACTIVATED_AT, 0 );
+		if ( $activated < 1 || ( time() - $activated ) < 14 * DAY_IN_SECONDS ) {
+			return;
+		}
+		if ( get_user_meta( get_current_user_id(), Bot_Control_Install::REVIEW_META, true ) ) {
+			return;
+		}
+		$dismiss = wp_nonce_url(
+			add_query_arg( 'botctl_dismiss_review', '1' ),
+			'botctl_dismiss_review'
+		);
+		echo '<div id="botctl-review-notice" class="notice notice-info is-dismissible"><p><strong>' . esc_html__( 'Has All-IN Crawler & AI Agent Manager been useful?', 'all-in-crawler-ai-agent-manager' ) . '</strong> ';
+		echo esc_html__( 'A review on WordPress.org helps other site owners decide whether to try it. The review is optional and does not unlock or change anything in the plugin.', 'all-in-crawler-ai-agent-manager' ) . '</p>';
+		echo '<p><a class="button button-secondary" href="' . esc_url( 'https://wordpress.org/support/plugin/all-in-crawler-ai-agent-manager/reviews/#new-post' ) . '" target="_blank" rel="noopener noreferrer">' . esc_html__( 'Leave a review', 'all-in-crawler-ai-agent-manager' ) . '</a> ';
+		echo '<a class="button button-link botctl-review-dismiss" href="' . esc_url( $dismiss ) . '">' . esc_html__( 'Dismiss', 'all-in-crawler-ai-agent-manager' ) . '</a></p></div>';
+	}
+
+	/**
+	 * Remember that this admin dismissed the review notice.
+	 *
+	 * @return void
+	 */
+	public static function maybe_dismiss_review() {
+		if ( ! isset( $_GET['botctl_dismiss_review'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Verified below before any change.
+			return;
+		}
+		if ( ! current_user_can( self::CAP ) ) {
+			return;
+		}
+		check_admin_referer( 'botctl_dismiss_review' );
+		update_user_meta( get_current_user_id(), Bot_Control_Install::REVIEW_META, '1' );
+		wp_safe_redirect( remove_query_arg( array( 'botctl_dismiss_review', '_wpnonce' ) ) );
+		exit;
 	}
 
 	/**
@@ -297,6 +451,61 @@ final class Bot_Control_Admin {
 	}
 
 	/* --------------------------------------------------------------------- Handlers */
+
+	/**
+	 * Switch between watch-only (monitor) and enforce without editing other settings.
+	 *
+	 * @return void
+	 */
+	public static function handle_mode() {
+		self::guard( 'mode' );
+		$mode = isset( $_POST['mode'] ) ? sanitize_key( wp_unslash( $_POST['mode'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Missing -- Nonce verified in self::guard().
+		if ( ! in_array( $mode, array( 'monitor', 'enforce' ), true ) ) {
+			self::done( 'protection', __( 'Unknown mode.', 'all-in-crawler-ai-agent-manager' ), 'error' );
+		}
+		$tab = isset( $_POST['tab'] ) ? sanitize_key( wp_unslash( $_POST['tab'] ) ) : 'protection'; // phpcs:ignore WordPress.Security.NonceVerification.Missing -- Nonce verified in self::guard().
+		if ( ! array_key_exists( $tab, self::tabs() ) ) {
+			$tab = 'protection';
+		}
+
+		$s         = Bot_Control_Settings::get();
+		$s['mode'] = $mode;
+		Bot_Control_Settings::update( $s );
+		if ( 'enforce' === $mode ) {
+			delete_option( Bot_Control_Install::WATCH_NOTICE );
+		}
+		Bot_Control_Logger::debug( 'Admin', 'Mode switched', array( 'mode' => $mode ) );
+
+		$message = 'enforce' === $mode
+			? __( 'Enforce is on. Blocking, rate limits, load shedding and robots.txt changes now apply.', 'all-in-crawler-ai-agent-manager' )
+			: __( 'Watch-only is on. Requests are logged and reported, and nothing is blocked, rate-limited or load-shed.', 'all-in-crawler-ai-agent-manager' );
+		self::done( $tab, $message );
+	}
+
+	/**
+	 * Dismiss the fresh-install watch-only notice (no-JavaScript path).
+	 *
+	 * @return void
+	 */
+	public static function handle_dismiss_watch() {
+		self::guard( 'dismiss_watch' );
+		delete_option( Bot_Control_Install::WATCH_NOTICE );
+		self::done( 'dashboard', __( 'Notice dismissed. Watch-only mode is unchanged.', 'all-in-crawler-ai-agent-manager' ), 'info' );
+	}
+
+	/**
+	 * Dismiss the fresh-install notice from the notice "X" button.
+	 *
+	 * @return void
+	 */
+	public static function ajax_dismiss_watch() {
+		check_ajax_referer( 'botctl_dismiss_watch' );
+		if ( ! current_user_can( self::CAP ) ) {
+			wp_die( esc_html__( 'You do not have permission to do this.', 'all-in-crawler-ai-agent-manager' ), 403 );
+		}
+		delete_option( Bot_Control_Install::WATCH_NOTICE );
+		wp_send_json_success();
+	}
 
 	/**
 	 * Save a settings tab.

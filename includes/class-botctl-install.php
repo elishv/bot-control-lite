@@ -14,8 +14,25 @@ final class Bot_Control_Install {
 
 	const DB_OPTION      = 'botctl_db_version';
 	const VERSION_OPTION = 'botctl_version';
-	const CRON_HOOK  = 'botctl_cleanup';
-	const DAILY_HOOK = 'botctl_daily';
+	const CRON_HOOK      = 'botctl_cleanup';
+	const DAILY_HOOK     = 'botctl_daily';
+
+	/**
+	 * One-time admin notice after a fresh install (watch-only). Not set on upgrade.
+	 */
+	const WATCH_NOTICE = 'botctl_watch_notice';
+
+	/**
+	 * Unix time of the first activation (or the first 1.2.1 admin load on an older site).
+	 * Used only to wait 14 days before an optional review notice.
+	 */
+	const ACTIVATED_AT = 'botctl_activated_at';
+
+	/**
+	 * User-meta key: the admin dismissed the optional review notice.
+	 * Duplicated in uninstall.php; keep the string in sync.
+	 */
+	const REVIEW_META = 'botctl_review_dismissed';
 
 	/**
 	 * Activation.
@@ -24,8 +41,15 @@ final class Bot_Control_Install {
 	 */
 	public static function activate() {
 		self::create_tables();
+		// Only a site with no saved settings is a fresh install. Reactivation and
+		// upgrades already have botctl_settings (including an Enforce choice) and
+		// must not be rewritten.
 		if ( false === get_option( Bot_Control_Settings::OPTION, false ) ) {
 			add_option( Bot_Control_Settings::OPTION, Bot_Control_Settings::defaults(), '', true );
+			add_option( self::WATCH_NOTICE, 1, '', false );
+			if ( false === get_option( self::ACTIVATED_AT, false ) ) {
+				add_option( self::ACTIVATED_AT, time(), '', false );
+			}
 		}
 		self::schedule();
 		Bot_Control_Reports::schedule();
@@ -60,8 +84,16 @@ final class Bot_Control_Install {
 		}
 		if ( BOTCTL_VERSION !== get_option( self::VERSION_OPTION ) ) {
 			// Once per version change: drop the mu-plugin loader an older build may have created.
+			// Do not read or write botctl_settings here. An upgrade from 1.2.0 keeps
+			// Enforce and every other saved choice; only a missing settings option
+			// (fresh install) receives the watch-only defaults.
 			Bot_Control_Legacy::remove_early_loader();
 			update_option( self::VERSION_OPTION, BOTCTL_VERSION, false );
+		}
+		if ( false === get_option( self::ACTIVATED_AT, false ) ) {
+			// Existing sites have no install timestamp. Start the review clock now
+			// so the notice cannot appear on the same visit as the upgrade.
+			add_option( self::ACTIVATED_AT, time(), '', false );
 		}
 		self::schedule();
 	}
