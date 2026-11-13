@@ -3,6 +3,12 @@
 All notable changes to All-IN Crawler & AI Agent Manager are documented here.
 Format: [Keep a Changelog](https://keepachangelog.com/). Versioning: [SemVer](https://semver.org/).
 
+## [1.2.2] – 2026-11-13
+- **Review notice gated on real value.** The optional review notice shows only to admins on the Dashboard and Reports tabs, after 14+ days **and** at least 500 bot requests handled in the last 14 days (`Bot_Control_Admin::REVIEW_MIN_REQUESTS`). It quotes the site's own numbers and offers Leave a review / Maybe later (30-day snooze, `botctl_review_snooze_until` user meta) / I already did. The 1.2.1 dismiss link still works. No incentive, no star wording, no feature gate.
+- **Added:** Support forum + Leave a review row-meta links on the Plugins screen, and a support/review line in the email report footer. New `Bot_Control_Stats::totals( $days )`.
+- **WordPress.org listing:** new display name (*All-IN Crawler & AI Agent Manager – Block AI Bots, Bad Bots & Rate-Limit Crawlers*), short description, tags (ai crawlers, bot blocker, bad bots, robots.txt, llms.txt), rewritten description and four new FAQ entries. Readme under 10 KB; older changelog entries moved to `changelog.txt`.
+- Watch-only remains the default for new installs; no settings or database changes.
+
 ## [1.2.1] – 2026-11-07
 - **Watch-only by default.** A fresh install saves `mode = monitor`. The firewall still classifies and logs what it would deny, but it does not send 403, 429 or 503, and `robots.txt` is not modified, until an administrator switches to Enforce. Load shedding and rate limits are recorded the same way and are not applied.
 - **Upgrades keep saved settings.** `maybe_upgrade()` does not rewrite `botctl_settings`. A 1.2.0 site left on Enforce stays on Enforce, including category rules, verification, load shedding and robots.txt options.

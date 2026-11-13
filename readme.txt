@@ -75,7 +75,7 @@ Use Rate-limit instead of Block. Over-limit requests get 429 with Retry-After, w
 
 = Does it create llms.txt? =
 
-Yes. Turn it on in the robots.txt tab. It lists your public content and skips anything marked noindex.
+Yes. Turn it on in the llms.txt tab. It lists your published content and leaves out pages marked noindex in Yoast SEO, Rank Math or SEOPress.
 
 = Can I block Google's AI Overviews? =
 
