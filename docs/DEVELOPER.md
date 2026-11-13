@@ -1,6 +1,6 @@
 # All-IN Crawler & AI Agent Manager – Developer Guide
 
-**Author:** Eli Shvarzman · **Version:** 1.2.1
+**Author:** Eli Shvarzman · **Version:** 1.2.2
 
 ## Architecture
 

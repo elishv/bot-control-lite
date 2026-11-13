@@ -35,6 +35,12 @@ final class Bot_Control_Install {
 	const REVIEW_META = 'botctl_review_dismissed';
 
 	/**
+	 * User-meta key: Unix time until which the review notice is snoozed ("Maybe later").
+	 * Duplicated in uninstall.php; keep the string in sync.
+	 */
+	const REVIEW_SNOOZE_META = 'botctl_review_snooze_until';
+
+	/**
 	 * Activation.
 	 *
 	 * @return void

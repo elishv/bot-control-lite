@@ -97,6 +97,29 @@ final class Bot_Control_Stats {
 	}
 
 	/**
+	 * Grand totals since a date (used to gate the optional review notice on real value).
+	 *
+	 * @param int $days Days back.
+	 * @return array{allowed:int,limited:int,blocked:int}
+	 */
+	public static function totals( $days ) {
+		global $wpdb;
+		$table = $wpdb->prefix . 'botctl_stats';
+		$row   = (array) $wpdb->get_row(
+			$wpdb->prepare(
+				"SELECT SUM(allowed) AS allowed, SUM(limited) AS limited, SUM(blocked) AS blocked FROM {$table} WHERE day >= %s", // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+				self::since( $days )
+			),
+			ARRAY_A
+		);
+		return array(
+			'allowed' => (int) ( $row['allowed'] ?? 0 ),
+			'limited' => (int) ( $row['limited'] ?? 0 ),
+			'blocked' => (int) ( $row['blocked'] ?? 0 ),
+		);
+	}
+
+	/**
 	 * Daily totals.
 	 *
 	 * @param int $days Days back.

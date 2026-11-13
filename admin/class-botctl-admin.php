@@ -15,6 +15,13 @@ final class Bot_Control_Admin {
 	const SLUG = 'all-in-crawler-ai-agent-manager';
 	const CAP  = 'manage_options';
 
+	const REVIEW_URL = 'https://wordpress.org/support/plugin/all-in-crawler-ai-agent-manager/reviews/#new-post';
+
+	/**
+	 * Minimum bot requests handled in the last 14 days before the review notice may show.
+	 */
+	const REVIEW_MIN_REQUESTS = 500;
+
 	/**
 	 * Hook.
 	 *
@@ -28,6 +35,7 @@ final class Bot_Control_Admin {
 		add_action( 'wp_ajax_botctl_dismiss_watch', array( __CLASS__, 'ajax_dismiss_watch' ) );
 		add_action( 'admin_enqueue_scripts', array( __CLASS__, 'assets' ) );
 		add_filter( 'plugin_action_links_' . plugin_basename( BOTCTL_FILE ), array( __CLASS__, 'action_links' ) );
+		add_filter( 'plugin_row_meta', array( __CLASS__, 'row_meta' ), 10, 2 );
 
 		$actions = array( 'save', 'preset', 'ip_action', 'clear_logs', 'clear_stats', 'clear_verify', 'export', 'import', 'reset', 'refresh_lists', 'htaccess', 'send_report', 'preview_report', 'mode', 'dismiss_watch' );
 		foreach ( $actions as $action ) {
@@ -115,6 +123,22 @@ final class Bot_Control_Admin {
 	 */
 	public static function action_links( $links ) {
 		array_unshift( $links, '<a href="' . esc_url( self::url() ) . '">' . esc_html__( 'Settings', 'all-in-crawler-ai-agent-manager' ) . '</a>' );
+		return $links;
+	}
+
+	/**
+	 * Support and review links in the plugin's row on the Plugins screen (not a notice).
+	 *
+	 * @param array  $links Row meta links.
+	 * @param string $file  Plugin basename.
+	 * @return array
+	 */
+	public static function row_meta( $links, $file ) {
+		if ( plugin_basename( BOTCTL_FILE ) !== $file ) {
+			return $links;
+		}
+		$links[] = '<a href="' . esc_url( 'https://wordpress.org/support/plugin/all-in-crawler-ai-agent-manager/' ) . '" target="_blank" rel="noopener noreferrer">' . esc_html__( 'Support forum', 'all-in-crawler-ai-agent-manager' ) . '</a>';
+		$links[] = '<a href="' . esc_url( self::REVIEW_URL ) . '" target="_blank" rel="noopener noreferrer">' . esc_html__( 'Leave a review', 'all-in-crawler-ai-agent-manager' ) . '</a>';
 		return $links;
 	}
 
@@ -286,8 +310,11 @@ final class Bot_Control_Admin {
 	}
 
 	/**
-	 * Optional review request. Only on this plugin's screens, only after 14 days,
-	 * dismissible, with no reward and no effect on features.
+	 * Optional review request, shown only after the plugin has demonstrably done
+	 * something for this site: 14+ days since activation AND at least
+	 * REVIEW_MIN_REQUESTS bot requests handled in the last 14 days. Only on this
+	 * plugin's Dashboard and Reports tabs, only to admins, dismissible, snoozable,
+	 * no reward, no star wording, no effect on features (guidelines #9 and #11).
 	 *
 	 * @return void
 	 */
@@ -295,38 +322,73 @@ final class Bot_Control_Admin {
 		if ( ! current_user_can( self::CAP ) ) {
 			return;
 		}
+		if ( ! in_array( self::current_tab(), array( 'dashboard', 'reports' ), true ) ) {
+			return;
+		}
 		$activated = (int) get_option( Bot_Control_Install::ACTIVATED_AT, 0 );
 		if ( $activated < 1 || ( time() - $activated ) < 14 * DAY_IN_SECONDS ) {
 			return;
 		}
-		if ( get_user_meta( get_current_user_id(), Bot_Control_Install::REVIEW_META, true ) ) {
+		$user_id = get_current_user_id();
+		if ( get_user_meta( $user_id, Bot_Control_Install::REVIEW_META, true ) ) {
 			return;
 		}
-		$dismiss = wp_nonce_url(
-			add_query_arg( 'botctl_dismiss_review', '1' ),
-			'botctl_dismiss_review'
+		if ( (int) get_user_meta( $user_id, Bot_Control_Install::REVIEW_SNOOZE_META, true ) > time() ) {
+			return;
+		}
+		$t       = Bot_Control_Stats::totals( 14 );
+		$handled = $t['allowed'] + $t['limited'] + $t['blocked'];
+		if ( $handled < self::REVIEW_MIN_REQUESTS ) {
+			return;
+		}
+
+		$url = function ( $action ) {
+			return wp_nonce_url( add_query_arg( 'botctl_review', $action ), 'botctl_review' );
+		};
+
+		echo '<div id="botctl-review-notice" class="notice notice-info is-dismissible"><p><strong>';
+		printf(
+			/* translators: 1: bot requests handled, 2: requests limited or blocked */
+			esc_html__( 'In the last 14 days All-IN Crawler & AI Agent Manager handled %1$s bot requests on this site and limited or blocked %2$s of them.', 'all-in-crawler-ai-agent-manager' ),
+			esc_html( number_format_i18n( $handled ) ),
+			esc_html( number_format_i18n( $t['limited'] + $t['blocked'] ) )
 		);
-		echo '<div id="botctl-review-notice" class="notice notice-info is-dismissible"><p><strong>' . esc_html__( 'Has All-IN Crawler & AI Agent Manager been useful?', 'all-in-crawler-ai-agent-manager' ) . '</strong> ';
-		echo esc_html__( 'A review on WordPress.org helps other site owners decide whether to try it. The review is optional and does not unlock or change anything in the plugin.', 'all-in-crawler-ai-agent-manager' ) . '</p>';
-		echo '<p><a class="button button-secondary" href="' . esc_url( 'https://wordpress.org/support/plugin/all-in-crawler-ai-agent-manager/reviews/#new-post' ) . '" target="_blank" rel="noopener noreferrer">' . esc_html__( 'Leave a review', 'all-in-crawler-ai-agent-manager' ) . '</a> ';
-		echo '<a class="button button-link botctl-review-dismiss" href="' . esc_url( $dismiss ) . '">' . esc_html__( 'Dismiss', 'all-in-crawler-ai-agent-manager' ) . '</a></p></div>';
+		echo '</strong> ';
+		echo esc_html__( 'If it has been useful, an honest review on WordPress.org helps other site owners decide whether to try it. It is optional and does not unlock or change anything.', 'all-in-crawler-ai-agent-manager' ) . '</p>';
+		echo '<p><a class="button button-primary botctl-review-go" href="' . esc_url( self::REVIEW_URL ) . '" data-done="' . esc_url( $url( 'done' ) ) . '" target="_blank" rel="noopener noreferrer">' . esc_html__( 'Leave a review', 'all-in-crawler-ai-agent-manager' ) . '</a> ';
+		echo '<a class="button button-secondary botctl-review-later" href="' . esc_url( $url( 'later' ) ) . '">' . esc_html__( 'Maybe later', 'all-in-crawler-ai-agent-manager' ) . '</a> ';
+		echo '<a class="button button-link botctl-review-dismiss" href="' . esc_url( $url( 'done' ) ) . '">' . esc_html__( 'I already did / don\'t ask again', 'all-in-crawler-ai-agent-manager' ) . '</a> ';
+		echo '<a class="button button-link" href="' . esc_url( 'https://wordpress.org/support/plugin/all-in-crawler-ai-agent-manager/' ) . '" target="_blank" rel="noopener noreferrer">' . esc_html__( 'Something not working? Ask in the support forum', 'all-in-crawler-ai-agent-manager' ) . '</a></p></div>';
 	}
 
 	/**
-	 * Remember that this admin dismissed the review notice.
+	 * Handle the review notice buttons: "done" hides it for good, "later" snoozes 30 days.
+	 * Also accepts the 1.2.1 link (?botctl_dismiss_review=1) so old cached pages keep working.
 	 *
 	 * @return void
 	 */
 	public static function maybe_dismiss_review() {
-		if ( ! isset( $_GET['botctl_dismiss_review'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Verified below before any change.
+		// phpcs:disable WordPress.Security.NonceVerification.Recommended -- Verified below before any change.
+		if ( isset( $_GET['botctl_dismiss_review'] ) ) {
+			$action = 'done';
+			$nonce  = 'botctl_dismiss_review';
+		} elseif ( isset( $_GET['botctl_review'] ) ) {
+			$action = sanitize_key( wp_unslash( $_GET['botctl_review'] ) );
+			$nonce  = 'botctl_review';
+		} else {
 			return;
 		}
+		// phpcs:enable
 		if ( ! current_user_can( self::CAP ) ) {
 			return;
 		}
-		check_admin_referer( 'botctl_dismiss_review' );
-		update_user_meta( get_current_user_id(), Bot_Control_Install::REVIEW_META, '1' );
-		wp_safe_redirect( remove_query_arg( array( 'botctl_dismiss_review', '_wpnonce' ) ) );
+		check_admin_referer( $nonce );
+		if ( 'later' === $action ) {
+			update_user_meta( get_current_user_id(), Bot_Control_Install::REVIEW_SNOOZE_META, time() + 30 * DAY_IN_SECONDS );
+		} else {
+			update_user_meta( get_current_user_id(), Bot_Control_Install::REVIEW_META, '1' );
+		}
+		wp_safe_redirect( remove_query_arg( array( 'botctl_review', 'botctl_dismiss_review', '_wpnonce' ) ) );
 		exit;
 	}
 

@@ -1,0 +1,37 @@
+== Changelog ==
+
+= 1.2.2 =
+* Improved: the optional review notice now appears only after the plugin has handled real traffic (14+ days and 500+ bot requests), only on the Dashboard and Reports tabs, with Maybe later / don't ask again options.
+* Added: Support forum and review links in the plugin's row on the Plugins screen and in the email report footer.
+* Docs: clearer name, short description, tags and FAQ. Older changelog entries moved to changelog.txt.
+
+= 1.2.1 =
+* Changed: a new install starts in Watch-only mode. It logs and reports only — no blocking, rate limiting, load shedding, or robots.txt changes — until an administrator switches to Enforce.
+* Changed: upgrading keeps every saved setting. A site that was already on Enforce in 1.2.0 stays on Enforce.
+* Added: the settings screens show the current mode, explain what it does, and switch with one click. A dismissible notice after a fresh activation says the plugin is in Watch-only mode.
+* Added: an optional dismissible review notice on this plugin's own screens, shown only after 14 days. No incentive and no effect on features.
+* Docs: the SEO FAQ no longer claims the plugin cannot affect SEO. Tested up to WordPress 7.1 (latest stable release is 7.1.4; 7.2 is still in beta).
+
+= 1.2.0 =
+* Changed: new name, All-IN Crawler & AI Agent Manager (slug and text domain all-in-crawler-ai-agent-manager). Settings, statistics and logs are kept: the internal botctl_ option and table names are unchanged, and settings exports from earlier versions can still be imported.
+* Removed: the optional early loader. The plugin no longer writes any file to wp-content/mu-plugins; a loader created by an older build is removed on upgrade, deactivation and uninstall (only if All-IN Crawler & AI Agent Manager generated it).
+* Security: the request URI, User-Agent, method and cookie names are sanitized as soon as they are read; imported settings and admin form input are whitelisted, type-cast and sanitized field by field.
+* Changed: translations are loaded by WordPress from translate.wordpress.org; no translation files are bundled.
+
+= 1.1.1 =
+* Changed: extra bot definitions (`data/bots.json`) are bundled and always used; no network request is needed for them.
+* Changed: there is no default remote feed any more. The feed downloads only from a URL you enter.
+* Changed: official crawler IP list downloads are opt-in and off by default. Nothing is downloaded until you enable them on the Bot Lists tab, and a setting saved by an older version never turns them on. The IP-list requests no longer include your site URL.
+* Changed: requires WordPress 6.1 (object-cache group flush).
+* Docs: External services section, GPL LICENSE file, Tested up to 7.1. Description condensed, Donate link, 5 screenshots with captions.
+
+= 1.1.0 =
+* New: official crawler IP lists (Google, Bing, Apple, OpenAI, Perplexity) with fail-safe freshness checks.
+* New: remote bot-list feed (add-only, browser-safe validation, optional access key).
+* New: .htaccess / nginx server rules with auto-sync.
+* New: weekly/monthly white-label email reports.
+* New: llms.txt generator.
+* New: Hebrew translation.
+
+= 1.0.0 =
+* Initial release: bot detection (~120 bots, 12 categories), per-category/per-bot/custom rules, presets, rate limiting (APCu / object cache / DB), DNS verification of search engines, load shedding, human rate limiting, IP allow/block lists, robots.txt management, dashboard, logs, UA tester, import/export, early loader, debug logging.

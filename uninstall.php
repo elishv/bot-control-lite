@@ -40,3 +40,4 @@ delete_transient( 'botctl_llms_txt' );
 
 // Optional review dismissal, for every user. The meta key matches Bot_Control_Install::REVIEW_META.
 delete_metadata( 'user', 0, 'botctl_review_dismissed', '', true );
+delete_metadata( 'user', 0, 'botctl_review_snooze_until', '', true );
