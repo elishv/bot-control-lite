@@ -3,7 +3,7 @@
  * Plugin Name:       All-IN Crawler & AI Agent Manager
  * Author URI:        https://a-in.co.il/
  * Description:       Decide which bots, crawlers, AI agents and scrapers may access your site, rate-limit them so none can overload it, and stay fully visible to search engines and AI assistants (SEO + AIO safe). Includes official IP-list verification, server rules, email reports and an llms.txt generator.
- * Version:           1.2.1
+ * Version:           1.2.2
  * Requires at least: 6.1
  * Requires PHP:      7.4
  * Author:            Eli Shvarzman

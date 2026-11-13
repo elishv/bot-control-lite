@@ -38,6 +38,20 @@
 		}
 	} );
 
+	// "Leave a review" opens WordPress.org in a new tab and quietly records "done"
+	// so the notice never comes back for this admin.
+	document.addEventListener( 'click', function ( e ) {
+		var go = e.target.closest ? e.target.closest( 'a.botctl-review-go' ) : null;
+		if ( ! go || ! go.dataset.done ) {
+			return;
+		}
+		fetch( go.dataset.done, { credentials: 'same-origin', redirect: 'manual' } );
+		var notice = go.closest( '#botctl-review-notice' );
+		if ( notice ) {
+			notice.style.display = 'none';
+		}
+	} );
+
 	// Custom bots: add / remove rows.
 	var body = document.getElementById( 'botctl-custom-body' );
 	var tpl = document.getElementById( 'botctl-custom-template' );

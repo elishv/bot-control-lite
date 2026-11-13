@@ -299,6 +299,14 @@ final class Bot_Control_Reports {
 		<?php
 		/* translators: %s: brand */
 		printf( esc_html__( 'Sent by %s using All-IN Crawler & AI Agent Manager. Change or stop these emails under All-IN Crawler → Reports.', 'all-in-crawler-ai-agent-manager' ), esc_html( $brand ) );
+
+		echo '<br>';
+		printf(
+			/* translators: 1: support forum URL, 2: review URL */
+			wp_kses( __( 'Questions? <a href="%1$s">Support forum</a>. Finding it useful? <a href="%2$s">An honest review</a> helps others find it.', 'all-in-crawler-ai-agent-manager' ), array( 'a' => array( 'href' => array() ) ) ),
+			esc_url( 'https://wordpress.org/support/plugin/all-in-crawler-ai-agent-manager/' ),
+			esc_url( Bot_Control_Admin::REVIEW_URL )
+		);
 		?>
 	</td></tr>
 </table>
